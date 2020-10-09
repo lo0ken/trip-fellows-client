@@ -17,6 +17,9 @@ Android приложение. Водитель открывает приложе
 
 (будет дополнено)
 
+## API
+* Backend - [Trip Fellows Server](https://github.com/lo0ken/trip-fellows-server)
+
 ## Команда
 * Дмитрий Гаврилов - [GitHub](https://github.com/lo0ken)
 * Даниил Чернов - [GitHub](https://github.com/Lackier)
