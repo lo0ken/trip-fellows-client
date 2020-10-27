@@ -17,6 +17,24 @@ class MainActivity : AppCompatActivity() {
 
     private val onNavigationItemSelectedListener : OnNavigationItemSelectedListener = getOnNavigationItemSelectedListener()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+
+        if (savedInstanceState == null) {
+            loadFragment(SearchFragment())
+        }
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_fragment_container, fragment)
+            .commit()
+    }
+
     private fun getOnNavigationItemSelectedListener(): OnNavigationItemSelectedListener {
         return object : OnNavigationItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -40,24 +58,6 @@ class MainActivity : AppCompatActivity() {
                     else -> return false
                 }
             }
-        }
-    }
-
-    private fun loadFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main_fragment_container, fragment)
-            .commit()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-
-        if (savedInstanceState == null) {
-            loadFragment(SearchFragment())
         }
     }
 }
