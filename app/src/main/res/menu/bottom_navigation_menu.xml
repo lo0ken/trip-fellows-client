@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/search_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="" />
+    <item
+        android:id="@+id/create_trip_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="" />
+    <item
+        android:id="@+id/history_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="" />
+    <item
+        android:id="@+id/account_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="" />
+</menu>
