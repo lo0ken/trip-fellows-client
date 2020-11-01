@@ -1,3 +1,4 @@
+include ':authorization'
 include ':app'
 include ':styles'
 rootProject.name = "Trip Fellows Client"
