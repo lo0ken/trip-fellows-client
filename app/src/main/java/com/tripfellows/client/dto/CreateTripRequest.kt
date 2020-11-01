@@ -6,7 +6,7 @@ class CreateTripRequest(
     var departureAddress: String,
     var destinationAddress: String,
     var places: Int,
-    var time: Date,
+    var startDate: Date,
     var price: Int,
     var comment: String
 )

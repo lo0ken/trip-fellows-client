@@ -28,14 +28,14 @@ class CreateTripFragment : Fragment() {
         val departureAddress = view.findViewById<EditText>(R.id.create_trip_departure_address).text.toString()
         val destinationAddress = view.findViewById<EditText>(R.id.create_trip_destination_address).text.toString()
         val places = view.findViewById<EditText>(R.id.create_trip_places).text.toString().toInt()
-        val timeString = view.findViewById<EditText>(R.id.create_trip_start_time).text.toString()
+        val startTimeString = view.findViewById<EditText>(R.id.create_trip_start_time).text.toString()
         val price = view.findViewById<EditText>(R.id.create_trip_price).text.toString().toInt()
         val comment = view.findViewById<EditText>(R.id.create_trip_comment).text.toString()
 
-        val date = Date()
-        date.hours = timeString.split(":")[0].toInt()
-        date.minutes = timeString.split(":")[1].toInt()
+        val startDate = Date()
+        startDate.hours = startTimeString.split(":")[0].toInt()
+        startDate.minutes = startTimeString.split(":")[1].toInt()
 
-        var newTrip = CreateTripRequest(departureAddress, destinationAddress, places, date, price, comment)
+        var newTrip = CreateTripRequest(departureAddress, destinationAddress, places, startDate, price, comment)
     }
 }
