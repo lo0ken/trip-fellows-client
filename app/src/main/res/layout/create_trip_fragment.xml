@@ -1,15 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/create_trip_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/zoomed_number_fragment">
+    android:layout_alignParentBottom="true"
+    android:background="@color/colorLight"
+    android:orientation="vertical"
+    android:gravity="top|center">
 
-    <TextView
-        android:id="@+id/zoomed_number"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/create_trip_departure_address"
+        style="@style/CreateTripTextViewBigStyle"
+        android:hint="@string/hint_departure"
+        android:inputType="text"
+        android:layout_marginTop="30dp"
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/create_trip_destination_address"
+        style="@style/CreateTripTextViewBigStyle"
+        android:hint="@string/hint_destination"
+        android:inputType="text"
+        android:layout_marginTop="10dp"
+        android:autofillHints="" />
+
+    <TableRow
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="75sp"
-        android:background="@color/colorOrange"
-        android:text="create trip"  />
-</RelativeLayout>
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/create_trip_places"
+            style="@style/CreateTripTextViewSmallStyle"
+            android:autofillHints=""
+            android:hint="@string/hint_places"
+            android:inputType="numberDecimal" />
+
+        <EditText
+            android:id="@+id/create_trip_start_time"
+            style="@style/CreateTripTextViewSmallStyle"
+            android:autofillHints=""
+            android:hint="@string/hint_time"
+            android:inputType="time"
+            android:layout_marginStart="10dp"/>
+    </TableRow>
+
+    <EditText
+        android:id="@+id/create_trip_price"
+        style="@style/CreateTripTextViewSmallStyle"
+        android:autofillHints=""
+        android:hint="@string/hint_price"
+        android:layout_marginTop="10dp"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/create_trip_comment"
+        style="@style/CreateTripTextViewBigStyle"
+        android:hint="@string/hint_comment"
+        android:inputType="text"
+        android:layout_marginTop="10dp"
+        android:maxLines="3"
+        android:autofillHints="" />
+
+    <Button
+        android:id="@+id/create_button"
+        style="@style/CreateTripButtonStyle"
+        android:layout_marginTop="10dp"
+        android:text="@string/create_button"
+        android:textColor="@color/colorLight">
+    </Button>
+
+</LinearLayout>

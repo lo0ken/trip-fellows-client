@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Trip Fellows Client</string>
+    <string name="toolbar_search">Searching trip…</string>
+    <string name="toolbar_create_trip">Creating trip…</string>
+    <string name="toolbar_history">History</string>
+    <string name="toolbar_account">Account</string>
+    <string name="hint_departure">Departure</string>
+    <string name="hint_destination">Destination</string>
+    <string name="hint_places">Places</string>
+    <string name="hint_time">Time</string>
+    <string name="create_button">Create</string>
+    <string name="hint_comment">Comment</string>
+    <string name="hint_price">Price</string>
 </resources>

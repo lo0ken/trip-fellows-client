@@ -3,6 +3,7 @@ package com.tripfellows.client
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
@@ -13,9 +14,12 @@ import com.tripfellows.client.fragment.SearchFragment
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var bottomNavigationView : BottomNavigationView
+    private lateinit var bottomNavigationView: BottomNavigationView
 
-    private val onNavigationItemSelectedListener : OnNavigationItemSelectedListener = getOnNavigationItemSelectedListener()
+    private lateinit var toolbar: Toolbar
+
+    private val onNavigationItemSelectedListener: OnNavigationItemSelectedListener =
+        getOnNavigationItemSelectedListener()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +28,11 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
         if (savedInstanceState == null) {
+            toolbar.title = getString(R.string.toolbar_search)
             loadFragment(SearchFragment())
         }
     }
@@ -40,18 +48,22 @@ class MainActivity : AppCompatActivity() {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
                 when (item.itemId) {
                     R.id.search_page -> {
+                        toolbar.title = getString(R.string.toolbar_search)
                         loadFragment(SearchFragment())
                         return true
                     }
                     R.id.create_trip_page -> {
+                        toolbar.title = getString(R.string.toolbar_create_trip)
                         loadFragment(CreateTripFragment())
                         return true
                     }
                     R.id.history_page -> {
+                        toolbar.title = getString(R.string.toolbar_history)
                         loadFragment(HistoryFragment())
                         return true
                     }
                     R.id.account_page -> {
+                        toolbar.title = getString(R.string.toolbar_account)
                         loadFragment(AccountFragment())
                         return true
                     }
