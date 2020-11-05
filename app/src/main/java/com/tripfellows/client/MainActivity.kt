@@ -7,10 +7,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
-import com.tripfellows.client.fragment.AccountFragment
-import com.tripfellows.client.fragment.CreateTripFragment
-import com.tripfellows.client.fragment.HistoryFragment
-import com.tripfellows.client.fragment.SearchFragment
+import com.tripfellows.client.fragment.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             toolbar.title = getString(R.string.toolbar_search)
-            loadFragment(SearchFragment())
+            loadFragment(ListvAilableFragment())
         }
     }
 
@@ -49,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 when (item.itemId) {
                     R.id.search_page -> {
                         toolbar.title = getString(R.string.toolbar_search)
-                        loadFragment(SearchFragment())
+                        loadFragment(ListvAilableFragment())
                         return true
                     }
                     R.id.create_trip_page -> {

@@ -23,16 +23,15 @@
             android:padding="12dp">
 
             <TextView
-                android:id="@+id/TextWay1"
+                android:id="@+id/wayLocation1"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:layout_marginBottom="3dp"
 
                 android:text="Mitishi"
-                android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/TextWay2"
+                app:layout_constraintBottom_toTopOf="@+id/wayLocation2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.036"
                 app:layout_constraintStart_toStartOf="parent"
@@ -41,13 +40,12 @@
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:id="@+id/TextWay2"
+                android:id="@+id/wayLocation2"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="40dp"
                 android:text="Moscow"
-                android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +53,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/TextTime"
+                android:id="@+id/dataTime"
                 android:layout_width="wrap_content"
                 android:layout_height="29dp"
                 android:layout_marginBottom="5dp"
@@ -64,25 +62,25 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
 
-                app:layout_constraintTop_toBottomOf="@+id/TextWay1"
+                app:layout_constraintTop_toBottomOf="@+id/wayLocation1"
                 app:layout_constraintVertical_bias="1.0" />
 
             <TextView
-                android:id="@+id/Money"
+                android:id="@+id/cost_in_money"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginStart="280dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="276dp"
                 android:layout_marginBottom="10dp"
-                android:text="300p"
-                android:textSize="40sp"
+                android:text=" 350p"
+                android:textSize="35sp"
                 app:layout_constraintBottom_toBottomOf="parent"
 
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/TextWay1"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintTop_toBottomOf="@+id/wayLocation1"
+                app:layout_constraintVertical_bias="0.8" />
 
             <TextView
-                android:id="@+id/Places"
+                android:id="@+id/places_pass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="50dp"
