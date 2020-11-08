@@ -45,7 +45,6 @@
                 android:layout_height="45dp"
                 android:textStyle="bold"
                 android:layout_marginBottom="40dp"
-                android:text="Moscow"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

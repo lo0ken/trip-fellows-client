@@ -23,7 +23,6 @@ class TripListFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter:  TripListAdapter
 
         val items: ArrayList<String> = ArrayList()
         items.add("Moscow")
@@ -37,8 +36,8 @@ class TripListFragment : Fragment() {
         items.add("Dolgoprudny")
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = (LinearLayoutManager(view.context))
-        adapter =  TripListAdapter (items)
+        recyclerView.layoutManager = LinearLayoutManager(view.context)
+        val adapter =  TripListAdapter(items)
         recyclerView.adapter = adapter
     }
 }

@@ -20,5 +20,4 @@ class TripListAdapter (private val data: List<String>) : RecyclerView.Adapter<Tr
     override fun getItemCount(): Int {
         return data.size
     }
-
 }
