@@ -10,4 +10,17 @@
     <string name="create_button">Create</string>
     <string name="hint_comment">Comment</string>
     <string name="hint_price">Price</string>
+    <string name="edit_button">Edit</string>
+    <string name="change_status">Change status</string>
+    <string name="toolbar_my_trip">My Trip</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="hint_status">Status</string>
+    <string name="save_button">Save</string>
+    <string name="status_start">Start</string>
+    <string name="status_reopen">Reopen</string>
+    <string name="status_finish">Finish</string>
+    <string name="status_waiting">Waiting</string>
+    <string name="status_started">Started</string>
+    <string name="status_finished">Finished</string>
+    <string name="join_button">Join</string>
 </resources>

@@ -11,6 +11,11 @@
         android:icon="@drawable/ic_launcher_background"
         android:title="" />
     <item
+        android:id="@+id/my_trip_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="" />
+    <item
         android:id="@+id/history_page"
         android:enabled="true"
         android:icon="@drawable/ic_launcher_background"

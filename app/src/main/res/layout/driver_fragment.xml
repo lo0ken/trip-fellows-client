@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/driver_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="true"
+    android:background="@color/colorLight"
+    android:orientation="vertical"
+    android:gravity="top|center">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/status"
+            style="@style/TextViewSmallStyle"
+            android:hint="@string/hint_status"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="start"/>
+
+        <Button
+            android:id="@+id/edit_button"
+            style="@style/SmallOrangeButtonStyle"
+            android:text="@string/edit_button"
+            android:textColor="@color/colorLight"
+            android:layout_marginStart="150dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="end"/>
+    </TableRow>
+
+    <TextView
+        android:id="@+id/departure_address"
+        style="@style/TextViewBigStyle"
+        android:hint="@string/hint_departure"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:id="@+id/destination_address"
+        style="@style/TextViewBigStyle"
+        android:hint="@string/hint_destination"
+        android:layout_marginTop="10dp" />
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/places"
+            style="@style/TextViewSmallStyle"
+            android:hint="@string/hint_places" />
+
+        <TextView
+            android:id="@+id/start_time"
+            style="@style/TextViewSmallStyle"
+            android:hint="@string/hint_time"
+            android:layout_marginStart="10dp" />
+    </TableRow>
+
+    <TextView
+        android:id="@+id/price"
+        style="@style/TextViewSmallStyle"
+        android:hint="@string/hint_price"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/comment"
+        style="@style/TextViewBigStyle"
+        android:hint="@string/hint_comment"
+        android:layout_marginTop="10dp"
+        android:maxLines="3" />
+
+    <Button
+        android:id="@+id/change_status_button"
+        style="@style/BigOrangeButtonStyle"
+        android:text="@string/change_status"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorLight" />
+
+    <Button
+        android:id="@+id/cancel_button"
+        style="@style/SmallOrangeButtonStyle"
+        android:text="@string/cancel_button"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorLight"
+        android:layout_gravity="end"/>
+</LinearLayout>
