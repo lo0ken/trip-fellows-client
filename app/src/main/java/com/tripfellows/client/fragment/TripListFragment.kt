@@ -11,7 +11,7 @@ import com.tripfellows.client.R
 import com.tripfellows.client.TripListAdapter
 import java.util.*
 
-class ListvAilableFragment : Fragment() {
+class TripListFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,12 +23,9 @@ class ListvAilableFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var items: ArrayList<String>
-        var recyclerView: RecyclerView
-        var adapter:  TripListAdapter
+        val adapter:  TripListAdapter
 
-
-        items = ArrayList()
+        val items: ArrayList<String> = ArrayList()
         items.add("Moscow")
         items.add("Himki")
         items.add("Odintsovo")
@@ -39,9 +36,9 @@ class ListvAilableFragment : Fragment() {
         items.add("Zelenograd")
         items.add("Dolgoprudny")
 
-        recyclerView = view.findViewById(R.id.recyclerView)
-        recyclerView?.layoutManager = (LinearLayoutManager(activity!!.applicationContext))
-        adapter =  TripListAdapter (activity!!.applicationContext, items)
-        recyclerView?.adapter = adapter
+        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = (LinearLayoutManager(view.context))
+        adapter =  TripListAdapter (items)
+        recyclerView.adapter = adapter
     }
 }

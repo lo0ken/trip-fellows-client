@@ -4,18 +4,11 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class TripListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    var textWayF: TextView
-    var textWayS: TextView
-    var textTime: TextView
-    var textPlace: TextView
-    var textMoney: TextView
-
-    init {
-        textWayF = itemView.findViewById(R.id.wayLocation1)
-        textWayS = itemView.findViewById(R.id.wayLocation2)
-        textTime = itemView.findViewById(R.id.dataTime)
-        textPlace = itemView.findViewById(R.id.places_pass)
-        textMoney = itemView.findViewById(R.id.cost_in_money)
-    }
-}
+class TripListViewHolder(
+    private val itemView: View,
+    val departureAddress: TextView = itemView.findViewById(R.id.trip_departure_address),
+    val destinationAddress: TextView = itemView.findViewById(R.id.trip_destination_address),
+    val startTime: TextView  = itemView.findViewById(R.id.trip_start_time),
+    val places: TextView = itemView.findViewById(R.id.trip_places),
+    val price: TextView = itemView.findViewById(R.id.trip_price)
+) : RecyclerView.ViewHolder(itemView)

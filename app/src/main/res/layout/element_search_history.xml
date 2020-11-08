@@ -23,7 +23,7 @@
             android:padding="12dp">
 
             <TextView
-                android:id="@+id/wayLocation1"
+                android:id="@+id/trip_departure_address"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:layout_marginBottom="3dp"
@@ -31,7 +31,7 @@
                 android:text="Mitishi"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/wayLocation2"
+                app:layout_constraintBottom_toTopOf="@+id/trip_destination_address"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.036"
                 app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:id="@+id/wayLocation2"
+                android:id="@+id/trip_destination_address"
                 android:layout_width="wrap_content"
                 android:layout_height="45dp"
                 android:textStyle="bold"
@@ -53,7 +53,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/dataTime"
+                android:id="@+id/trip_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="29dp"
                 android:layout_marginBottom="5dp"
@@ -62,11 +62,11 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
 
-                app:layout_constraintTop_toBottomOf="@+id/wayLocation1"
+                app:layout_constraintTop_toBottomOf="@+id/trip_departure_address"
                 app:layout_constraintVertical_bias="1.0" />
 
             <TextView
-                android:id="@+id/cost_in_money"
+                android:id="@+id/trip_price"
                 android:layout_width="wrap_content"
                 android:layout_height="64dp"
                 android:layout_marginStart="276dp"
@@ -76,11 +76,11 @@
                 app:layout_constraintBottom_toBottomOf="parent"
 
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/wayLocation1"
+                app:layout_constraintTop_toBottomOf="@+id/trip_departure_address"
                 app:layout_constraintVertical_bias="0.8" />
 
             <TextView
-                android:id="@+id/places_pass"
+                android:id="@+id/trip_places"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="50dp"

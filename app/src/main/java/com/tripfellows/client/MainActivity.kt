@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             toolbar.title = getString(R.string.toolbar_search)
-            loadFragment(ListvAilableFragment())
+            loadFragment(TripListFragment())
         }
     }
 
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 when (item.itemId) {
                     R.id.search_page -> {
                         toolbar.title = getString(R.string.toolbar_search)
-                        loadFragment(ListvAilableFragment())
+                        loadFragment(TripListFragment())
                         return true
                     }
                     R.id.create_trip_page -> {
