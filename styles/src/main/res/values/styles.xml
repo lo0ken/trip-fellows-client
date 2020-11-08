@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="CreateTripTextViewStyle" parent="Widget.AppCompat.EditText">
+    <style name="TripTextViewStyle" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentStart">true</item>
@@ -10,23 +10,30 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="CreateTripTextViewBigStyle" parent="CreateTripTextViewStyle">
-        <item name="android:background">@drawable/create_trip_text_view_shape</item>
+    <style name="TextViewBigStyle" parent="TripTextViewStyle">
+        <item name="android:background">@drawable/big_text_view_shape</item>
         <item name="android:maxWidth">315dp</item>
     </style>
 
-    <style name="CreateTripTextViewSmallStyle" parent="CreateTripTextViewStyle">
-        <item name="android:background">@drawable/create_trip_text_view_small_shape</item>
+    <style name="TextViewSmallStyle" parent="TripTextViewStyle">
+        <item name="android:background">@drawable/small_text_view_shape</item>
         <item name="android:maxWidth">136dp</item>
     </style>
 
-    <style name="CreateTripButtonStyle" parent="Widget.AppCompat.Button">
+    <style name="TripButtonStyle" parent="Widget.AppCompat.Button">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentStart">true</item>
         <item name="android:layout_alignParentEnd">true</item>
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_alignParentBottom">true</item>
-        <item name="android:background">@drawable/simple_button_shape</item>
+    </style>
+
+    <style name="BigOrangeButtonStyle" parent="TripButtonStyle">
+        <item name="android:background">@drawable/big_button_shape</item>
+    </style>
+
+    <style name="SmallOrangeButtonStyle" parent="TripButtonStyle">
+        <item name="android:background">@drawable/small_button_shape</item>
     </style>
 </resources>
