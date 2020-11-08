@@ -13,11 +13,11 @@
         android:text="@string/app_name"/>
 
     <EditText
-        android:id="@+id/auth_login"
+        android:id="@+id/auth_email"
         style="@style/AuthTextViewStyle"
-        android:hint="@string/username"
+        android:hint="@string/email"
         android:layout_marginBottom="80dp"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:autofillHints="" />
 
     <EditText

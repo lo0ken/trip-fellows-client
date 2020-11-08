@@ -15,16 +15,16 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.tripfellows.authorization.R
-import com.tripfellows.authorization.listeners.SignUpListener
+import com.tripfellows.authorization.listeners.AuthorizationListener
 import com.tripfellows.authorization.request.LoginRequest
 
 class LoginFragment : Fragment() {
 
-    private lateinit var signUpListener: SignUpListener
+    private lateinit var authorizationListener: AuthorizationListener
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        signUpListener = context as SignUpListener
+        authorizationListener = context as AuthorizationListener
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -43,7 +43,7 @@ class LoginFragment : Fragment() {
 
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                signUpListener.goToSignUp()
+                authorizationListener.goToSignUp()
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -64,10 +64,11 @@ class LoginFragment : Fragment() {
         val loginButton = fragmentView.findViewById<Button>(R.id.login_btn)
 
         loginButton.setOnClickListener {
-            val username = fragmentView.findViewById<TextView>(R.id.auth_login).text.toString()
+            val email = fragmentView.findViewById<TextView>(R.id.auth_email).text.toString()
             val password = fragmentView.findViewById<TextView>(R.id.auth_password).text.toString()
 
-            val loginRequest = LoginRequest(username, password)
+            val loginRequest = LoginRequest(email, password)
+            authorizationListener.signIn(loginRequest)
         }
     }
 }
