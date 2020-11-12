@@ -9,16 +9,16 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.tripfellows.authorization.R
-import com.tripfellows.authorization.listeners.AuthorizationListener
+import com.tripfellows.authorization.listeners.Router
 import com.tripfellows.authorization.request.SignUpRequest
 
 class RegistrationFragment : Fragment() {
 
-    private lateinit var authorizationListener: AuthorizationListener
+    private lateinit var router: Router
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        authorizationListener = context as AuthorizationListener
+        router = context as Router
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -40,7 +40,7 @@ class RegistrationFragment : Fragment() {
             val phoneNumber = fragmentView.findViewById<TextView>(R.id.sign_up_phone).text.toString()
 
             val signUpRequest = SignUpRequest(email, password, name, phoneNumber)
-            authorizationListener.signUp(signUpRequest)
+//            router.signUp(signUpRequest)
         }
     }
 }

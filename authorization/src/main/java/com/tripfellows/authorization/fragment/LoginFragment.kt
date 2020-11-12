@@ -13,29 +13,36 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.tripfellows.authorization.R
-import com.tripfellows.authorization.listeners.AuthorizationListener
+import com.tripfellows.authorization.listeners.Router
 import com.tripfellows.authorization.request.LoginRequest
+import com.tripfellows.authorization.states.LoginState
+import com.tripfellows.authorization.viewmodel.LoginViewModel
 
 class LoginFragment : Fragment() {
 
-    private lateinit var authorizationListener: AuthorizationListener
+    private lateinit var router: Router
+    private lateinit var loginViewModel: LoginViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        authorizationListener = context as AuthorizationListener
+        router = context as Router
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)
+        return inflater.inflate(R.layout.login_fragment, container, false)
+    }
 
-        val view = inflater.inflate(R.layout.login_fragment, container, false)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        loginViewModel = ViewModelProvider(activity!!, ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)).get(LoginViewModel::class.java)
         initializeSignUpText(view)
         loginButton(view)
-
-        return view
     }
 
     private fun initializeSignUpText(fragmentView: View) {
@@ -43,7 +50,7 @@ class LoginFragment : Fragment() {
 
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                authorizationListener.goToSignUp()
+                router.goToSignUp()
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -63,12 +70,38 @@ class LoginFragment : Fragment() {
     private fun loginButton(fragmentView: View) {
         val loginButton = fragmentView.findViewById<Button>(R.id.login_btn)
 
+        loginViewModel.getProgress()
+            .observe(viewLifecycleOwner, LoginButtonObserver(loginButton))
+
         loginButton.setOnClickListener {
             val email = fragmentView.findViewById<TextView>(R.id.auth_email).text.toString()
             val password = fragmentView.findViewById<TextView>(R.id.auth_password).text.toString()
 
             val loginRequest = LoginRequest(email, password)
-            authorizationListener.signIn(loginRequest)
+            loginViewModel.login(loginRequest)
+        }
+    }
+
+    inner class LoginButtonObserver(private val loginBtn: Button) : Observer<LoginState> {
+
+        override fun onChanged(loginState: LoginState) {
+            when(loginState) {
+                LoginState.NONE -> setButtonEnable(true)
+                LoginState.ERROR -> {
+                    Toast.makeText(context, "Error during login", Toast.LENGTH_LONG).show()
+                    setButtonEnable(true)
+                }
+                LoginState.IN_PROGRESS -> setButtonEnable(false)
+                LoginState.SUCCESS -> {
+                    Toast.makeText(context, "Success login", Toast.LENGTH_LONG).show()
+                    router.mainMenu()
+                }
+                else -> setButtonEnable(true)
+            }
+        }
+
+        private fun setButtonEnable(enabled: Boolean) {
+            loginBtn.isEnabled = enabled
         }
     }
 }
