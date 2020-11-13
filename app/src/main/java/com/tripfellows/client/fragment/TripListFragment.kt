@@ -21,6 +21,7 @@ class TripListFragment : Fragment() {
         super.onCreate(savedInstanceState)
         return inflater.inflate(R.layout.search_fragment, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
