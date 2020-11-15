@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.tripfellows.authorization.ApplicationModified
-import com.tripfellows.authorization.network.Account
+import com.tripfellows.authorization.network.request.CreateAccountRequest
 import com.tripfellows.authorization.network.ApiRepo
 import com.tripfellows.authorization.request.LoginRequest
 import com.tripfellows.authorization.request.SignUpRequest
@@ -57,16 +57,20 @@ class AuthRepo(private val apiRepo: ApiRepo) {
     }
 
     private fun createAccount(signUpRequest: SignUpRequest, signUpProgress: MutableLiveData<SignUpProgress>) {
-        val accountToCreate = Account(signUpRequest.name, signUpRequest.phoneNumber)
+        val accountToCreate =
+            CreateAccountRequest(
+                signUpRequest.name,
+                signUpRequest.phoneNumber
+            )
 
-        apiRepo.accountApi.createAccount(accountToCreate).enqueue(object : Callback<Account> {
-            override fun onResponse(call: Call<Account>, response: Response<Account>) {
+        apiRepo.accountApi.createAccount(accountToCreate).enqueue(object : Callback<CreateAccountRequest> {
+            override fun onResponse(call: Call<CreateAccountRequest>, response: Response<CreateAccountRequest>) {
                 if (response.isSuccessful && response.body() != null) {
                     signUpProgress.postValue(SignUpProgress.SUCCESS)
                 }
             }
 
-            override fun onFailure(call: Call<Account>, t: Throwable) {
+            override fun onFailure(call: Call<CreateAccountRequest>, t: Throwable) {
                 fbAuth.currentUser?.delete()
                 signUpProgress.postValue(SignUpProgress.FAILED)
             }

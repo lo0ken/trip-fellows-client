@@ -32,5 +32,6 @@ class ApiRepo(
         .client(okHttpClient)
         .build(),
 
-    val accountApi: AccountApi = retrofit.create(AccountApi::class.java)
+    val accountApi: AccountApi = retrofit.create(AccountApi::class.java),
+    val tripApi: TripApi = retrofit.create(TripApi::class.java)
 )

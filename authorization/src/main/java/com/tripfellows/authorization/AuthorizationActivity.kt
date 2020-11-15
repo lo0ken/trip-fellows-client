@@ -9,7 +9,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.tripfellows.authorization.fragment.LoginFragment
 import com.tripfellows.authorization.fragment.RegistrationFragment
 import com.tripfellows.authorization.listeners.Router
-import com.tripfellows.client.MainActivity
 
 
 class AuthorizationActivity: AppCompatActivity(), Router {
@@ -18,7 +17,6 @@ class AuthorizationActivity: AppCompatActivity(), Router {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         FirebaseApp.initializeApp(this)
-        FirebaseAuth.getInstance().signOut()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.authorization_activity)
 
