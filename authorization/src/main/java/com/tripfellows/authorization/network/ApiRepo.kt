@@ -1,12 +1,8 @@
 package com.tripfellows.authorization.network
 
-import android.content.Context
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GetTokenResult
-import com.tripfellows.authorization.ApplicationModified
-import okhttp3.HttpUrl
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -37,14 +33,4 @@ class ApiRepo(
         .build(),
 
     val accountApi: AccountApi = retrofit.create(AccountApi::class.java)
-) {
-
-    companion object {
-        fun from(context: Context): ApiRepo {
-            return ApplicationModified.from(
-                context
-            ).apiRepo
-        }
-    }
-
-}
+)

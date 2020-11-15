@@ -7,7 +7,7 @@ import com.tripfellows.authorization.repo.AuthRepo
 
 class ApplicationModified : Application() {
 
-    lateinit var apiRepo: ApiRepo
+    private lateinit var apiRepo: ApiRepo
     lateinit var authRepo: AuthRepo
 
     override fun onCreate() {

@@ -17,7 +17,7 @@ class RegistrationViewModel(application: Application) : AndroidViewModel(applica
     }
 
     fun getProgress(): LiveData<SignUpState> {
-        return signUpState;
+        return signUpState
     }
 
     fun signUp(signUpRequest: SignUpRequest) {

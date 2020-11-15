@@ -14,7 +14,7 @@ import com.tripfellows.client.MainActivity
 
 class AuthorizationActivity: AppCompatActivity(), Router {
 
-    var fbAuth = FirebaseAuth.getInstance();
+    private val fbAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         FirebaseApp.initializeApp(this)

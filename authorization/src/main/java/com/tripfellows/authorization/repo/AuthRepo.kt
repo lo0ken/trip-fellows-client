@@ -16,7 +16,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class AuthRepo(val apiRepo: ApiRepo) {
+class AuthRepo(private val apiRepo: ApiRepo) {
 
     companion object {
         fun getInstance(context: Context): AuthRepo {
@@ -24,7 +24,7 @@ class AuthRepo(val apiRepo: ApiRepo) {
         }
     }
 
-    var fbAuth = FirebaseAuth.getInstance();
+    var fbAuth = FirebaseAuth.getInstance()
 
     fun login(loginRequest: LoginRequest): LiveData<AuthProgress> {
         val authProgress: MutableLiveData<AuthProgress> = MutableLiveData()
@@ -38,7 +38,7 @@ class AuthRepo(val apiRepo: ApiRepo) {
                     authProgress.postValue(AuthProgress.FAILED)
                 }
             }
-        return authProgress;
+        return authProgress
     }
 
     fun signUp(signUpRequest: SignUpRequest): LiveData<SignUpProgress> {

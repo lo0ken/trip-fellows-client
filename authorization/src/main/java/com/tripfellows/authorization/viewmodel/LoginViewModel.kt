@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.Observer
 import com.tripfellows.authorization.repo.AuthRepo
 import com.tripfellows.authorization.request.LoginRequest
 import com.tripfellows.authorization.states.AuthProgress
@@ -19,7 +18,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getProgress(): LiveData<LoginState> {
-        return loginState;
+        return loginState
     }
 
     fun login(loginRequest: LoginRequest) {
@@ -29,7 +28,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
 
         if (loginState.value != LoginState.IN_PROGRESS) {
-            loginState.addSource(progressLiveData, Observer<AuthProgress> {
+            loginState.addSource(progressLiveData) {
                 if (it == AuthProgress.SUCCESS) {
                     loginState.postValue(LoginState.SUCCESS)
                     loginState.removeSource(progressLiveData)
@@ -37,7 +36,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                     loginState.postValue(LoginState.FAILED)
                     loginState.removeSource(progressLiveData)
                 }
-            })
+            }
         }
 
     }
