@@ -26,7 +26,6 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
         val progressLiveData = AuthRepo.getInstance(getApplication()).login(loginRequest)
 
-
         if (loginState.value != LoginState.IN_PROGRESS) {
             loginState.addSource(progressLiveData) {
                 if (it == AuthProgress.SUCCESS) {
@@ -38,6 +37,5 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }
         }
-
     }
 }

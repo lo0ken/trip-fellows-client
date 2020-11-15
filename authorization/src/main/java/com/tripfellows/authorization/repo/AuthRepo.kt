@@ -53,7 +53,6 @@ class AuthRepo(private val apiRepo: ApiRepo) {
                     signUpProgress.postValue(SignUpProgress.FAILED)
                 }
             }
-
         return signUpProgress
     }
 
