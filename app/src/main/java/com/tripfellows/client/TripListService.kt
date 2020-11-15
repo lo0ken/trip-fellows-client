@@ -5,16 +5,16 @@ import java.util.*
 
 object TripListService {
 
-    fun departureList() : List<TripData> {
+    fun tripList() : List<TripData> {
         val cities: Array<String> = arrayOf(
             "Moscow",
-            "Mitishi",
-            "Lyberci"
-        )
-        val town: Array<String> = arrayOf(
+            "Mytishchi",
+            "Lyubertcty",
             "Pushkino",
-            "Monino",
-            "Korolev"
+            "Ivanteyevka",
+            "Reutov",
+            "Korolyov",
+            "Elektrostal"
         )
 
         val data = mutableListOf<TripData>()
@@ -26,7 +26,7 @@ object TripListService {
         for (i in 0..50) {
             val trip = TripData(
                 cities[random.nextInt(cities.size)],
-                town[random.nextInt(town.size)],
+                cities[random.nextInt(cities.size)],
                 time,
                 random.nextInt(1..5),
                 random.nextInt(1000).toString() + "p"

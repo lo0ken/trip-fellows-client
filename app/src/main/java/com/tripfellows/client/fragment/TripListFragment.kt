@@ -17,14 +17,15 @@ class TripListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreate(savedInstanceState)
-        return inflater.inflate(R.layout.search_fragment, container, false)
+        return inflater.inflate(R.layout.trip_list_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(view.context)
-        val adapter =  TripListAdapter(TripListService.departureList())
+
+        val adapter =  TripListAdapter(TripListService.tripList())
         recyclerView.adapter = adapter
     }
 }
