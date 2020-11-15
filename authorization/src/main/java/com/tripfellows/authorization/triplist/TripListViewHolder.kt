@@ -1,8 +1,9 @@
-package com.tripfellows.client
+package com.tripfellows.authorization.triplist
 
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.tripfellows.authorization.R
 
 class TripListViewHolder(
     private val itemView: View,

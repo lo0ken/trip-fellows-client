@@ -1,9 +1,11 @@
-package com.tripfellows.client
+package com.tripfellows.authorization.triplist
 
+import TripData
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.tripfellows.authorization.R
 
 class TripListAdapter(private val data: List<TripData>) : RecyclerView.Adapter<TripListViewHolder>() {
 

@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.tripfellows.client.TripListService
-import com.tripfellows.client.R
-import com.tripfellows.client.TripListAdapter
+import com.tripfellows.authorization.triplist.TripListService
+import com.tripfellows.authorization.R
+import com.tripfellows.authorization.triplist.TripListAdapter
 
 class TripListFragment : Fragment() {
 
@@ -25,7 +25,9 @@ class TripListFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(view.context)
 
-        val adapter =  TripListAdapter(TripListService.tripList())
+        val adapter = TripListAdapter(
+            TripListService.tripList()
+        )
         recyclerView.adapter = adapter
     }
 }
