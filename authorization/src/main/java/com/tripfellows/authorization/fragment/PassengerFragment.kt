@@ -1,4 +1,4 @@
-package com.tripfellows.client.fragment
+package com.tripfellows.authorization.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.tripfellows.client.R
+import com.tripfellows.authorization.R
 
 class PassengerFragment : Fragment() {
     private lateinit var joinButton: Button

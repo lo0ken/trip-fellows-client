@@ -1,4 +1,3 @@
-package com.tripfellows.client
 
 import java.sql.Time
 

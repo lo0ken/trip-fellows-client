@@ -1,4 +1,4 @@
-package com.tripfellows.client.util
+package com.tripfellows.authorization.util
 
 enum class MenuItemEnum(val id: Int) {
     SEARCH(0),

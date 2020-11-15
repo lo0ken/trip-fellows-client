@@ -1,12 +1,12 @@
-package com.tripfellows.client.request
+package com.tripfellows.authorization.network.request
 
 import java.util.*
 
 class CreateTripRequest(
     var departureAddress: String,
     var destinationAddress: String,
-    var places: Int,
-    var startDate: Date,
+    var placesCount: Int,
+    var startDate: String,
     var price: Int,
     var comment: String
 )

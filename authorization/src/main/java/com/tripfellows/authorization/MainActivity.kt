@@ -1,4 +1,4 @@
-package com.tripfellows.client
+package com.tripfellows.authorization
 
 import TripListFragment
 import android.os.Bundle
@@ -8,12 +8,10 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
-import com.tripfellows.client.listeners.CreateTripListener
-import com.tripfellows.client.fragment.*
-import com.tripfellows.client.util.MenuItemEnum
 
 
-class MainActivity : AppCompatActivity(), CreateTripListener {
+class MainActivity : AppCompatActivity(),
+    com.tripfellows.authorization.listeners.CreateTripListener {
     private lateinit var bottomNavigationView: BottomNavigationView
 
     private lateinit var toolbar: Toolbar
@@ -86,8 +84,8 @@ class MainActivity : AppCompatActivity(), CreateTripListener {
         existsCurrentTrip = true
         toggleBottomMenuVisibility()
         onNavigationItemSelectedListener.onNavigationItemSelected(
-            bottomNavigationView.menu.getItem(MenuItemEnum.MY_TRIP.id) as MenuItem)
-        bottomNavigationView.menu.getItem(MenuItemEnum.MY_TRIP.id).isChecked = true
+            bottomNavigationView.menu.getItem(com.tripfellows.authorization.util.MenuItemEnum.MY_TRIP.id) as MenuItem)
+        bottomNavigationView.menu.getItem(com.tripfellows.authorization.util.MenuItemEnum.MY_TRIP.id).isChecked = true
     }
 
     private fun toggleBottomMenuVisibility() = if (existsCurrentTrip) {
