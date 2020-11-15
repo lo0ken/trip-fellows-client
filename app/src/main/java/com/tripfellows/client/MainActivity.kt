@@ -1,5 +1,6 @@
 package com.tripfellows.client
 
+import TripListFragment
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity(), CreateTripListener {
 
         if (savedInstanceState == null) {
             toolbar.title = getString(R.string.toolbar_search)
-            loadFragment(SearchFragment())
+            loadFragment(TripListFragment())
         }
     }
 
@@ -52,7 +53,7 @@ class MainActivity : AppCompatActivity(), CreateTripListener {
                 when (item.itemId) {
                     R.id.search_page -> {
                         toolbar.title = getString(R.string.toolbar_search)
-                        loadFragment(SearchFragment())
+                        loadFragment(TripListFragment())
                         return true
                     }
                     R.id.create_trip_page -> {

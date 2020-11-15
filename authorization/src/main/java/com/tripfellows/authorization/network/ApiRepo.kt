@@ -28,7 +28,7 @@ class ApiRepo(
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create())
-        .baseUrl("http://10.0.2.2:8080/api/")
+        .baseUrl("http://10.0.2.2:8081/api/")
         .client(okHttpClient)
         .build(),
 
