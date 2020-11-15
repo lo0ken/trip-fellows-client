@@ -32,6 +32,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
             loginState.addSource(progressLiveData, Observer<AuthProgress> {
                 if (it == AuthProgress.SUCCESS) {
                     loginState.postValue(LoginState.SUCCESS)
+                    loginState.removeSource(progressLiveData)
                 } else if (it == AuthProgress.FAILED){
                     loginState.postValue(LoginState.FAILED)
                     loginState.removeSource(progressLiveData)
