@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textViewDeparture"
+        android:id="@+id/tripDeparture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -33,42 +33,42 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewDestination"
+        android:id="@+id/tripDestination"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="25dp"
         android:text="@string/destination_address"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDeparture" />
+        app:layout_constraintTop_toBottomOf="@+id/tripDeparture" />
 
     <TextView
-        android:id="@+id/textViewStartTime"
+        android:id="@+id/tripStartTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="25dp"
         android:text="@string/start_time"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDestination" />
+        app:layout_constraintTop_toBottomOf="@+id/tripDestination" />
 
     <TextView
-        android:id="@+id/textViewPlaces"
+        android:id="@+id/tripPlaces"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="25dp"
         android:text="@string/places"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewStartTime" />
+        app:layout_constraintTop_toBottomOf="@+id/tripStartTime" />
 
     <TextView
-        android:id="@+id/textViewPrice"
+        android:id="@+id/tripPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="25dp"
         android:text="@string/price"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPlaces" />
+        app:layout_constraintTop_toBottomOf="@+id/tripPlaces" />
 </androidx.constraintlayout.widget.ConstraintLayout>
