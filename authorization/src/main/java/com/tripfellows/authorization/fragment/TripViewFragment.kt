@@ -14,10 +14,10 @@ class TripViewFragment : Fragment() {
 
     companion object {
         private const val TRIP_ID_KEY = "tripId"
-        fun newInstance(param: Int): TripViewFragment {
+        fun newInstance(tripId: Int): TripViewFragment {
             val fragment = TripViewFragment()
             val bundle = Bundle()
-            bundle.putString(TRIP_ID_KEY, param.toString())
+            bundle.putInt(TRIP_ID_KEY, tripId)
             fragment.arguments = bundle
             return fragment
         }
