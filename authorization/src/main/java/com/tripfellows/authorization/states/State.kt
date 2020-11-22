@@ -1,6 +1,8 @@
 package com.tripfellows.authorization.states
 
-enum class CreateTripProgress {
+enum class State {
+    NONE,
+    ERROR,
     IN_PROGRESS,
     SUCCESS,
     FAILED

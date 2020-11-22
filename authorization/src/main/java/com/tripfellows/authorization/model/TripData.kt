@@ -1,4 +1,4 @@
-
+package com.tripfellows.authorization.model
 import java.sql.Time
 
 data class TripData(

@@ -6,33 +6,33 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.tripfellows.authorization.repo.AuthRepo
 import com.tripfellows.authorization.request.LoginRequest
-import com.tripfellows.authorization.states.AuthProgress
-import com.tripfellows.authorization.states.LoginState
+import com.tripfellows.authorization.states.Progress
+import com.tripfellows.authorization.states.State
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val loginState: MediatorLiveData<LoginState> = MediatorLiveData()
+    private val loginState: MediatorLiveData<State> = MediatorLiveData()
 
     init {
-        loginState.value = LoginState.NONE
+        loginState.value = State.NONE
     }
 
-    fun getProgress(): LiveData<LoginState> {
+    fun getProgress(): LiveData<State> {
         return loginState
     }
 
     fun login(loginRequest: LoginRequest) {
-        loginState.postValue(LoginState.IN_PROGRESS)
+        loginState.postValue(State.IN_PROGRESS)
 
         val progressLiveData = AuthRepo.getInstance(getApplication()).login(loginRequest)
 
-        if (loginState.value != LoginState.IN_PROGRESS) {
+        if (loginState.value != State.IN_PROGRESS) {
             loginState.addSource(progressLiveData) {
-                if (it == AuthProgress.SUCCESS) {
-                    loginState.postValue(LoginState.SUCCESS)
+                if (it == Progress.SUCCESS) {
+                    loginState.postValue(State.SUCCESS)
                     loginState.removeSource(progressLiveData)
-                } else if (it == AuthProgress.FAILED){
-                    loginState.postValue(LoginState.FAILED)
+                } else if (it == Progress.FAILED){
+                    loginState.postValue(State.FAILED)
                     loginState.removeSource(progressLiveData)
                 }
             }

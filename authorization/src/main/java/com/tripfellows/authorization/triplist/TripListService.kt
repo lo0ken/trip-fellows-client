@@ -1,6 +1,6 @@
 package com.tripfellows.authorization.triplist
 
-import TripData
+import com.tripfellows.authorization.model.TripData
 import java.sql.Time
 import java.util.*
 

@@ -13,15 +13,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.tripfellows.authorization.R
 import com.tripfellows.authorization.listeners.MainRouter
+import com.tripfellows.authorization.model.Address
 import com.tripfellows.authorization.network.request.CreateTripRequest
-import com.tripfellows.authorization.states.CreateTripState
+import com.tripfellows.authorization.states.State
 import com.tripfellows.authorization.viewmodel.CreateTripViewModel
+import com.tripfellows.authorization.viewmodel.LocationViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 class CreateTripFragment : Fragment() {
     private lateinit var mainRouter : MainRouter
     private lateinit var createTripViewModel: CreateTripViewModel
+    private lateinit var locationViewModel: LocationViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -36,7 +39,17 @@ class CreateTripFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        createTripViewModel = ViewModelProvider(activity!!, ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)).get(
+        locationViewModel = ViewModelProvider(activity!!,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)).get(
+            LocationViewModel::class.java)
+
+        val departureAddressTextField: EditText = view.findViewById(R.id.departure_address)
+        locationViewModel.getAddress()
+            .observe(viewLifecycleOwner, AddressObserver(departureAddressTextField))
+        locationViewModel.getCurrentAddress()
+
+        createTripViewModel = ViewModelProvider(activity!!,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)).get(
             CreateTripViewModel::class.java)
 
         createButton(view)
@@ -81,18 +94,18 @@ class CreateTripFragment : Fragment() {
 
     data class Point(val address: String, val x: Int, val y: Int)
 
-    inner class CreateButtonObserver(private val createBtn: Button) : Observer<CreateTripState> {
+    inner class CreateButtonObserver(private val createBtn: Button) : Observer<State> {
 
-        override fun onChanged(createTripState: CreateTripState) {
-            when(createTripState) {
-                CreateTripState.NONE -> setButtonEnable(true)
-                CreateTripState.ERROR -> {
-                    Toast.makeText(context, "Error during login", Toast.LENGTH_LONG).show()
+        override fun onChanged(createTripState: State) {
+            when (createTripState) {
+                State.NONE -> setButtonEnable(true)
+                State.ERROR -> {
+                    Toast.makeText(context, "Error during creating trip", Toast.LENGTH_LONG).show()
                     setButtonEnable(true)
                 }
-                CreateTripState.IN_PROGRESS -> setButtonEnable(false)
-                CreateTripState.SUCCESS -> {
-                    Toast.makeText(context, "Success login", Toast.LENGTH_LONG).show()
+                State.IN_PROGRESS -> setButtonEnable(false)
+                State.SUCCESS -> {
+                    Toast.makeText(context, "Successfully created trip!", Toast.LENGTH_LONG).show()
                     mainRouter.createTripButtonPressed()
                 }
                 else -> setButtonEnable(true)
@@ -101,6 +114,15 @@ class CreateTripFragment : Fragment() {
 
         private fun setButtonEnable(enabled: Boolean) {
             createBtn.isEnabled = true
+        }
+    }
+
+    inner class AddressObserver(private val editText: EditText) : Observer<Address> {
+
+        override fun onChanged(address: Address?) {
+            if (address != null) {
+                editText.setText(address.name)
+            }
         }
     }
 }
