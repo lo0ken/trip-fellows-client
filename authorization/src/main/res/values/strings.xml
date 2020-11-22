@@ -34,4 +34,9 @@
     <string name="join_button">Join</string>
     <string name="app_name">Trip Fellows</string>
     <string name="join">Join</string>
+    <string name="price">price</string>
+    <string name="places">places</string>
+    <string name="start_time">startTime</string>
+    <string name="destination_address">destinationAddress</string>
+    <string name="departure_address">departureAddress</string>
 </resources>

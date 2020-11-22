@@ -22,16 +22,15 @@ object TripListService {
 
         val random = Random()
         val millisInDay = 24 * 60 * 60 * 1000
-        val time = Time(random.nextInt(millisInDay).toLong())
 
         for (i in 0..50) {
             val trip = TripData(
                 i,
                 cities[random.nextInt(cities.size)],
                 cities[random.nextInt(cities.size)],
-                time,
+                Time(random.nextInt(millisInDay).toLong()),
                 random.nextInt(1..5),
-                random.nextInt(1000).toString() + "p"
+                random.nextInt(100..1000).toString() + "p"
             )
             data.add(trip)
         }
@@ -40,5 +39,5 @@ object TripListService {
 }
 
 fun Random.nextInt(range: IntRange): Int {
-    return range.start + nextInt(range.last - range.start)
+    return range.first + nextInt(range.last - range.first)
 }
