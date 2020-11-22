@@ -9,11 +9,12 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
 import com.tripfellows.authorization.fragment.*
+import com.tripfellows.authorization.listeners.MainRouter
 import com.tripfellows.authorization.util.MenuItemEnum
 
 
 class MainActivity : AppCompatActivity(),
-    com.tripfellows.authorization.listeners.CreateTripListener, fragmentAccess {
+    MainRouter{
     private lateinit var bottomNavigationView: BottomNavigationView
 
     private lateinit var toolbar: Toolbar
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity(),
             .commit()
     }
 
-   override fun ShowTrip(digist: Int) {
+   override fun showTrip(digist: Int) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_fragment_container, TripViewFragment.newInstance(digist))
             .addToBackStack("Fragment close")

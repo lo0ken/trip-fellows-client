@@ -8,18 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tripfellows.authorization.R
+import com.tripfellows.authorization.listeners.MainRouter
 import com.tripfellows.authorization.triplist.TripListAdapter
 import com.tripfellows.authorization.triplist.TripListService
 
 class TripListFragment : Fragment() {
 
-    var activity: Activity? = null
+    private lateinit var fragmentAccessListener:MainRouter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is Activity) {
-            activity = context
-        }
+        fragmentAccessListener = context as MainRouter
     }
 
     override fun onCreateView(
@@ -37,7 +36,8 @@ class TripListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(view.context)
 
         val adapter = TripListAdapter(
-            TripListService.tripList()
+            TripListService.tripList(),
+            fragmentAccessListener
         )
         recyclerView.adapter = adapter
     }

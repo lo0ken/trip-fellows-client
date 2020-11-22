@@ -12,19 +12,19 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.tripfellows.authorization.R
-import com.tripfellows.authorization.listeners.CreateTripListener
+import com.tripfellows.authorization.listeners.MainRouter
 import com.tripfellows.authorization.network.request.CreateTripRequest
 import com.tripfellows.authorization.states.CreateTripState
 import com.tripfellows.authorization.viewmodel.CreateTripViewModel
 import java.util.*
 
 class CreateTripFragment : Fragment() {
-    private lateinit var createButtonListener : CreateTripListener
+    private lateinit var createButtonListener : MainRouter
     private lateinit var createTripViewModel: CreateTripViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        createButtonListener = context as CreateTripListener
+        createButtonListener = context as MainRouter
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

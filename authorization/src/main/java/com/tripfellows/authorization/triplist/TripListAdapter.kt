@@ -1,20 +1,18 @@
 package com.tripfellows.authorization.triplist
 
 import TripData
-import TripListFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tripfellows.authorization.R
-import com.tripfellows.authorization.fragmentAccess
+import com.tripfellows.authorization.listeners.MainRouter
 
 class TripListAdapter(
-    private val data: List<TripData>
+    private val data: List<TripData>,
+    private val mainRouter: MainRouter
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var activity: TripListFragment = TripListFragment()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(
             R.layout.trip_list_item,
@@ -33,9 +31,7 @@ class TripListAdapter(
         fViewHolder.places.text = currentTrip.places.toString()
         fViewHolder.price.text = currentTrip.price
         fViewHolder.itemlist?.setOnClickListener(View.OnClickListener { v ->
-            val digit = v.findViewById<TextView>(v.id)
-            val number: Int = Integer.parseInt(digit.text as String)
-            (activity as fragmentAccess).ShowTrip(number)
+            mainRouter.showTrip(currentTrip.id)
         })
 
     }

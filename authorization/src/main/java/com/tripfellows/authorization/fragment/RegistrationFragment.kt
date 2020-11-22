@@ -12,19 +12,19 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.tripfellows.authorization.R
-import com.tripfellows.authorization.listeners.Router
+import com.tripfellows.authorization.listeners.AuthRouter
 import com.tripfellows.authorization.request.SignUpRequest
 import com.tripfellows.authorization.states.SignUpState
 import com.tripfellows.authorization.viewmodel.RegistrationViewModel
 
 class RegistrationFragment : Fragment() {
 
-    private lateinit var router: Router
+    private lateinit var authRouter: AuthRouter
     private lateinit var signUpViewModel: RegistrationViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        router = context as Router
+        authRouter = context as AuthRouter
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -70,7 +70,7 @@ class RegistrationFragment : Fragment() {
                 SignUpState.IN_PROGRESS -> setButtonEnable(false)
                 SignUpState.SUCCESS -> {
                     Toast.makeText(context, "Success signUp", Toast.LENGTH_LONG).show()
-                    router.mainMenu()
+                    authRouter.mainMenu()
                 }
                 else -> setButtonEnable(true)
             }
