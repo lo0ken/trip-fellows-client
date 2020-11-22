@@ -5,12 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.tripfellows.authorization.ApplicationModified
-import com.tripfellows.authorization.network.request.CreateAccountRequest
 import com.tripfellows.authorization.network.ApiRepo
+import com.tripfellows.authorization.network.request.CreateAccountRequest
 import com.tripfellows.authorization.request.LoginRequest
 import com.tripfellows.authorization.request.SignUpRequest
-import com.tripfellows.authorization.states.AuthProgress
-import com.tripfellows.authorization.states.SignUpProgress
+import com.tripfellows.authorization.states.Progress
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,37 +25,37 @@ class AuthRepo(private val apiRepo: ApiRepo) {
 
     var fbAuth = FirebaseAuth.getInstance()
 
-    fun login(loginRequest: LoginRequest): LiveData<AuthProgress> {
-        val authProgress: MutableLiveData<AuthProgress> = MutableLiveData()
-        authProgress.value = AuthProgress.IN_PROGRESS
+    fun login(loginRequest: LoginRequest): LiveData<Progress> {
+        val authProgress: MutableLiveData<Progress> = MutableLiveData()
+        authProgress.value = Progress.IN_PROGRESS
 
         fbAuth.signInWithEmailAndPassword(loginRequest.email, loginRequest.password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    authProgress.postValue(AuthProgress.SUCCESS)
+                    authProgress.postValue(Progress.SUCCESS)
                 } else {
-                    authProgress.postValue(AuthProgress.FAILED)
+                    authProgress.postValue(Progress.FAILED)
                 }
             }
         return authProgress
     }
 
-    fun signUp(signUpRequest: SignUpRequest): LiveData<SignUpProgress> {
-        val signUpProgress: MutableLiveData<SignUpProgress> = MutableLiveData()
-        signUpProgress.value = SignUpProgress.IN_PROGRESS
+    fun signUp(signUpRequest: SignUpRequest): LiveData<Progress> {
+        val signUpProgress: MutableLiveData<Progress> = MutableLiveData()
+        signUpProgress.value = Progress.IN_PROGRESS
 
         fbAuth.createUserWithEmailAndPassword(signUpRequest.email, signUpRequest.password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     createAccount(signUpRequest, signUpProgress)
                 } else {
-                    signUpProgress.postValue(SignUpProgress.FAILED)
+                    signUpProgress.postValue(Progress.FAILED)
                 }
             }
         return signUpProgress
     }
 
-    private fun createAccount(signUpRequest: SignUpRequest, signUpProgress: MutableLiveData<SignUpProgress>) {
+    private fun createAccount(signUpRequest: SignUpRequest, signUpProgress: MutableLiveData<Progress>) {
         val accountToCreate =
             CreateAccountRequest(
                 signUpRequest.name,
@@ -66,13 +65,13 @@ class AuthRepo(private val apiRepo: ApiRepo) {
         apiRepo.accountApi.createAccount(accountToCreate).enqueue(object : Callback<CreateAccountRequest> {
             override fun onResponse(call: Call<CreateAccountRequest>, response: Response<CreateAccountRequest>) {
                 if (response.isSuccessful && response.body() != null) {
-                    signUpProgress.postValue(SignUpProgress.SUCCESS)
+                    signUpProgress.postValue(Progress.SUCCESS)
                 }
             }
 
             override fun onFailure(call: Call<CreateAccountRequest>, t: Throwable) {
                 fbAuth.currentUser?.delete()
-                signUpProgress.postValue(SignUpProgress.FAILED)
+                signUpProgress.postValue(Progress.FAILED)
             }
         })
     }

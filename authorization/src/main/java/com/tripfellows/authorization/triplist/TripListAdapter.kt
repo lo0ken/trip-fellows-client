@@ -1,6 +1,6 @@
 package com.tripfellows.authorization.triplist
 
-import TripData
+import com.tripfellows.authorization.model.TripData
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

@@ -17,6 +17,7 @@ class AuthorizationActivity: AppCompatActivity(), AuthRouter {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         FirebaseApp.initializeApp(this)
+        FirebaseAuth.getInstance().signOut()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.authorization_activity)
 

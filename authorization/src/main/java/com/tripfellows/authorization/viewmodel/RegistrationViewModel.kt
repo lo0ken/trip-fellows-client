@@ -6,32 +6,32 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.tripfellows.authorization.repo.AuthRepo
 import com.tripfellows.authorization.request.SignUpRequest
-import com.tripfellows.authorization.states.SignUpProgress
-import com.tripfellows.authorization.states.SignUpState
+import com.tripfellows.authorization.states.Progress
+import com.tripfellows.authorization.states.State
 
 class RegistrationViewModel(application: Application) : AndroidViewModel(application) {
-    private val signUpState: MediatorLiveData<SignUpState> = MediatorLiveData()
+    private val signUpState: MediatorLiveData<State> = MediatorLiveData()
 
     init {
-        signUpState.value = SignUpState.NONE
+        signUpState.value = State.NONE
     }
 
-    fun getProgress(): LiveData<SignUpState> {
+    fun getProgress(): LiveData<State> {
         return signUpState
     }
 
     fun signUp(signUpRequest: SignUpRequest) {
-        signUpState.postValue(SignUpState.IN_PROGRESS)
+        signUpState.postValue(State.IN_PROGRESS)
 
         val progressLiveData = AuthRepo.getInstance(getApplication()).signUp(signUpRequest)
 
-        if (signUpState.value != SignUpState.IN_PROGRESS) {
+        if (signUpState.value != State.IN_PROGRESS) {
             signUpState.addSource(progressLiveData) {
-                if (it == SignUpProgress.SUCCESS) {
-                    signUpState.postValue(SignUpState.SUCCESS)
+                if (it == Progress.SUCCESS) {
+                    signUpState.postValue(State.SUCCESS)
                     signUpState.removeSource(progressLiveData)
-                } else if (it == SignUpProgress.FAILED) {
-                    signUpState.postValue(SignUpState.FAILED)
+                } else if (it == Progress.FAILED) {
+                    signUpState.postValue(State.FAILED)
                     signUpState.removeSource(progressLiveData)
                 }
             }
