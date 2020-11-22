@@ -8,15 +8,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
-import com.tripfellows.authorization.fragment.AccountFragment
-import com.tripfellows.authorization.fragment.CreateTripFragment
-import com.tripfellows.authorization.fragment.HistoryFragment
-import com.tripfellows.authorization.fragment.TripInfoFragmentConductor
+import com.tripfellows.authorization.fragment.*
 import com.tripfellows.authorization.util.MenuItemEnum
 
 
 class MainActivity : AppCompatActivity(),
-    com.tripfellows.authorization.listeners.CreateTripListener {
+    com.tripfellows.authorization.listeners.CreateTripListener, fragmentAccess {
     private lateinit var bottomNavigationView: BottomNavigationView
 
     private lateinit var toolbar: Toolbar
@@ -50,6 +47,13 @@ class MainActivity : AppCompatActivity(),
             .commit()
     }
 
+   override fun ShowTrip(digist: Int) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_fragment_container, TripViewFragment.newInstance(digist))
+            .addToBackStack("Fragment close")
+            .commit()
+    }
+
     private fun getOnNavigationItemSelectedListener(): OnNavigationItemSelectedListener {
         return object : OnNavigationItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -62,6 +66,7 @@ class MainActivity : AppCompatActivity(),
                     R.id.create_trip_page -> {
                         toolbar.title = getString(R.string.toolbar_create_trip)
                         loadFragment(CreateTripFragment())
+
                         return true
                     }
                     R.id.my_trip_page -> {
@@ -89,7 +94,8 @@ class MainActivity : AppCompatActivity(),
         existsCurrentTrip = true
         toggleBottomMenuVisibility()
         onNavigationItemSelectedListener.onNavigationItemSelected(
-            bottomNavigationView.menu.getItem(MenuItemEnum.MY_TRIP.id) as MenuItem)
+            bottomNavigationView.menu.getItem(MenuItemEnum.MY_TRIP.id) as MenuItem
+        )
         bottomNavigationView.menu.getItem(MenuItemEnum.MY_TRIP.id).isChecked = true
     }
 
@@ -100,4 +106,7 @@ class MainActivity : AppCompatActivity(),
         bottomNavigationView.menu.getItem(MenuItemEnum.MY_TRIP.id).isVisible = false
         bottomNavigationView.menu.getItem(MenuItemEnum.CREATE.id).isVisible = true
     }
+
+
+
 }
