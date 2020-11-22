@@ -1,4 +1,3 @@
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,11 +13,11 @@ import com.tripfellows.authorization.triplist.TripListService
 
 class TripListFragment : Fragment() {
 
-    private lateinit var fragmentAccessListener:MainRouter
+    private lateinit var mainRouter: MainRouter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        fragmentAccessListener = context as MainRouter
+        mainRouter = context as MainRouter
     }
 
     override fun onCreateView(
@@ -37,7 +36,7 @@ class TripListFragment : Fragment() {
 
         val adapter = TripListAdapter(
             TripListService.tripList(),
-            fragmentAccessListener
+            mainRouter
         )
         recyclerView.adapter = adapter
     }

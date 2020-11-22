@@ -13,8 +13,7 @@ import com.tripfellows.authorization.listeners.MainRouter
 import com.tripfellows.authorization.util.MenuItemEnum
 
 
-class MainActivity : AppCompatActivity(),
-    MainRouter{
+class MainActivity : AppCompatActivity(), MainRouter {
     private lateinit var bottomNavigationView: BottomNavigationView
 
     private lateinit var toolbar: Toolbar
@@ -48,9 +47,9 @@ class MainActivity : AppCompatActivity(),
             .commit()
     }
 
-   override fun showTrip(digist: Int) {
+   override fun showTrip(tripId: Int) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_fragment_container, TripViewFragment.newInstance(digist))
+            .replace(R.id.main_fragment_container, TripViewFragment.newInstance(tripId))
             .addToBackStack("Fragment close")
             .commit()
     }
@@ -67,7 +66,6 @@ class MainActivity : AppCompatActivity(),
                     R.id.create_trip_page -> {
                         toolbar.title = getString(R.string.toolbar_create_trip)
                         loadFragment(CreateTripFragment())
-
                         return true
                     }
                     R.id.my_trip_page -> {
@@ -107,7 +105,4 @@ class MainActivity : AppCompatActivity(),
         bottomNavigationView.menu.getItem(MenuItemEnum.MY_TRIP.id).isVisible = false
         bottomNavigationView.menu.getItem(MenuItemEnum.CREATE.id).isVisible = true
     }
-
-
-
 }

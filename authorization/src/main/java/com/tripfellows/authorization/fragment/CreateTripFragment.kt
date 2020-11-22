@@ -19,12 +19,12 @@ import com.tripfellows.authorization.viewmodel.CreateTripViewModel
 import java.util.*
 
 class CreateTripFragment : Fragment() {
-    private lateinit var createButtonListener : MainRouter
+    private lateinit var mainRouter : MainRouter
     private lateinit var createTripViewModel: CreateTripViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        createButtonListener = context as MainRouter
+        mainRouter = context as MainRouter
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -93,7 +93,7 @@ class CreateTripFragment : Fragment() {
                 CreateTripState.IN_PROGRESS -> setButtonEnable(false)
                 CreateTripState.SUCCESS -> {
                     Toast.makeText(context, "Success login", Toast.LENGTH_LONG).show()
-                    createButtonListener.createTripButtonPressed()
+                    mainRouter.createTripButtonPressed()
                 }
                 else -> setButtonEnable(true)
             }

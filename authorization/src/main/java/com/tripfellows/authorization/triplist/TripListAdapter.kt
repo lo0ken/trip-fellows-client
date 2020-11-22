@@ -11,9 +11,9 @@ import com.tripfellows.authorization.listeners.MainRouter
 class TripListAdapter(
     private val data: List<TripData>,
     private val mainRouter: MainRouter
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<TripListViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripListViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(
             R.layout.trip_list_item,
             parent,
@@ -22,18 +22,16 @@ class TripListAdapter(
         return TripListViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, i: Int) {
-        val currentTrip = data[i]
-        val fViewHolder: TripListViewHolder = holder as TripListViewHolder
-        fViewHolder.destinationAddress.text = currentTrip.destinationAddress
-        fViewHolder.departureAddress.text = currentTrip.departureAddress
-        fViewHolder.startTime.text = currentTrip.startTime.toString()
-        fViewHolder.places.text = currentTrip.places.toString()
-        fViewHolder.price.text = currentTrip.price
-        fViewHolder.itemlist?.setOnClickListener(View.OnClickListener { v ->
+    override fun onBindViewHolder(holder: TripListViewHolder, position: Int) {
+        val currentTrip = data[position]
+        holder.destinationAddress.text = currentTrip.destinationAddress
+        holder.departureAddress.text = currentTrip.departureAddress
+        holder.startTime.text = currentTrip.startTime.toString()
+        holder.places.text = currentTrip.places.toString()
+        holder.price.text = currentTrip.price
+        holder.tripItemView.setOnClickListener {
             mainRouter.showTrip(currentTrip.id)
-        })
-
+        }
     }
 
     override fun getItemCount(): Int {

@@ -13,6 +13,5 @@ class TripListViewHolder(
     val startTime: TextView = itemView.findViewById(R.id.trip_start_time),
     val places: TextView = itemView.findViewById(R.id.trip_places),
     val price: TextView = itemView.findViewById(R.id.trip_price),
-    //val itemlist: CardView = itemView.findViewById(R.id.trip_item),
-    val itemlist: CardView? = itemView.findViewById(R.id.trip_item) as CardView?
+    val tripItemView: CardView = itemView.findViewById(R.id.trip_item)
 ) : RecyclerView.ViewHolder(itemView)

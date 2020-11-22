@@ -9,30 +9,13 @@
     android:orientation="horizontal">
 
     <Button
-        android:id="@+id/buttonACS"
+        android:id="@+id/join_btn"
         android:layout_width="388dp"
         android:layout_height="76dp"
         android:layout_marginBottom="36dp"
-        android:text="Button"
+        android:text="@string/join"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/digit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="512dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Example" />
 </androidx.constraintlayout.widget.ConstraintLayout>
