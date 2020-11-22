@@ -26,15 +26,15 @@ class CreateTripViewModel(application: Application) : AndroidViewModel(applicati
 
         val progressLiveData = TripRepo.getInstance(getApplication()).createTrip(createTripRequest)
 
-        if (createTripState.value != CreateTripState.IN_PROGRESS) {
-            createTripState.addSource(progressLiveData) {
-                if (it == CreateTripProgress.SUCCESS) {
-                    createTripState.postValue(CreateTripState.SUCCESS)
-                    createTripState.removeSource(progressLiveData)
-                } else if (it == CreateTripProgress.FAILED) {
-                    createTripState.postValue(CreateTripState.FAILED)
-                    createTripState.removeSource(progressLiveData)
-                }
+
+
+        createTripState.addSource(progressLiveData) {
+            if (it == CreateTripProgress.SUCCESS) {
+                createTripState.postValue(CreateTripState.SUCCESS)
+                createTripState.removeSource(progressLiveData)
+            } else if (it == CreateTripProgress.FAILED) {
+                createTripState.postValue(CreateTripState.FAILED)
+                createTripState.removeSource(progressLiveData)
             }
         }
     }

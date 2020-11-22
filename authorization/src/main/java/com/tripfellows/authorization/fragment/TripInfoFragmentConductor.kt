@@ -14,7 +14,7 @@ class TripInfoFragmentConductor : Fragment() {
             fragmentManager
                 ?.beginTransaction()
                 ?.replace(R.id.main_fragment_container,
-                    com.tripfellows.authorization.fragment.DriverFragment()
+                    DriverFragment()
                 )
                 ?.commit()
             return inflater.inflate(R.layout.driver_fragment, container, false)
@@ -22,7 +22,7 @@ class TripInfoFragmentConductor : Fragment() {
             fragmentManager
                 ?.beginTransaction()
                 ?.replace(R.id.main_fragment_container,
-                    com.tripfellows.authorization.fragment.PassengerFragment()
+                    PassengerFragment()
                 )
                 ?.commit()
             return inflater.inflate(R.layout.passenger_fragment, container, false)

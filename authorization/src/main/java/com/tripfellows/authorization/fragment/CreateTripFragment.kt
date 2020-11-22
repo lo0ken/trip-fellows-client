@@ -16,6 +16,7 @@ import com.tripfellows.authorization.listeners.MainRouter
 import com.tripfellows.authorization.network.request.CreateTripRequest
 import com.tripfellows.authorization.states.CreateTripState
 import com.tripfellows.authorization.viewmodel.CreateTripViewModel
+import java.text.SimpleDateFormat
 import java.util.*
 
 class CreateTripFragment : Fragment() {
@@ -59,15 +60,18 @@ class CreateTripFragment : Fragment() {
         val price = view.findViewById<EditText>(R.id.price).text.toString()
         val comment = view.findViewById<EditText>(R.id.comment).text.toString()
 
-        val startDate = Date()
-        startTimeString = "2020-11-11T12:20"
+        val startPoint = Point(departureAddress,5, 6)
+        val endPoint = Point(destinationAddress,10, 10)
 
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'")
+
+        val tripDateTime = simpleDateFormat.format(Date()) + startTimeString
 
         var newTrip = CreateTripRequest(
-                departureAddress,
-                destinationAddress,
+                startPoint,
+                endPoint,
                 Integer.parseInt(places),
-            startTimeString,
+                tripDateTime,
                 Integer.parseInt(price),
                 comment
         )
@@ -75,11 +79,7 @@ class CreateTripFragment : Fragment() {
         createTripViewModel.createTrip(newTrip)
     }
 
-    private fun stringToIntOrZeroWhenNull (string : String): Int {
-        var number = string
-        if (number == "") number = "0"
-        return number.toInt()
-    }
+    data class Point(val address: String, val x: Int, val y: Int)
 
     inner class CreateButtonObserver(private val createBtn: Button) : Observer<CreateTripState> {
 
