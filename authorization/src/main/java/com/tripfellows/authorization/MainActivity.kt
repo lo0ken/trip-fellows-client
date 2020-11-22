@@ -8,15 +8,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
-import com.tripfellows.authorization.fragment.AccountFragment
-import com.tripfellows.authorization.fragment.CreateTripFragment
-import com.tripfellows.authorization.fragment.HistoryFragment
-import com.tripfellows.authorization.fragment.TripInfoFragmentConductor
+import com.tripfellows.authorization.fragment.*
+import com.tripfellows.authorization.listeners.MainRouter
 import com.tripfellows.authorization.util.MenuItemEnum
 
 
-class MainActivity : AppCompatActivity(),
-    com.tripfellows.authorization.listeners.CreateTripListener {
+class MainActivity : AppCompatActivity(), MainRouter {
     private lateinit var bottomNavigationView: BottomNavigationView
 
     private lateinit var toolbar: Toolbar
@@ -47,6 +44,13 @@ class MainActivity : AppCompatActivity(),
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_fragment_container, fragment)
+            .commit()
+    }
+
+   override fun showTrip(tripId: Int) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_fragment_container, TripViewFragment.newInstance(tripId))
+            .addToBackStack("Fragment close")
             .commit()
     }
 
@@ -89,7 +93,8 @@ class MainActivity : AppCompatActivity(),
         existsCurrentTrip = true
         toggleBottomMenuVisibility()
         onNavigationItemSelectedListener.onNavigationItemSelected(
-            bottomNavigationView.menu.getItem(MenuItemEnum.MY_TRIP.id) as MenuItem)
+            bottomNavigationView.menu.getItem(MenuItemEnum.MY_TRIP.id) as MenuItem
+        )
         bottomNavigationView.menu.getItem(MenuItemEnum.MY_TRIP.id).isChecked = true
     }
 

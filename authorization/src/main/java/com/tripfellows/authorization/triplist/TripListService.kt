@@ -26,6 +26,7 @@ object TripListService {
 
         for (i in 0..50) {
             val trip = TripData(
+                i,
                 cities[random.nextInt(cities.size)],
                 cities[random.nextInt(cities.size)],
                 time,

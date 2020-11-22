@@ -18,19 +18,19 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.tripfellows.authorization.R
-import com.tripfellows.authorization.listeners.Router
+import com.tripfellows.authorization.listeners.AuthRouter
 import com.tripfellows.authorization.request.LoginRequest
 import com.tripfellows.authorization.states.LoginState
 import com.tripfellows.authorization.viewmodel.LoginViewModel
 
 class LoginFragment : Fragment() {
 
-    private lateinit var router: Router
+    private lateinit var authRouter: AuthRouter
     private lateinit var loginViewModel: LoginViewModel
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        router = context as Router
+        authRouter = context as AuthRouter
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,7 +50,7 @@ class LoginFragment : Fragment() {
 
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
-                router.goToSignUp()
+                authRouter.goToSignUp()
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -94,7 +94,7 @@ class LoginFragment : Fragment() {
                 LoginState.IN_PROGRESS -> setButtonEnable(false)
                 LoginState.SUCCESS -> {
                     Toast.makeText(context, "Success login", Toast.LENGTH_LONG).show()
-                    router.mainMenu()
+                    authRouter.mainMenu()
                 }
                 else -> setButtonEnable(true)
             }

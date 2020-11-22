@@ -8,10 +8,10 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.tripfellows.authorization.fragment.LoginFragment
 import com.tripfellows.authorization.fragment.RegistrationFragment
-import com.tripfellows.authorization.listeners.Router
+import com.tripfellows.authorization.listeners.AuthRouter
 
 
-class AuthorizationActivity: AppCompatActivity(), Router {
+class AuthorizationActivity: AppCompatActivity(), AuthRouter {
 
     private val fbAuth = FirebaseAuth.getInstance()
 

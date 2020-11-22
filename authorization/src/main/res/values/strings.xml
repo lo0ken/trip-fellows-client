@@ -33,4 +33,5 @@
     <string name="status_finished">Finished</string>
     <string name="join_button">Join</string>
     <string name="app_name">Trip Fellows</string>
+    <string name="join">Join</string>
 </resources>

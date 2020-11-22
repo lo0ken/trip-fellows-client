@@ -1,6 +1,6 @@
 package com.tripfellows.authorization.listeners
 
-interface Router {
+interface AuthRouter {
     fun goToSignUp()
     fun mainMenu()
 }

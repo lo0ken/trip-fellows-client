@@ -1,5 +1,6 @@
 package com.tripfellows.authorization.listeners
 
-interface CreateTripListener {
+interface MainRouter {
+    fun showTrip(digit: Int)
     fun createTripButtonPressed()
 }
