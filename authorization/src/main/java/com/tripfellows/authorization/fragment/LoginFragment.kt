@@ -20,7 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.tripfellows.authorization.R
 import com.tripfellows.authorization.listeners.AuthRouter
 import com.tripfellows.authorization.request.LoginRequest
-import com.tripfellows.authorization.states.State
+import com.tripfellows.authorization.states.ActionState
 import com.tripfellows.authorization.viewmodel.LoginViewModel
 
 class LoginFragment : Fragment() {
@@ -82,17 +82,17 @@ class LoginFragment : Fragment() {
         }
     }
 
-    inner class LoginButtonObserver(private val loginBtn: Button) : Observer<State> {
+    inner class LoginButtonObserver(private val loginBtn: Button) : Observer<ActionState> {
 
-        override fun onChanged(loginState: State) {
+        override fun onChanged(loginState: ActionState) {
             when(loginState) {
-                State.NONE -> setButtonEnable(true)
-                State.ERROR -> {
+                ActionState.NONE -> setButtonEnable(true)
+                ActionState.ERROR -> {
                     Toast.makeText(context, "Error during login", Toast.LENGTH_LONG).show()
                     setButtonEnable(true)
                 }
-                State.IN_PROGRESS -> setButtonEnable(false)
-                State.SUCCESS -> {
+                ActionState.IN_PROGRESS -> setButtonEnable(false)
+                ActionState.SUCCESS -> {
                     Toast.makeText(context, "Success login", Toast.LENGTH_LONG).show()
                     authRouter.mainMenu()
                 }

@@ -1,12 +1,12 @@
 package com.tripfellows.authorization.triplist
 
-import com.tripfellows.authorization.model.TripData
+import com.tripfellows.authorization.model.Trip
 import java.sql.Time
 import java.util.*
 
 object TripListService {
 
-    fun tripList() : List<TripData> {
+    fun tripList() : List<Trip> {
         val cities: Array<String> = arrayOf(
             "Moscow",
             "Mytishchi",
@@ -18,13 +18,13 @@ object TripListService {
             "Elektrostal"
         )
 
-        val data = mutableListOf<TripData>()
+        val data = mutableListOf<Trip>()
 
         val random = Random()
         val millisInDay = 24 * 60 * 60 * 1000
 
         for (i in 0..50) {
-            val trip = TripData(
+            val trip = Trip(
                 i,
                 cities[random.nextInt(cities.size)],
                 cities[random.nextInt(cities.size)],

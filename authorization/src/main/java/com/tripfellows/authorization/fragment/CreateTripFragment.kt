@@ -15,7 +15,7 @@ import com.tripfellows.authorization.R
 import com.tripfellows.authorization.listeners.MainRouter
 import com.tripfellows.authorization.model.Address
 import com.tripfellows.authorization.network.request.CreateTripRequest
-import com.tripfellows.authorization.states.State
+import com.tripfellows.authorization.states.ActionState
 import com.tripfellows.authorization.viewmodel.CreateTripViewModel
 import com.tripfellows.authorization.viewmodel.LocationViewModel
 import java.text.SimpleDateFormat
@@ -94,17 +94,17 @@ class CreateTripFragment : Fragment() {
 
     data class Point(val address: String, val x: Int, val y: Int)
 
-    inner class CreateButtonObserver(private val createBtn: Button) : Observer<State> {
+    inner class CreateButtonObserver(private val createBtn: Button) : Observer<ActionState> {
 
-        override fun onChanged(createTripState: State) {
+        override fun onChanged(createTripState: ActionState) {
             when (createTripState) {
-                State.NONE -> setButtonEnable(true)
-                State.ERROR -> {
+                ActionState.NONE -> setButtonEnable(true)
+                ActionState.ERROR -> {
                     Toast.makeText(context, "Error during creating trip", Toast.LENGTH_LONG).show()
                     setButtonEnable(true)
                 }
-                State.IN_PROGRESS -> setButtonEnable(false)
-                State.SUCCESS -> {
+                ActionState.IN_PROGRESS -> setButtonEnable(false)
+                ActionState.SUCCESS -> {
                     Toast.makeText(context, "Successfully created trip!", Toast.LENGTH_LONG).show()
                     mainRouter.createTripButtonPressed()
                 }

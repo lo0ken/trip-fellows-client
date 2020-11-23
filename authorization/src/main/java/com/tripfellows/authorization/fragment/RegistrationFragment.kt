@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.tripfellows.authorization.R
 import com.tripfellows.authorization.listeners.AuthRouter
 import com.tripfellows.authorization.request.SignUpRequest
-import com.tripfellows.authorization.states.State
+import com.tripfellows.authorization.states.ActionState
 import com.tripfellows.authorization.viewmodel.RegistrationViewModel
 
 class RegistrationFragment : Fragment() {
@@ -59,16 +59,16 @@ class RegistrationFragment : Fragment() {
         }
     }
 
-    inner class SignUpButtonObserver(private val signUpBtn: Button) : Observer<State> {
-        override fun onChanged(signUpState: State) {
+    inner class SignUpButtonObserver(private val signUpBtn: Button) : Observer<ActionState> {
+        override fun onChanged(signUpState: ActionState) {
             when(signUpState) {
-                State.NONE -> setButtonEnable(true)
-                State.ERROR -> {
+                ActionState.NONE -> setButtonEnable(true)
+                ActionState.ERROR -> {
                     Toast.makeText(context, "Error during signUp", Toast.LENGTH_LONG).show()
                     setButtonEnable(true)
                 }
-                State.IN_PROGRESS -> setButtonEnable(false)
-                State.SUCCESS -> {
+                ActionState.IN_PROGRESS -> setButtonEnable(false)
+                ActionState.SUCCESS -> {
                     Toast.makeText(context, "Success signUp", Toast.LENGTH_LONG).show()
                     authRouter.mainMenu()
                 }
