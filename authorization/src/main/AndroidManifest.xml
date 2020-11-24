@@ -7,8 +7,9 @@
     <application
         android:name=".ApplicationModified"
         android:supportsRtl="true"
+        android:icon="@mipmap/alpa_logo"
         android:label="@string/app_name"
-        android:theme="@style/DefaultTheme">
+        android:theme="@style/Theme.MyApp">
 
         <activity android:name=".AuthorizationActivity">
             <intent-filter>

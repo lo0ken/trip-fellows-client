@@ -1,53 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
     android:orientation="vertical"
+    android:layout_marginLeft="15.7dp"
+    android:layout_marginTop="30dp"
+    android:layout_marginRight="15.7dp"
 
     xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"/>
+    <LinearLayout
+        android:layout_width="369dp"
+        android:layout_height="669dp"
+        android:orientation="vertical"
+        android:background="@drawable/layout_bg"
+        >
 
-    <EditText
-        android:id="@+id/sign_up_email"
-        style="@style/AuthTextViewStyle"
-        android:hint="@string/email"
-        android:autofillHints=""
-        android:layout_marginBottom="40dp"
-        android:inputType="textEmailAddress" />
 
-    <EditText
-        android:id="@+id/sign_up_password"
-        style="@style/AuthTextViewStyle"
-        android:hint="@string/password"
-        android:autofillHints=""
-        android:layout_marginBottom="40dp"
-        android:inputType="textPassword" />
+        <EditText
+            android:id="@+id/sign_up_email"
+            style="@style/AuthTextViewStyle"
+            android:layout_marginBottom="40dp"
+            android:autofillHints=""
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:layout_marginTop="15.7dp"
+            android:layout_marginLeft="15.7dp"/>
 
-    <EditText
-        android:id="@+id/sign_up_name"
-        style="@style/AuthTextViewStyle"
-        android:hint="@string/name"
-        android:autofillHints=""
-        android:layout_marginBottom="40dp"
-        android:inputType="text" />
-    
-    <EditText
-        android:id="@+id/sign_up_phone"
-        style="@style/AuthTextViewStyle"
-        android:hint="@string/phone"
-        android:autofillHints=""
-        android:layout_marginBottom="40dp"
-        android:inputType="phone" />
+        <EditText
+            android:id="@+id/sign_up_password"
+            style="@style/AuthTextViewStyle"
+            android:layout_marginBottom="40dp"
+            android:autofillHints=""
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:layout_marginLeft="15.7dp"/>
 
-    <Button
-        android:id="@+id/sign_up_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:text="@string/sign_up_btn"/>
-</LinearLayout>
+        <EditText
+            android:id="@+id/sign_up_name"
+            style="@style/AuthTextViewStyle"
+            android:layout_marginBottom="40dp"
+            android:autofillHints=""
+            android:hint="@string/name"
+            android:inputType="text"
+            android:layout_marginLeft="15.7dp"/>
+
+        <EditText
+            android:id="@+id/sign_up_phone"
+            style="@style/AuthTextViewStyle"
+            android:layout_marginBottom="40dp"
+            android:autofillHints=""
+            android:hint="@string/phone"
+            android:inputType="phone"
+            android:layout_marginLeft="15.7dp"/>
+
+        <Button
+            android:id="@+id/sign_up_btn"
+            style="@style/RoundedCornerButton"
+            android:layout_width="107dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:text="@string/sign_up_btn"
+            android:layout_marginLeft="15.7dp"/>
+    </LinearLayout>
+
+</RelativeLayout>

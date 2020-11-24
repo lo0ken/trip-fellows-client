@@ -1,43 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
-    android:orientation="vertical"
+    android:background="@color/colorOrange"
+    android:orientation="vertical">
 
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="390dp"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"/>
+        android:layout_marginLeft="15.7dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="15.7dp"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/auth_email"
-        style="@style/AuthTextViewStyle"
-        android:hint="@string/email"
-        android:layout_marginBottom="80dp"
-        android:inputType="textEmailAddress"
-        android:autofillHints="" />
+        <FrameLayout
+            android:layout_width="367dp"
+            android:layout_height="653dp"
+            android:orientation="vertical"
+            android:paddingStart="20.7dp">
 
-    <EditText
-        android:id="@+id/auth_password"
-        style="@style/AuthTextViewStyle"
-        android:hint="@string/password"
-        android:autofillHints=""
-        android:layout_marginBottom="80dp"
-        android:inputType="textPassword" />
+            <ImageView
+                android:layout_width="349dp"
+                android:layout_height="517dp"
+                android:background="@drawable/white_cueve_bg" />
 
-    <TextView
-        android:id="@+id/sing_up_link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp" />
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="20.7dp">
 
-    <Button
-        android:id="@+id/login_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
-        android:text="@string/login_btn"/>
-</LinearLayout>
+                <TextView
+                    android:layout_width="274dp"
+                    android:layout_height="63dp"
+                    android:layout_marginBottom="20.7dp"
+                    android:text="@string/app_name"
+                    android:textSize="40sp"
+                    android:textColor="#35a79c"/>
+
+                <EditText
+                    android:id="@+id/auth_email"
+                    style="@style/AuthTextViewStyle"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:autofillHints=""
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:id="@+id/auth_password"
+                    style="@style/AuthTextViewStyle"
+                    android:layout_width="283dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6.3dp"
+                    android:layout_marginRight="44.3dp"
+                    android:layout_marginBottom="80dp"
+                    android:autofillHints=""
+                    android:hint="@string/password"
+                    android:inputType="textPassword" />
+
+                <LinearLayout
+                    android:layout_width="316dp"
+                    android:layout_height="126dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/sing_up_link"
+                        android:layout_width="209dp"
+                        android:layout_height="68dp" />
+
+                    <Button
+                        android:id="@+id/login_btn"
+                        style="@style/RoundedCornerButton"
+                        android:layout_width="107dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login_btn" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -28,6 +28,7 @@
         app:menu="@menu/bottom_navigation_menu"
         tools:ignore="MissingConstraints"
         android:background="@color/colorOrange"
-        android:layout_gravity="bottom" />
+        android:layout_gravity="bottom"
+        app:labelVisibilityMode="unlabeled"/>
 
 </FrameLayout>
