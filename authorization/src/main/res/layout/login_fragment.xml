@@ -47,6 +47,7 @@
                     android:layout_marginBottom="30dp"
                     android:autofillHints=""
                     android:hint="@string/email"
+                    android:gravity="center"
                     android:inputType="textEmailAddress" />
 
                 <EditText
@@ -59,6 +60,7 @@
                     android:layout_marginBottom="80dp"
                     android:autofillHints=""
                     android:hint="@string/password"
+                    android:gravity="center"
                     android:inputType="textPassword" />
 
                 <LinearLayout
