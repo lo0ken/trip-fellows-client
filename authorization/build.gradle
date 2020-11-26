@@ -8,7 +8,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -49,4 +49,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.maps:google-maps-services:0.15.0'
     implementation group: 'com.github.seratch', name: 'java-time-backport', version: '1.0.0'
+    implementation ("com.squareup.okhttp3:okhttp:3.12.12") {
+        force = true
+    }
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.12'
 }

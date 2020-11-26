@@ -1,10 +1,16 @@
 package com.tripfellows.authorization
 
 import TripListFragment
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
@@ -27,6 +33,9 @@ class MainActivity : AppCompatActivity(), MainRouter {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        askForPermission(ACCESS_FINE_LOCATION, 1)
+        askForPermission(ACCESS_COARSE_LOCATION, 2)
+
         bottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
@@ -38,6 +47,23 @@ class MainActivity : AppCompatActivity(), MainRouter {
         if (savedInstanceState == null) {
             toolbar.title = getString(R.string.toolbar_search)
             loadFragment(TripListFragment())
+        }
+    }
+
+    private fun askForPermission(permission: String, requestCode: Int) {
+        if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this@MainActivity, permission)) {
+                Toast.makeText(this,
+                    "Please grant the requested permission to get your task done!",
+                    Toast.LENGTH_LONG).show()
+                requestPermissions(this@MainActivity,
+                    arrayOf(permission),
+                    requestCode)
+            } else {
+                requestPermissions(this@MainActivity,
+                    arrayOf(permission),
+                    requestCode)
+            }
         }
     }
 
