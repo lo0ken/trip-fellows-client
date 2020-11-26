@@ -1,19 +1,13 @@
 package com.tripfellows.authorization.repo
 
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
-import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Context
-import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Looper
-import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.location.*
 import com.google.android.gms.location.LocationServices.getFusedLocationProviderClient
 import com.google.maps.model.LatLng
 import com.tripfellows.authorization.ApplicationModified
-import com.tripfellows.authorization.MainActivity
 
 
 class UserLocationRepo(private var context: Context) {
@@ -53,22 +47,7 @@ class UserLocationRepo(private var context: Context) {
     }
 
     private fun checkPermission() {
-        if (!existsAccessFineLocationPermission() && !existsAccessCoarseLocationPermission()) {
-            requestPermissions(MainActivity(),
-                arrayOf(ACCESS_FINE_LOCATION), 1)
-            requestPermissions(MainActivity(),
-                arrayOf(ACCESS_COARSE_LOCATION), 2)
-        }
-    }
 
-    private fun existsAccessFineLocationPermission(): Boolean {
-        return ActivityCompat.checkSelfPermission(context,
-            ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun existsAccessCoarseLocationPermission(): Boolean {
-        return ActivityCompat.checkSelfPermission(context,
-            ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
 
     fun onLocationChanged(location: Location) {
