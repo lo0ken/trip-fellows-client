@@ -5,5 +5,4 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorOrange"
     app:titleTextColor="@color/colorLight">
-
 </androidx.appcompat.widget.Toolbar>

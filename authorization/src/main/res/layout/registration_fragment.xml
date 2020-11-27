@@ -10,8 +10,8 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="369dp"
-        android:layout_height="669dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/layout_bg"
         android:orientation="vertical">
 

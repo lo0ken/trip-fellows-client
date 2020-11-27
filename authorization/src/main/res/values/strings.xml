@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="sign_up_link">Are you new here? Sign up to create an account!</string>
-    <string name="email"> Email</string>
-    <string name="password"> Password</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
     <string name="login_btn">Sign in</string>
     <string name="name">Name</string>
     <string name="phone">Phone number</string>
