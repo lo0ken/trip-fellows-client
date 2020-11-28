@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="DefaultTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorLight</item>
-        <item name="colorOrange">@color/colorOrange</item>
-        <item name="colorDark">@color/colorDark</item>
-        <item name="colorLight">@color/colorLight</item>
-        <item name="colorMediumGray">@color/colorMediumGray</item>
-        <item name="colorLightGray">@color/colorLightGray</item>
+    <style name="Theme.MyApp"  parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorLight</item> <!--Color primary (light)-->
+        <item name="colorPrimaryVariant">@color/colorOrange</item> <!--Color primary (dark) -->
+        <item name="colorSecondary">@color/colorMint</item>
+        <item name="colorSecondaryVariant">@color/colorLightGray</item>
     </style>
 </resources>
