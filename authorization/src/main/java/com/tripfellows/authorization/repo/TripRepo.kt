@@ -4,14 +4,22 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tripfellows.authorization.ApplicationModified
+import com.tripfellows.authorization.model.Trip
 import com.tripfellows.authorization.network.ApiRepo
 import com.tripfellows.authorization.network.request.CreateTripRequest
 import com.tripfellows.authorization.states.RequestProgress
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
-class TripRepo(private val apiRepo: ApiRepo) {
+class TripRepo(
+    private val apiRepo: ApiRepo,
+    private val trips: MutableLiveData<List<Trip>> = MutableLiveData()) {
+
+    init {
+        trips.value = Collections.emptyList()
+    }
 
     companion object {
         fun getInstance(context: Context): TripRepo {
@@ -36,5 +44,23 @@ class TripRepo(private val apiRepo: ApiRepo) {
         })
 
         return createTripProgress
+    }
+
+    fun getTrips(): MutableLiveData<List<Trip>> {
+        return trips;
+    }
+
+    fun refreshTrips(){
+        apiRepo.tripApi.getAllTrips().enqueue(object: Callback<List<Trip>> {
+
+            override fun onResponse(call: Call<List<Trip>>, response: Response<List<Trip>>) {
+                if (response.isSuccessful && response.body() != null) {
+                    trips.postValue(response.body())
+                }
+            }
+
+            override fun onFailure(call: Call<List<Trip>>, t: Throwable) {
+            }
+        })
     }
 }

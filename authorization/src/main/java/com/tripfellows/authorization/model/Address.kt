@@ -1,8 +1,8 @@
 package com.tripfellows.authorization.model
 
 class Address {
-    lateinit var id: String
-    lateinit var name: String
+    lateinit var addressId: String
+    lateinit var address: String
     var latitude: Double? = null
     var longitude: Double? = null
 }
