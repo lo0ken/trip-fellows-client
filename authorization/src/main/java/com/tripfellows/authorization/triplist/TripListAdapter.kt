@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tripfellows.authorization.R
 import com.tripfellows.authorization.listeners.MainRouter
+import com.tripfellows.authorization.util.DateTimeUtil
 
 class TripListAdapter(
     private var data: List<Trip>,
@@ -26,7 +27,7 @@ class TripListAdapter(
         val currentTrip = data[position]
         holder.destinationAddress.text = currentTrip.destinationAddress.address
         holder.departureAddress.text = currentTrip.departureAddress.address
-        holder.startTime.text = currentTrip.startDate
+        holder.startTime.text = DateTimeUtil.formatWithTime(currentTrip.startDate)
         holder.places.text = currentTrip.placesCount.toString()
         holder.price.text = currentTrip.price
         holder.tripItemView.setOnClickListener {
