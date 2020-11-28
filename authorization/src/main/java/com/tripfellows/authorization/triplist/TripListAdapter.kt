@@ -9,7 +9,7 @@ import com.tripfellows.authorization.R
 import com.tripfellows.authorization.listeners.MainRouter
 
 class TripListAdapter(
-    private val data: List<Trip>,
+    private var data: List<Trip>,
     private val mainRouter: MainRouter
 ) : RecyclerView.Adapter<TripListViewHolder>() {
 
@@ -24,10 +24,10 @@ class TripListAdapter(
 
     override fun onBindViewHolder(holder: TripListViewHolder, position: Int) {
         val currentTrip = data[position]
-        holder.destinationAddress.text = currentTrip.destinationAddress
-        holder.departureAddress.text = currentTrip.departureAddress
-        holder.startTime.text = currentTrip.startTime.toString()
-        holder.places.text = currentTrip.places.toString()
+        holder.destinationAddress.text = currentTrip.destinationAddress.address
+        holder.departureAddress.text = currentTrip.departureAddress.address
+        holder.startTime.text = currentTrip.startDate
+        holder.places.text = currentTrip.placesCount.toString()
         holder.price.text = currentTrip.price
         holder.tripItemView.setOnClickListener {
             mainRouter.showTrip(currentTrip.id)
@@ -36,5 +36,10 @@ class TripListAdapter(
 
     override fun getItemCount(): Int {
         return data.size
+    }
+
+    fun setTrips(trips: List<Trip>) {
+        data = trips
+        notifyDataSetChanged()
     }
 }

@@ -26,6 +26,9 @@ class CreateTripFragment : Fragment() {
     private lateinit var createTripViewModel: CreateTripViewModel
     private lateinit var locationViewModel: LocationViewModel
 
+    private lateinit var departureAddress: Address
+    private lateinit var destinationAddress: Address
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mainRouter = context as MainRouter
@@ -66,23 +69,18 @@ class CreateTripFragment : Fragment() {
     }
 
     private fun createButtonPressed(view: View) {
-        val departureAddress = view.findViewById<EditText>(R.id.departure_address).text.toString()
-        val destinationAddress = view.findViewById<EditText>(R.id.destination_address).text.toString()
         val places = view.findViewById<EditText>(R.id.places).text.toString()
         var startTimeString = view.findViewById<EditText>(R.id.start_time).text.toString()
         val price = view.findViewById<EditText>(R.id.price).text.toString()
         val comment = view.findViewById<EditText>(R.id.comment).text.toString()
-
-        val startPoint = Point(departureAddress,5, 6)
-        val endPoint = Point(destinationAddress,10, 10)
 
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'")
 
         val tripDateTime = simpleDateFormat.format(Date()) + startTimeString
 
         var newTrip = CreateTripRequest(
-                startPoint,
-                endPoint,
+                this.departureAddress,
+                this.destinationAddress,
                 Integer.parseInt(places),
                 tripDateTime,
                 Integer.parseInt(price),
@@ -121,7 +119,9 @@ class CreateTripFragment : Fragment() {
 
         override fun onChanged(address: Address?) {
             if (address != null) {
-                editText.setText(address.name)
+                editText.setText(address.address)
+                departureAddress = address
+                destinationAddress = address
             }
         }
     }

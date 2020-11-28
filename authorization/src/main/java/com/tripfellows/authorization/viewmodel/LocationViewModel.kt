@@ -65,8 +65,8 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
 
     private fun buildAddress(addressData: GeocodingResult?): Address? {
         val address = Address()
-        address.id = addressData?.placeId.toString()
-        address.name = addressData?.formattedAddress.toString()
+        address.addressId = addressData?.placeId.toString()
+        address.address = addressData?.formattedAddress.toString()
         address.latitude = addressData?.geometry?.location?.lat
         address.longitude = addressData?.geometry?.location?.lng
 
