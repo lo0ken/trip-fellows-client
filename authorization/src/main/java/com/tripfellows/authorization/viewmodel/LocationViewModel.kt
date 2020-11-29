@@ -9,8 +9,8 @@ import com.google.maps.model.LatLng
 import com.tripfellows.authorization.model.Address
 import com.tripfellows.authorization.repo.LocationRepo
 import com.tripfellows.authorization.repo.UserLocationRepo
-import com.tripfellows.authorization.states.RequestProgress
 import com.tripfellows.authorization.states.ActionState
+import com.tripfellows.authorization.states.RequestProgress
 
 class LocationViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -50,6 +50,7 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
                 if (it.requestProgress == RequestProgress.SUCCESS) {
                     locationState.postValue(ActionState.SUCCESS)
                     locationState.removeSource(progressLiveData)
+
                     currentAddress.postValue(buildAddress(progressLiveData.value?.data))
                     currentAddress.removeSource(progressLiveData)
                 } else if (it.requestProgress == RequestProgress.FAILED) {

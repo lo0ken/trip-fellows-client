@@ -48,4 +48,10 @@
     <style name="SmallOrangeButtonStyle" parent="TripButtonStyle">
         <item name="android:background">@drawable/small_button_shape</item>
     </style>
+
+    <style name="LocationButtonStyle" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/ic_baseline_add_location_24</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 </resources>

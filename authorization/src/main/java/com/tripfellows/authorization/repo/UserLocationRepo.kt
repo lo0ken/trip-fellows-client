@@ -38,12 +38,14 @@ class UserLocationRepo(private var context: Context) {
         checkPermission()
 
         getFusedLocationProviderClient(context).requestLocationUpdates(locationRequest,
-            object : LocationCallback() {
-                override fun onLocationResult(locationResult: LocationResult) {
-                    onLocationChanged(locationResult.lastLocation)
-                }
-            },
+            this.UserLocationCallBack(),
             Looper.myLooper())
+    }
+
+    inner class UserLocationCallBack : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            onLocationChanged(locationResult.lastLocation)
+        }
     }
 
     private fun checkPermission() {
