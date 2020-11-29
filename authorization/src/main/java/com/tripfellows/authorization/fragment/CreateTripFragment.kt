@@ -141,7 +141,7 @@ class CreateTripFragment : Fragment() {
 
     private fun createButtonPressed(view: View) {
         val places = view.findViewById<EditText>(R.id.places).text.toString()
-        var startTimeString = view.findViewById<EditText>(R.id.start_time).text.toString()
+        val startTimeString = view.findViewById<TextView>(R.id.start_time).text.toString()
         val price = view.findViewById<EditText>(R.id.price).text.toString()
         val comment = view.findViewById<EditText>(R.id.comment).text.toString()
 

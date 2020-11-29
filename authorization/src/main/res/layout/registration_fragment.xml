@@ -19,6 +19,7 @@
         <EditText
             android:id="@+id/sign_up_email"
             style="@style/AuthTextViewStyle"
+            android:layout_width="350dp"
             android:layout_marginStart="@dimen/margin_start"
             android:layout_marginTop="@dimen/margin_top"
             android:layout_marginBottom="@dimen/margin_bottom"
@@ -30,6 +31,7 @@
         <EditText
             android:id="@+id/sign_up_password"
             style="@style/AuthTextViewStyle"
+            android:layout_width="350dp"
             android:layout_marginStart="@dimen/margin_start"
             android:layout_marginBottom="@dimen/margin_bottom"
             android:autofillHints=""
@@ -39,6 +41,7 @@
 
         <EditText
             android:id="@+id/sign_up_name"
+            android:layout_width="350dp"
             style="@style/AuthTextViewStyle"
             android:layout_marginStart="@dimen/margin_start"
             android:layout_marginBottom="@dimen/margin_bottom"
@@ -49,6 +52,7 @@
 
         <EditText
             android:id="@+id/sign_up_phone"
+            android:layout_width="350dp"
             style="@style/AuthTextViewStyle"
             android:layout_marginStart="@dimen/margin_start"
             android:layout_marginBottom="@dimen/margin_bottom"
