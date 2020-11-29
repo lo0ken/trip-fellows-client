@@ -1,12 +1,11 @@
 package com.tripfellows.authorization.network
 
 import com.tripfellows.authorization.model.Trip
+import com.tripfellows.authorization.model.TripMember
 import com.tripfellows.authorization.network.request.CreateTripRequest
+import com.tripfellows.authorization.network.request.JoinMemberRequest
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface TripApi {
 
@@ -18,4 +17,10 @@ interface TripApi {
 
     @GET("trips/{id}")
     fun getTrip(@Path("id") tripId: Int): Call<Trip>
+
+    @POST("trip-members/addMember")
+    fun joinMember(@Body joinMemberRequest: JoinMemberRequest): Call<TripMember>
+
+    @DELETE("trip-members/removeMember/{tripMemberId}")
+    fun removeMember(@Path("tripMemberId") tripMemberId: Int): Call<Void>
 }

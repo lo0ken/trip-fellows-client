@@ -14,17 +14,18 @@ import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
-import com.tripfellows.authorization.fragment.*
+import com.google.firebase.auth.FirebaseAuth
+import com.tripfellows.authorization.fragment.AccountFragment
+import com.tripfellows.authorization.fragment.CreateTripFragment
+import com.tripfellows.authorization.fragment.TripInfoFragmentConductor
+import com.tripfellows.authorization.fragment.TripViewFragment
 import com.tripfellows.authorization.listeners.MainRouter
-import com.tripfellows.authorization.util.MenuItemEnum
 
 
 class MainActivity : AppCompatActivity(), MainRouter {
     private lateinit var bottomNavigationView: BottomNavigationView
 
     private lateinit var toolbar: Toolbar
-
-    private var existsCurrentTrip: Boolean = false
 
     private val onNavigationItemSelectedListener: OnNavigationItemSelectedListener =
         getOnNavigationItemSelectedListener()
@@ -41,8 +42,6 @@ class MainActivity : AppCompatActivity(), MainRouter {
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
-        toggleBottomMenuVisibility()
 
         if (savedInstanceState == null) {
             toolbar.title = getString(R.string.toolbar_search)
@@ -73,9 +72,11 @@ class MainActivity : AppCompatActivity(), MainRouter {
             .commit()
     }
 
-   override fun showTrip(tripId: Int) {
+   override fun showTrip(tripId: Int, creatorUid: String) {
+       val userUid = FirebaseAuth.getInstance().currentUser?.uid
+
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_fragment_container, TripViewFragment.newInstance(tripId))
+            .replace(R.id.main_fragment_container, TripViewFragment.newInstance(tripId, userUid == creatorUid))
             .addToBackStack("Fragment close")
             .commit()
     }
@@ -99,11 +100,6 @@ class MainActivity : AppCompatActivity(), MainRouter {
                         loadFragment(TripInfoFragmentConductor())
                         return true
                     }
-                    R.id.history_page -> {
-                        toolbar.title = getString(R.string.toolbar_history)
-                        loadFragment(HistoryFragment())
-                        return true
-                    }
                     R.id.account_page -> {
                         toolbar.title = getString(R.string.toolbar_account)
                         loadFragment(AccountFragment())
@@ -113,22 +109,5 @@ class MainActivity : AppCompatActivity(), MainRouter {
                 }
             }
         }
-    }
-
-    override fun createTripButtonPressed() {
-        existsCurrentTrip = true
-        toggleBottomMenuVisibility()
-        onNavigationItemSelectedListener.onNavigationItemSelected(
-            bottomNavigationView.menu.getItem(MenuItemEnum.MY_TRIP.id) as MenuItem
-        )
-        bottomNavigationView.menu.getItem(MenuItemEnum.MY_TRIP.id).isChecked = true
-    }
-
-    private fun toggleBottomMenuVisibility() = if (existsCurrentTrip) {
-        bottomNavigationView.menu.getItem(MenuItemEnum.MY_TRIP.id).isVisible = true
-        bottomNavigationView.menu.getItem(MenuItemEnum.CREATE.id).isVisible = false
-    } else {
-        bottomNavigationView.menu.getItem(MenuItemEnum.MY_TRIP.id).isVisible = false
-        bottomNavigationView.menu.getItem(MenuItemEnum.CREATE.id).isVisible = true
     }
 }

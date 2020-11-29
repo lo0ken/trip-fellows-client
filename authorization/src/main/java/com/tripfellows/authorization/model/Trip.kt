@@ -6,5 +6,7 @@ data class Trip(
     val destinationAddress: Address,
     val startDate: String,
     val placesCount: Int,
-    val price: String
+    val price: String,
+    val creator: Account,
+    val members: List<TripMember>
 )

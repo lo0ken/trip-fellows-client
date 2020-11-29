@@ -1,20 +1,16 @@
 package com.tripfellows.authorization.fragment
 
-import android.app.TimePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.tripfellows.authorization.R
-import com.tripfellows.authorization.listeners.MainRouter
 import com.tripfellows.authorization.model.Address
 import com.tripfellows.authorization.network.request.CreateTripRequest
 import com.tripfellows.authorization.states.ActionState
@@ -24,17 +20,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class CreateTripFragment : Fragment() {
-    private lateinit var mainRouter : MainRouter
     private lateinit var createTripViewModel: CreateTripViewModel
     private lateinit var locationViewModel: LocationViewModel
 
     private lateinit var departureAddress: Address
     private lateinit var destinationAddress: Address
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mainRouter = context as MainRouter
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)
@@ -43,29 +33,6 @@ class CreateTripFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val selectTime = view.findViewById<TextView>(R.id.start_time)
-        selectTime.setOnClickListener {
-            var startTimeHour:Int = 0
-            var startTimeMinute:Int = 0
-
-            val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                startTimeHour = hourOfDay
-                startTimeMinute = minute
-                val calendar = Calendar.getInstance()
-                calendar.set(0,0,0,startTimeHour,startTimeMinute)
-                selectTime.text = android.text.format.DateFormat.format("hh:mm", calendar)
-            }
-
-            val timePickerDialog = TimePickerDialog(
-                view.context,
-                timeSetListener,
-                12, 0, true
-            )
-
-            timePickerDialog.updateTime(startTimeHour, startTimeMinute)
-            timePickerDialog.show()
-        }
 
         locationViewModel = ViewModelProvider(activity!!,
             ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)).get(
@@ -90,7 +57,6 @@ class CreateTripFragment : Fragment() {
             .observe(viewLifecycleOwner, CreateButtonObserver(createButton))
 
         createButton.setOnClickListener { createButtonPressed(view) }
-
     }
 
     private fun createButtonPressed(view: View) {
@@ -115,8 +81,6 @@ class CreateTripFragment : Fragment() {
         createTripViewModel.createTrip(newTrip)
     }
 
-    data class Point(val address: String, val x: Int, val y: Int)
-
     inner class CreateButtonObserver(private val createBtn: Button) : Observer<ActionState> {
 
         override fun onChanged(createTripState: ActionState) {
@@ -129,7 +93,6 @@ class CreateTripFragment : Fragment() {
                 ActionState.IN_PROGRESS -> setButtonEnable(false)
                 ActionState.SUCCESS -> {
                     Toast.makeText(context, "Successfully created trip!", Toast.LENGTH_LONG).show()
-                    mainRouter.createTripButtonPressed()
                 }
                 else -> setButtonEnable(true)
             }
