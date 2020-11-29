@@ -2,6 +2,7 @@ package com.tripfellows.authorization.network
 
 import com.tripfellows.authorization.model.Trip
 import com.tripfellows.authorization.model.TripMember
+import com.tripfellows.authorization.model.TripStatusCodeEnum
 import com.tripfellows.authorization.network.request.CreateTripRequest
 import com.tripfellows.authorization.network.request.JoinMemberRequest
 import retrofit2.Call
@@ -23,4 +24,7 @@ interface TripApi {
 
     @DELETE("trip-members/removeMember/{tripMemberId}")
     fun removeMember(@Path("tripMemberId") tripMemberId: Int): Call<Void>
+
+    @PUT("trip-status")
+    fun changeStatus(@Query("tripId") tripId: Int, @Query("status") status: TripStatusCodeEnum): Call<Trip>
 }

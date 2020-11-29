@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.tripfellows.authorization.model.Trip
+import com.tripfellows.authorization.model.TripStatusCodeEnum
 import com.tripfellows.authorization.network.request.JoinMemberRequest
 import com.tripfellows.authorization.repo.TripRepo
 import com.tripfellows.authorization.states.ActionState
@@ -70,5 +71,9 @@ class TripViewViewModel(application: Application) :  AndroidViewModel(applicatio
         }
 
         refresh(trip.value!!.id)
+    }
+
+    fun changeStatus(tripId: Int, status: TripStatusCodeEnum) {
+        tripRepo.changeStatus(tripId, status)
     }
 }

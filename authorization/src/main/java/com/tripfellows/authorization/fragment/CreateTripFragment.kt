@@ -19,10 +19,10 @@ import com.tripfellows.authorization.R
 import com.tripfellows.authorization.model.Address
 import com.tripfellows.authorization.network.request.CreateTripRequest
 import com.tripfellows.authorization.states.ActionState
+import com.tripfellows.authorization.util.DateTimeUtil
 import com.tripfellows.authorization.util.TargetAddress
 import com.tripfellows.authorization.viewmodel.CreateTripViewModel
 import com.tripfellows.authorization.viewmodel.LocationViewModel
-import java.text.SimpleDateFormat
 import java.util.*
 import com.google.android.gms.maps.model.LatLng as AndroidGmsLatLng
 
@@ -145,9 +145,7 @@ class CreateTripFragment : Fragment() {
         val price = view.findViewById<EditText>(R.id.price).text.toString()
         val comment = view.findViewById<EditText>(R.id.comment).text.toString()
 
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'")
-
-        val tripDateTime = simpleDateFormat.format(Date()) + startTimeString
+        val tripDateTime = DateTimeUtil.makeServerCurrentDayWithTime(startTimeString)
 
         departureAddress.address = view.findViewById<EditText>(R.id.departure_address).text.toString()
         destinationAddress.address = view.findViewById<EditText>(R.id.destination_address).text.toString()

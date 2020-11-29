@@ -17,6 +17,10 @@ object DateTimeUtil {
         return timeFormatter.format(parseServerDate(date))
     }
 
+    fun makeServerCurrentDayWithTime(date: String): String {
+        return serverDateFormatter.format(Date()) + date
+    }
+
     private fun parseServerDate(date: String): Date {
         return serverDateFormatter.parse(date)!!
     }

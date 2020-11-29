@@ -8,5 +8,7 @@ data class Trip(
     val placesCount: Int,
     val price: String,
     val creator: Account,
-    val members: List<TripMember>
+    val members: List<TripMember>,
+    val status: TripStatus,
+    val comment: String
 )

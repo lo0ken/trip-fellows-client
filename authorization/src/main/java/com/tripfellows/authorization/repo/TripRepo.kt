@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.tripfellows.authorization.ApplicationModified
 import com.tripfellows.authorization.model.Trip
 import com.tripfellows.authorization.model.TripMember
+import com.tripfellows.authorization.model.TripStatusCodeEnum
 import com.tripfellows.authorization.network.ApiRepo
 import com.tripfellows.authorization.network.request.CreateTripRequest
 import com.tripfellows.authorization.network.request.JoinMemberRequest
@@ -116,5 +117,18 @@ class TripRepo(
         })
 
         return removingProgress;
+    }
+
+    fun changeStatus(tripId: Int, status: TripStatusCodeEnum) {
+        apiRepo.tripApi.changeStatus(tripId, status).enqueue(object: Callback<Trip> {
+            override fun onResponse(call: Call<Trip>, response: Response<Trip>) {
+                if (response.isSuccessful && response.body() != null) {
+                    trip.postValue(response.body())
+                }
+            }
+
+            override fun onFailure(call: Call<Trip>, t: Throwable) {
+            }
+        })
     }
 }

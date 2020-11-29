@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.tripfellows.authorization.R
 import com.tripfellows.authorization.model.Trip
 import com.tripfellows.authorization.model.TripMember
+import com.tripfellows.authorization.model.TripStatusCodeEnum
 import com.tripfellows.authorization.states.ActionState
 import com.tripfellows.authorization.util.DateTimeUtil
 import com.tripfellows.authorization.viewmodel.TripViewViewModel
@@ -47,6 +48,7 @@ class TripViewFragment : Fragment() {
 
         val joinTripButton: Button = view.findViewById(R.id.join_btn)
         val getOutBtn: Button = view.findViewById(R.id.get_out_btn)
+        val changeStatusBtn: Button = view.findViewById(R.id.change_status_button)
 
         viewModel.getTrip().observe(viewLifecycleOwner, TripObserver())
 
@@ -64,6 +66,14 @@ class TripViewFragment : Fragment() {
         getOutBtn.setOnClickListener {
             viewModel.removeMember(getCurrentTripMemberId())
         }
+
+        changeStatusBtn.setOnClickListener {
+            when(currentTrip.status.code) {
+                TripStatusCodeEnum.WAITING -> viewModel.changeStatus(currentTrip.id, TripStatusCodeEnum.STARTED)
+                TripStatusCodeEnum.STARTED -> viewModel.changeStatus(currentTrip.id, TripStatusCodeEnum.FINISHED)
+            }
+        }
+
     }
 
     private fun getCurrentTripMemberId(): Int {
@@ -86,6 +96,8 @@ class TripViewFragment : Fragment() {
             view?.findViewById<TextView>(R.id.tripPlacesVal)?.text = trip.placesCount.toString()
             view?.findViewById<TextView>(R.id.tripPriceVal)?.text = trip.price
             view?.findViewById<TextView>(R.id.tripDriverVal)?.text = trip.creator.name
+            view?.findViewById<TextView>(R.id.tripStatusVal)?.text = trip.status.name
+            view?.findViewById<TextView>(R.id.tripCommentVal)?.text = trip.comment
 
             val passengerListView = view?.findViewById<ListView>(R.id.tripPassengersList)
 
@@ -100,20 +112,31 @@ class TripViewFragment : Fragment() {
                 passengerListView.adapter = adapter
             }
 
-            resolveButtonsVisibility(trip.members)
+            resolveButtonsVisibility(trip)
             currentTrip = trip
         }
 
-        private fun resolveButtonsVisibility(tripMembers: List<TripMember>) {
+        private fun resolveButtonsVisibility(trip: Trip) {
+            val tripMembers: List<TripMember> = trip.members
             val joinBtn = view?.findViewById<Button>(R.id.join_btn)!!
             val getOutBtn = view?.findViewById<Button>(R.id.get_out_btn)!!
+            val changeStatusButton = view?.findViewById<Button>(R.id.change_status_button)!!
 
             val driverMode = arguments!!.getBoolean(DRIVER_MODE_KEY)
 
             if (driverMode) {
                 joinBtn.visibility = View.GONE
                 getOutBtn.visibility = View.GONE
+                changeStatusButton.visibility = View.VISIBLE
+
+                when(trip.status.code) {
+                    TripStatusCodeEnum.WAITING -> changeStatusButton.text = getString(R.string.status_start)
+                    TripStatusCodeEnum.STARTED -> changeStatusButton.text = getString(R.string.status_finish)
+                    TripStatusCodeEnum.FINISHED -> changeStatusButton.visibility = View.GONE
+                }
                 return
+            } else {
+                changeStatusButton.visibility = View.GONE
             }
 
             val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
