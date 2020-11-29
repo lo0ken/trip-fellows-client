@@ -8,21 +8,48 @@
     android:orientation="vertical"
     android:gravity="top|center">
 
-    <EditText
-        android:id="@+id/departure_address"
-        style="@style/TextViewBigStyle"
-        android:hint="@string/hint_departure"
-        android:inputType="text"
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:autofillHints="" />
+        android:gravity="center">
 
-    <EditText
-        android:id="@+id/destination_address"
-        style="@style/TextViewBigStyle"
-        android:hint="@string/hint_destination"
-        android:inputType="text"
+        <EditText
+            android:id="@+id/departure_address"
+            style="@style/TextViewBigStyle"
+            android:layout_width="250dp"
+            android:hint="@string/hint_departure"
+            android:inputType="text"
+            android:autofillHints="" />
+
+        <Button
+            android:id="@+id/departure_location_button"
+            style="@style/LocationButtonStyle"
+            android:layout_marginStart="10dp"
+            android:layout_width="48dp"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:autofillHints="" />
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/destination_address"
+            style="@style/TextViewBigStyle"
+            android:layout_width="250dp"
+            android:hint="@string/hint_destination"
+            android:inputType="text"
+            android:autofillHints="" />
+
+        <Button
+            android:id="@+id/destination_location_button"
+            style="@style/LocationButtonStyle"
+            android:layout_marginStart="10dp"
+            android:layout_width="48dp"/>
+
+    </TableRow>
 
     <TableRow
         android:layout_width="match_parent"

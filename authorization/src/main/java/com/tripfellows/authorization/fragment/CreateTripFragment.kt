@@ -1,6 +1,8 @@
 package com.tripfellows.authorization.fragment
 
+import android.app.Activity
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,19 +14,24 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tripfellows.authorization.R
 import com.tripfellows.authorization.model.Address
 import com.tripfellows.authorization.network.request.CreateTripRequest
 import com.tripfellows.authorization.states.ActionState
+import com.tripfellows.authorization.util.TargetAddress
 import com.tripfellows.authorization.viewmodel.CreateTripViewModel
 import com.tripfellows.authorization.viewmodel.LocationViewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import com.google.android.gms.maps.model.LatLng as AndroidGmsLatLng
+
 
 class CreateTripFragment : Fragment() {
     private lateinit var createTripViewModel: CreateTripViewModel
     private lateinit var locationViewModel: LocationViewModel
 
+    private lateinit var currentAddress: Address
     private lateinit var departureAddress: Address
     private lateinit var destinationAddress: Address
 
@@ -63,9 +70,14 @@ class CreateTripFragment : Fragment() {
             ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)).get(
             LocationViewModel::class.java)
 
-        val departureAddressTextField: EditText = view.findViewById(R.id.departure_address)
+        val departureLocationButton: Button = view.findViewById(R.id.departure_location_button)
+        departureLocationButton.setOnClickListener { showMap(TargetAddress.DEPARTURE) }
+
+        val destinationLocationButton: Button = view.findViewById(R.id.destination_location_button)
+        destinationLocationButton.setOnClickListener { showMap(TargetAddress.DESTINATION) }
+
         locationViewModel.getAddress()
-            .observe(viewLifecycleOwner, AddressObserver(departureAddressTextField))
+            .observe(viewLifecycleOwner, AddressObserver())
         locationViewModel.getCurrentAddress()
 
         createTripViewModel = ViewModelProvider(activity!!,
@@ -73,6 +85,49 @@ class CreateTripFragment : Fragment() {
             CreateTripViewModel::class.java)
 
         createButton(view)
+    }
+
+    private fun showMap(targetAddress: TargetAddress) {
+        if (!::currentAddress.isInitialized) return
+
+        if (currentAddress.latitude != null && currentAddress.longitude != null) {
+            val mapFragment = MapFragment.newInstance(AndroidGmsLatLng(currentAddress.latitude!!, currentAddress.longitude!!))
+            mapFragment.setTargetFragment(this, targetAddress.ordinal)
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.main_fragment_container, mapFragment)
+                ?.addToBackStack("Map opened")
+                ?.commit()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            if (requestCode == TargetAddress.DEPARTURE.ordinal) {
+                departureAddress = Address()
+                setAddressFromMap(data, departureAddress)
+            } else if (requestCode == TargetAddress.DESTINATION.ordinal) {
+                destinationAddress = Address()
+                setAddressFromMap(data, destinationAddress)
+            }
+        }
+        showBottomMenu()
+    }
+
+    private fun setAddressFromMap(data: Intent, address: Address) {
+        val latitude = data.getStringExtra("latitude")?.toDouble()
+        val longitude = data.getStringExtra("longitude")?.toDouble()
+
+        if (latitude != null && longitude != null) {
+            address.latitude = latitude
+            address.longitude = longitude
+        }
+    }
+
+    private fun showBottomMenu() {
+        val bottomNavigationView: BottomNavigationView? =
+            activity?.findViewById(R.id.bottom_navigation)
+        bottomNavigationView?.visibility = View.VISIBLE
     }
 
     private fun createButton(view: View) {
@@ -94,7 +149,10 @@ class CreateTripFragment : Fragment() {
 
         val tripDateTime = simpleDateFormat.format(Date()) + startTimeString
 
-        var newTrip = CreateTripRequest(
+        departureAddress.address = view.findViewById<EditText>(R.id.departure_address).text.toString()
+        destinationAddress.address = view.findViewById<EditText>(R.id.destination_address).text.toString()
+
+        val newTrip = CreateTripRequest(
                 this.departureAddress,
                 this.destinationAddress,
                 Integer.parseInt(places),
@@ -128,13 +186,11 @@ class CreateTripFragment : Fragment() {
         }
     }
 
-    inner class AddressObserver(private val editText: EditText) : Observer<Address> {
+    inner class AddressObserver : Observer<Address> {
 
         override fun onChanged(address: Address?) {
             if (address != null) {
-                editText.setText(address.address)
-                departureAddress = address
-                destinationAddress = address
+                currentAddress = address
             }
         }
     }

@@ -46,4 +46,5 @@
     <string name="tripPriceKey">Price: </string>
     <string name="tripDriverKey">Driver:</string>
     <string name="get_out_text">Get Out</string>
+    <string name="ok">OK</string>
 </resources>
