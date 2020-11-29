@@ -90,7 +90,7 @@ class TripViewFragment : Fragment() {
 
     inner class TripObserver: Observer<Trip> {
         override fun onChanged(trip: Trip) {
-            view?.findViewById<TextView>(R.id.tripDepartureVal)?.text = trip.departureAddress.address
+            view?.findViewById<TextView>(R.id.tripNameVal)?.text = trip.departureAddress.address
             view?.findViewById<TextView>(R.id.tripDestinationVal)?.text = trip.destinationAddress.address
             view?.findViewById<TextView>(R.id.tripStartTimeVal)?.text = DateTimeUtil.formatWithDateAndTime(trip.startDate)
             view?.findViewById<TextView>(R.id.tripPlacesVal)?.text = trip.placesCount.toString()
