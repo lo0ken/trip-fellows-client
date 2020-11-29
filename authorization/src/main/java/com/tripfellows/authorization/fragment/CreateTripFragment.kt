@@ -1,5 +1,6 @@
 package com.tripfellows.authorization.fragment
 
+import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -41,6 +43,29 @@ class CreateTripFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val selectTime = view.findViewById<TextView>(R.id.start_time)
+        selectTime.setOnClickListener {
+            var startTimeHour:Int = 0
+            var startTimeMinute:Int = 0
+
+            val timeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                startTimeHour = hourOfDay
+                startTimeMinute = minute
+                val calendar = Calendar.getInstance()
+                calendar.set(0,0,0,startTimeHour,startTimeMinute)
+                selectTime.text = android.text.format.DateFormat.format("hh:mm", calendar)
+            }
+
+            val timePickerDialog = TimePickerDialog(
+                view.context,
+                timeSetListener,
+                12, 0, true
+            )
+
+            timePickerDialog.updateTime(startTimeHour, startTimeMinute)
+            timePickerDialog.show()
+        }
 
         locationViewModel = ViewModelProvider(activity!!,
             ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)).get(
