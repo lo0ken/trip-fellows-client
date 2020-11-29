@@ -39,4 +39,11 @@
     <string name="start_time">startTime</string>
     <string name="destination_address">destinationAddress</string>
     <string name="departure_address">departureAddress</string>
+    <string name="tripDepartureKey">Departure: </string>
+    <string name="tripDestinationKey">Destination: </string>
+    <string name="tripStartTimeKey">Start date: </string>
+    <string name="tripPlacesKey">Free places: </string>
+    <string name="tripPriceKey">Price: </string>
+    <string name="tripDriverKey">Driver:</string>
+    <string name="get_out_text">Get Out</string>
 </resources>

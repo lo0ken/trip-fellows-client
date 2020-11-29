@@ -24,7 +24,9 @@ class AuthorizationActivity: AppCompatActivity(), AuthRouter {
         if (savedInstanceState == null) {
             val currentUser = fbAuth.currentUser
             if (currentUser != null) {
-                startActivity(Intent(this, MainActivity::class.java))
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("USER_UID", currentUser.uid)
+                startActivity(intent)
             } else {
                 loadFragment(LoginFragment())
             }

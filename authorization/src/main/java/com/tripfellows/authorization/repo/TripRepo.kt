@@ -5,8 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.tripfellows.authorization.ApplicationModified
 import com.tripfellows.authorization.model.Trip
+import com.tripfellows.authorization.model.TripMember
 import com.tripfellows.authorization.network.ApiRepo
 import com.tripfellows.authorization.network.request.CreateTripRequest
+import com.tripfellows.authorization.network.request.JoinMemberRequest
 import com.tripfellows.authorization.states.RequestProgress
 import retrofit2.Call
 import retrofit2.Callback
@@ -80,5 +82,39 @@ class TripRepo(
             override fun onFailure(call: Call<Trip>, t: Throwable) {
             }
         })
+    }
+
+    fun joinMember(joinMemberRequest: JoinMemberRequest): MutableLiveData<RequestProgress> {
+        val joinProgress: MutableLiveData<RequestProgress> = MutableLiveData()
+        joinProgress.value = RequestProgress.IN_PROGRESS
+
+        apiRepo.tripApi.joinMember(joinMemberRequest).enqueue(object: Callback<TripMember> {
+            override fun onResponse(call: Call<TripMember>, response: Response<TripMember>) {
+                joinProgress.postValue(RequestProgress.SUCCESS)
+            }
+
+            override fun onFailure(call: Call<TripMember>, t: Throwable) {
+                joinProgress.postValue(RequestProgress.FAILED)
+            }
+        })
+
+        return joinProgress;
+    }
+
+    fun removeMember(tripMemberId: Int): MutableLiveData<RequestProgress> {
+        val removingProgress: MutableLiveData<RequestProgress> = MutableLiveData()
+        removingProgress.value = RequestProgress.IN_PROGRESS
+
+        apiRepo.tripApi.removeMember(tripMemberId).enqueue(object: Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                removingProgress.postValue(RequestProgress.SUCCESS)
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                removingProgress.postValue(RequestProgress.FAILED)
+            }
+        })
+
+        return removingProgress;
     }
 }

@@ -39,6 +39,12 @@
         <item name="colorControlHighlight">#673ab7</item>
     </style>
 
+    <style name="RedRoundedCornerButton" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="background">@drawable/btn_get_out</item>
+        <item name="colorButtonNormal">#D3021B</item>
+        <item name="colorControlHighlight">#673ab7</item>
+    </style>
+
     <style name="SmallOrangeButtonStyle" parent="TripButtonStyle">
         <item name="android:background">@drawable/small_button_shape</item>
     </style>

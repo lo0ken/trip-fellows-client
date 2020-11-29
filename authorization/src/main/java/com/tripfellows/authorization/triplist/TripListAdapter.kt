@@ -28,11 +28,17 @@ class TripListAdapter(
         holder.destinationAddress.text = currentTrip.destinationAddress.address
         holder.departureAddress.text = currentTrip.departureAddress.address
         holder.startTime.text = DateTimeUtil.formatWithTime(currentTrip.startDate)
-        holder.places.text = currentTrip.placesCount.toString()
+        holder.places.text = makeFreePlacesString(currentTrip)
         holder.price.text = currentTrip.price
         holder.tripItemView.setOnClickListener {
-            mainRouter.showTrip(currentTrip.id)
+            mainRouter.showTrip(currentTrip.id, currentTrip.creator.uid)
         }
+    }
+
+    private fun makeFreePlacesString(trip: Trip): String {
+        val busy = trip.members.size
+        val all = trip.placesCount
+        return (all - busy).toString() + "/" + all
     }
 
     override fun getItemCount(): Int {
