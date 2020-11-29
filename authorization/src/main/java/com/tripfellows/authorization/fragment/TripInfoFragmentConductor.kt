@@ -32,11 +32,4 @@ class TripInfoFragmentConductor : Fragment() {
             return inflater.inflate(R.layout.passenger_fragment, container, false)
         }
     }
-
-    private fun isCurrentUserDriver() {
-
-
-        val trip = TripRepo.getInstance(context!!).getTrip()
-
-    }
 }

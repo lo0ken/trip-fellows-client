@@ -69,7 +69,6 @@ class TripViewViewModel(application: Application) :  AndroidViewModel(applicatio
 
         }
 
-
         refresh(trip.value!!.id)
     }
 }
