@@ -59,7 +59,7 @@ class TripRepo(
     }
 
     fun refreshTrips() {
-        apiRepo.tripApi.getAllTrips().enqueue(object: Callback<List<Trip>> {
+        apiRepo.tripApi.getAllActiveTrips().enqueue(object: Callback<List<Trip>> {
 
             override fun onResponse(call: Call<List<Trip>>, response: Response<List<Trip>>) {
                 if (response.isSuccessful && response.body() != null) {
