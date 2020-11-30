@@ -117,14 +117,14 @@
             tools:ignore="MissingConstraints" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/sign_out_btn"
             android:layout_width="174dp"
             android:layout_height="51dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="100dp"
             style="@style/RoundedCornerButton"
-            android:text="@string/sign_up_btn"
+            android:text="@string/sign_out_btn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/PhoneLayout"
