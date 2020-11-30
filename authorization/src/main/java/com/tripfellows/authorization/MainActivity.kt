@@ -3,6 +3,7 @@ package com.tripfellows.authorization
 import TripListFragment
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.MenuItem
@@ -82,6 +83,11 @@ class MainActivity : AppCompatActivity(), MainRouter {
 
     override fun tripCreated() {
         loadFragment(TripListFragment())
+    }
+
+    override fun signOut() {
+        FirebaseAuth.getInstance().signOut()
+        startActivity(Intent(this, AuthorizationActivity::class.java))
     }
 
     private fun getOnNavigationItemSelectedListener(): OnNavigationItemSelectedListener {
