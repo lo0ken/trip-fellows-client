@@ -1,11 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="DefaultTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorLight</item>
-        <item name="colorOrange">@color/colorOrange</item>
-        <item name="colorDark">@color/colorDark</item>
-        <item name="colorLight">@color/colorLight</item>
-        <item name="colorMediumGray">@color/colorMediumGray</item>
-        <item name="colorLightGray">@color/colorLightGray</item>
+    <style name="TripTextViewStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="TextViewBigStyle" parent="TripTextViewStyle">
+        <item name="android:background">@drawable/big_text_view_shape</item>
+        <item name="android:maxWidth">315dp</item>
+    </style>
+
+    <style name="TextViewSmallStyle" parent="TripTextViewStyle">
+        <item name="android:background">@drawable/small_text_view_shape</item>
+        <item name="android:maxWidth">136dp</item>
+    </style>
+
+    <style name="TripButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+    </style>
+
+    <style name="BigOrangeButtonStyle" parent="TripButtonStyle">
+        <item name="android:background">@drawable/big_button_shape</item>
+    </style>
+
+    <style name="RoundedCornerButton" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="background">@drawable/btn_rounded_corner</item>
+        <item name="colorButtonNormal">#1a237e</item>
+        <item name="colorControlHighlight">#673ab7</item>
+    </style>
+
+    <style name="RedRoundedCornerButton" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="background">@drawable/btn_get_out</item>
+        <item name="colorButtonNormal">#D3021B</item>
+        <item name="colorControlHighlight">#AD1457</item>
+    </style>
+
+    <style name="SmallOrangeButtonStyle" parent="TripButtonStyle">
+        <item name="android:background">@drawable/small_button_shape</item>
+    </style>
+
+    <style name="LocationButtonStyle" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/ic_baseline_add_location_24</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 </resources>
