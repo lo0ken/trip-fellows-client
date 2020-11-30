@@ -1,5 +1,6 @@
 package com.tripfellows.authorization.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.tripfellows.authorization.R
 import com.tripfellows.authorization.model.Trip
@@ -73,7 +76,26 @@ class TripViewFragment : Fragment() {
                 TripStatusCodeEnum.STARTED -> viewModel.changeStatus(currentTrip.id, TripStatusCodeEnum.FINISHED)
             }
         }
+    }
 
+    private fun showMap(location : LatLng) {
+        val mapFragment = DisabledMapFragment.newInstance(location)
+        mapFragment.setTargetFragment(this, 100)
+        fragmentManager?.beginTransaction()
+            ?.replace(R.id.main_fragment_container, mapFragment)
+            ?.addToBackStack("Map opened")
+            ?.commit()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        showBottomMenu()
+    }
+
+    private fun showBottomMenu() {
+        val bottomNavigationView: BottomNavigationView? =
+            activity?.findViewById(R.id.bottom_navigation)
+        bottomNavigationView?.visibility = View.VISIBLE
     }
 
     private fun getCurrentTripMemberId(): Int {
@@ -90,8 +112,18 @@ class TripViewFragment : Fragment() {
 
     inner class TripObserver: Observer<Trip> {
         override fun onChanged(trip: Trip) {
-            view?.findViewById<TextView>(R.id.tripDepartureVal)?.text = trip.departureAddress.address
-            view?.findViewById<TextView>(R.id.tripDestinationVal)?.text = trip.destinationAddress.address
+            val departureVal = view?.findViewById<TextView>(R.id.tripDepartureVal)!!
+            departureVal.text = trip.departureAddress.address
+            departureVal.setOnClickListener {
+                showMap(LatLng(trip.departureAddress.latitude!!, trip.departureAddress.longitude!!))
+            }
+
+            val destinationVal = view?.findViewById<TextView>(R.id.tripDestinationVal)!!
+            destinationVal.text = trip.destinationAddress.address
+            destinationVal.setOnClickListener {
+                showMap(LatLng(trip.destinationAddress.latitude!!, trip.destinationAddress.longitude!!))
+            }
+
             view?.findViewById<TextView>(R.id.tripStartTimeVal)?.text = DateTimeUtil.formatWithDateAndTime(trip.startDate)
             view?.findViewById<TextView>(R.id.tripPlacesVal)?.text = trip.placesCount.toString()
             view?.findViewById<TextView>(R.id.tripPriceVal)?.text = trip.price
