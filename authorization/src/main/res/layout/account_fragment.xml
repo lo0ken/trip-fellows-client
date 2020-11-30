@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/account_fragment">
+    android:id="@+id/account_fragment"
+    android:background="@color/colorLightGray">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,7 +13,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/PhoneLayout"
             android:layout_width="match_parent"
             android:layout_height="85dp"
@@ -31,20 +32,27 @@
                 android:id="@+id/accountPhoneKey"
                 android:layout_width="132dp"
                 android:layout_height="match_parent"
+                android:layout_marginStart="52dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/phone"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/accountPhoneVal"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginStart="40dp"
                 android:textSize="25sp"
+                app:layout_constraintStart_toEndOf="@+id/accountPhoneKey"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="+78481221464" />
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/LayoutUserName"
             android:layout_width="match_parent"
             android:layout_height="85dp"
@@ -59,22 +67,32 @@
 
             <TextView
                 android:id="@+id/accountNameKey"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="121dp"
+                android:layout_height="84dp"
+                android:layout_marginStart="52dp"
                 android:fontFamily="sans-serif-medium"
+
                 android:text="@string/nameKey"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/accountNameVal"
-                android:layout_width="wrap_content"
+                android:layout_width="79dp"
                 android:layout_height="match_parent"
-                tools:text="Alexander"
-                android:layout_marginStart="160dp"
-                android:textSize="25sp" />
-        </LinearLayout>
+                android:layout_marginStart="40dp"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.043"
+                app:layout_constraintStart_toEndOf="@+id/accountNameKey"
+                tools:layout_editor_absoluteY="1dp"
+                tools:text="Alex" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/LayoutMailName"
             android:layout_width="match_parent"
             android:layout_height="85dp"
@@ -89,19 +107,27 @@
 
             <TextView
                 android:id="@+id/accountMailKey"
-                android:layout_width="149dp"
-                android:layout_height="match_parent"
+                android:layout_width="126dp"
+                android:layout_height="89dp"
+                android:layout_marginStart="52dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/email"
-                android:textSize="25sp" />
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/accountMailVal"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginStart="40dp"
                 android:textSize="25sp"
+                app:layout_constraintStart_toEndOf="@+id/accountMailKey"
+                tools:layout_editor_absoluteY="0dp"
                 tools:text="mail@mail.ru" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/textView"
@@ -123,6 +149,8 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="100dp"
+            style="@style/RedRoundedCornerButton"
+            android:background="@drawable/btn_red_rounded_corner"
             style="@style/RoundedCornerButton"
             android:text="@string/sign_out_btn"
             app:layout_constraintBottom_toBottomOf="parent"
