@@ -19,6 +19,9 @@ interface TripApi {
     @GET("trips/{id}")
     fun getTrip(@Path("id") tripId: Int): Call<Trip>
 
+    @GET("trips/currentTrip")
+    fun getCurrentTrip(): Call<Trip>
+
     @POST("trip-members/addMember")
     fun joinMember(@Body joinMemberRequest: JoinMemberRequest): Call<TripMember>
 

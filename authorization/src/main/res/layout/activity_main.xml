@@ -31,4 +31,24 @@
         android:layout_gravity="bottom"
         app:labelVisibilityMode="unlabeled"/>
 
+    <TextView
+        android:id="@+id/create_trip_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="monospace"
+        android:text="@string/create_trip_string"
+        android:visibility="gone"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/my_trip_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="monospace"
+        android:text="@string/my_trip_string"
+        android:visibility="gone"
+        android:textSize="30sp" />
+
 </FrameLayout>
