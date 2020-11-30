@@ -12,14 +12,13 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
 import com.google.firebase.auth.FirebaseAuth
-import com.tripfellows.authorization.fragment.AccountFragment
-import com.tripfellows.authorization.fragment.CreateTripFragment
-import com.tripfellows.authorization.fragment.TripInfoFragmentConductor
-import com.tripfellows.authorization.fragment.TripViewFragment
+import com.tripfellows.authorization.fragment.*
 import com.tripfellows.authorization.listeners.MainRouter
+import com.tripfellows.authorization.repo.TripRepo
 
 
 class MainActivity : AppCompatActivity(), MainRouter {
@@ -81,6 +80,10 @@ class MainActivity : AppCompatActivity(), MainRouter {
             .commit()
     }
 
+    override fun tripCreated() {
+        loadFragment(TripListFragment())
+    }
+
     private fun getOnNavigationItemSelectedListener(): OnNavigationItemSelectedListener {
         return object : OnNavigationItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -92,12 +95,12 @@ class MainActivity : AppCompatActivity(), MainRouter {
                     }
                     R.id.create_trip_page -> {
                         toolbar.title = getString(R.string.toolbar_create_trip)
-                        loadFragment(CreateTripFragment())
+                        createTripFragment()
                         return true
                     }
                     R.id.my_trip_page -> {
                         toolbar.title = getString(R.string.toolbar_my_trip)
-                        loadFragment(TripInfoFragmentConductor())
+                        myTripFragment()
                         return true
                     }
                     R.id.account_page -> {
@@ -109,5 +112,34 @@ class MainActivity : AppCompatActivity(), MainRouter {
                 }
             }
         }
+    }
+
+    private fun createTripFragment() {
+        val tripRepo = TripRepo.getInstance(applicationContext)
+
+        tripRepo.getCurrentTrip().observe(this, Observer {
+            if (it != null) {
+                loadFragment(CreateTripTextFragment())
+            } else {
+                loadFragment(CreateTripFragment())
+            }
+        })
+
+        tripRepo.currentTripRequest()
+    }
+
+    private fun myTripFragment() {
+        val tripRepo = TripRepo.getInstance(applicationContext)
+
+        tripRepo.getCurrentTrip().observe(this, Observer {
+            if (it != null) {
+                val currentUid = FirebaseAuth.getInstance().uid
+                loadFragment(TripViewFragment.newInstance(it.id, currentUid == it.creator.uid))
+            } else {
+                loadFragment(MyTripExistsFragment())
+            }
+        })
+
+        tripRepo.currentTripRequest()
     }
 }

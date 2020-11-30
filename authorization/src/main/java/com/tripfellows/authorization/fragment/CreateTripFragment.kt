@@ -2,6 +2,7 @@ package com.tripfellows.authorization.fragment
 
 import android.app.Activity
 import android.app.TimePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tripfellows.authorization.R
+import com.tripfellows.authorization.listeners.MainRouter
 import com.tripfellows.authorization.model.Address
 import com.tripfellows.authorization.network.request.CreateTripRequest
 import com.tripfellows.authorization.states.ActionState
@@ -34,6 +36,14 @@ class CreateTripFragment : Fragment() {
     private lateinit var currentAddress: Address
     private lateinit var departureAddress: Address
     private lateinit var destinationAddress: Address
+
+    private lateinit var router: MainRouter
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        router = context as MainRouter
+
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreate(savedInstanceState)
@@ -173,6 +183,7 @@ class CreateTripFragment : Fragment() {
                 }
                 ActionState.IN_PROGRESS -> setButtonEnable(false)
                 ActionState.SUCCESS -> {
+                    router.tripCreated()
                     Toast.makeText(context, "Successfully created trip!", Toast.LENGTH_LONG).show()
                 }
                 else -> setButtonEnable(true)

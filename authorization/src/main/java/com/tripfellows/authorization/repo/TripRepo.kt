@@ -20,6 +20,7 @@ class TripRepo(
     private val apiRepo: ApiRepo,
     private val trips: MutableLiveData<List<Trip>> = MutableLiveData()) {
     private val trip: MutableLiveData<Trip> = MutableLiveData()
+    private val currentTrip: MutableLiveData<Trip> = MutableLiveData()
 
     init {
         trips.value = Collections.emptyList()
@@ -58,8 +59,12 @@ class TripRepo(
         return trip;
     }
 
+    fun getCurrentTrip(): MutableLiveData<Trip> {
+        return currentTrip
+    }
+
     fun refreshTrips() {
-        apiRepo.tripApi.getAllTrips().enqueue(object: Callback<List<Trip>> {
+        apiRepo.tripApi.getAllActiveTrips().enqueue(object: Callback<List<Trip>> {
 
             override fun onResponse(call: Call<List<Trip>>, response: Response<List<Trip>>) {
                 if (response.isSuccessful && response.body() != null) {
@@ -130,5 +135,22 @@ class TripRepo(
             override fun onFailure(call: Call<Trip>, t: Throwable) {
             }
         })
+    }
+
+    fun currentTripRequest() {
+        apiRepo.tripApi.getCurrentTrip().enqueue(object: Callback<Trip> {
+            override fun onResponse(call: Call<Trip>, response: Response<Trip>) {
+                if (response.isSuccessful && response.body() != null) {
+                    currentTrip.postValue(response.body())
+                } else {
+                    currentTrip.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<Trip>, t: Throwable) {
+                currentTrip.postValue(null)
+            }
+        })
+
     }
 }

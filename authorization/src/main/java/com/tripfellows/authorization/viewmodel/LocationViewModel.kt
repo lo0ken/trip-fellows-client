@@ -42,6 +42,10 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
     private fun getFromUserLocation(userLocation: LatLng) {
         locationState.postValue(ActionState.IN_PROGRESS)
 
+        if (currentAddress.value != null) {
+            return
+        }
+
         val progressLiveData = LocationRepo.getInstance(getApplication())
             .getAddress(userLocation)
 
@@ -53,6 +57,7 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
 
                     currentAddress.postValue(buildAddress(progressLiveData.value?.data))
                     currentAddress.removeSource(progressLiveData)
+                    userLocationRepo.stopLocationUpdates()
                 } else if (it.requestProgress == RequestProgress.FAILED) {
                     locationState.postValue(ActionState.FAILED)
                     locationState.removeSource(progressLiveData)

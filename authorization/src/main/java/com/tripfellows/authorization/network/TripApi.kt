@@ -13,11 +13,14 @@ interface TripApi {
     @POST("trips")
     fun createTrip(@Body createTripRequest: CreateTripRequest): Call<CreateTripRequest>
 
-    @GET("trips")
-    fun getAllTrips(): Call<List<Trip>>
+    @GET("trips/active")
+    fun getAllActiveTrips(): Call<List<Trip>>
 
     @GET("trips/{id}")
     fun getTrip(@Path("id") tripId: Int): Call<Trip>
+
+    @GET("trips/currentTrip")
+    fun getCurrentTrip(): Call<Trip>
 
     @POST("trip-members/addMember")
     fun joinMember(@Body joinMemberRequest: JoinMemberRequest): Call<TripMember>
