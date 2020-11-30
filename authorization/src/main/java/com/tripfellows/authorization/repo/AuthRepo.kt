@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.tripfellows.authorization.ApplicationModified
+import com.tripfellows.authorization.model.Account
 import com.tripfellows.authorization.network.ApiRepo
 import com.tripfellows.authorization.network.request.CreateAccountRequest
 import com.tripfellows.authorization.request.LoginRequest
@@ -22,6 +23,13 @@ class AuthRepo(private val apiRepo: ApiRepo) {
             return ApplicationModified.from(context).authRepo
         }
     }
+
+    private val account: MutableLiveData<Account> = MutableLiveData()
+
+    fun getAccount(): MutableLiveData<Account> {
+        return account
+    }
+
 
     var fbAuth = FirebaseAuth.getInstance()
 
@@ -72,6 +80,19 @@ class AuthRepo(private val apiRepo: ApiRepo) {
             override fun onFailure(call: Call<CreateAccountRequest>, t: Throwable) {
                 fbAuth.currentUser?.delete()
                 signUpProgress.postValue(RequestProgress.FAILED)
+            }
+        })
+    }
+
+    fun getCurrentAccount() {
+        apiRepo.accountApi.getCurrentAccount().enqueue(object: Callback<Account> {
+            override fun onResponse(call: Call<Account>, response: Response<Account>) {
+                if (response.isSuccessful && response.body() != null) {
+                    account.postValue(response.body())
+                }
+            }
+
+            override fun onFailure(call: Call<Account>, t: Throwable) {
             }
         })
     }

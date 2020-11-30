@@ -20,7 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tripfellows.authorization.R
 
 
-class MapFragment : Fragment(), OnMapReadyCallback {
+class ActiveMapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var map: GoogleMap
     private lateinit var supportMapFragment: SupportMapFragment
     private lateinit var lastMarker: Marker
@@ -29,8 +29,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     companion object {
         private const val LATITUDE_KEY = "latitude"
         private const val LONGITUDE_KEY = "longitude"
-        fun newInstance(latLng: LatLng): MapFragment {
-            val fragment = MapFragment()
+        fun newInstance(latLng: LatLng): ActiveMapFragment {
+            val fragment = ActiveMapFragment()
             val bundle = Bundle()
             bundle.putDouble(LATITUDE_KEY, latLng.latitude)
             bundle.putDouble(LONGITUDE_KEY, latLng.longitude)
@@ -45,7 +45,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.map_fragment, container, false)
+        return inflater.inflate(R.layout.active_map_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -7,6 +7,7 @@
     <string name="name">Name</string>
     <string name="phone">Phone number</string>
     <string name="sign_up_btn">Sign Up</string>
+    <string name="sign_out_btn">Sign Out</string>
 
     <string name="toolbar_search">Searching trip…</string>
     <string name="toolbar_create_trip">Creating trip…</string>
@@ -54,4 +55,5 @@
     <string name="create_trip_string">You doesn\'t have current trip now! Join some or create your own!</string>
     <string name="my_trip_string">You already have joined some trip! Go to MyTrip section to see it!</string>
     <string name="sign_out_btn">sign out</string>
+    <string name="back">Back</string>
 </resources>

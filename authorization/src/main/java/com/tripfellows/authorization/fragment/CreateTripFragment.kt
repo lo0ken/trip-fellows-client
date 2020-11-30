@@ -101,7 +101,7 @@ class CreateTripFragment : Fragment() {
         if (!::currentAddress.isInitialized) return
 
         if (currentAddress.latitude != null && currentAddress.longitude != null) {
-            val mapFragment = MapFragment.newInstance(AndroidGmsLatLng(currentAddress.latitude!!, currentAddress.longitude!!))
+            val mapFragment = ActiveMapFragment.newInstance(AndroidGmsLatLng(currentAddress.latitude!!, currentAddress.longitude!!))
             mapFragment.setTargetFragment(this, targetAddress.ordinal)
             fragmentManager?.beginTransaction()
                 ?.replace(R.id.main_fragment_container, mapFragment)
