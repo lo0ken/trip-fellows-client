@@ -28,7 +28,7 @@
             android:background="@drawable/layout_bg">
 
             <TextView
-                android:id="@+id/tripphoneKey"
+                android:id="@+id/accountPhoneKey"
                 android:layout_width="132dp"
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif-medium"
@@ -36,11 +36,11 @@
                 android:textSize="25sp" />
 
             <TextView
-                android:id="@+id/tripphoneVal"
+                android:id="@+id/accountPhoneVal"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textSize="25sp"
-                tools:text="@string/testNumber" />
+                tools:text="+78481221464" />
 
         </LinearLayout>
 
@@ -58,7 +58,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView">
 
             <TextView
-                android:id="@+id/tripNameKey"
+                android:id="@+id/accountNameKey"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif-medium"
@@ -66,10 +66,10 @@
                 android:textSize="25sp" />
 
             <TextView
-                android:id="@+id/tripNameVal"
+                android:id="@+id/accountNameVal"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                tools:text="@string/test_name"
+                tools:text="Alexander"
                 android:layout_marginStart="160dp"
                 android:textSize="25sp" />
         </LinearLayout>
@@ -88,7 +88,7 @@
             app:layout_constraintTop_toBottomOf="@+id/LayoutUserName">
 
             <TextView
-                android:id="@+id/tripMailKey"
+                android:id="@+id/accountMailKey"
                 android:layout_width="149dp"
                 android:layout_height="match_parent"
                 android:fontFamily="sans-serif-medium"
@@ -96,11 +96,11 @@
                 android:textSize="25sp" />
 
             <TextView
-                android:id="@+id/tripMailVal"
+                android:id="@+id/accountMailVal"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textSize="25sp"
-                tools:text="@string/testMail" />
+                tools:text="mail@mail.ru" />
         </LinearLayout>
 
         <TextView

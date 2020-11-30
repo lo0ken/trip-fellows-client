@@ -50,8 +50,5 @@
     <string name="tripStatusKey">Status:</string>
     <string name="settings">settings</string>
     <string name="myaccount">About you</string>
-    <string name="testNumber">+79634565212</string>
     <string name="name_key">Name</string>
-    <string name="test_name">Victor</string>
-    <string name="testMail">mail@mail.ru</string>
 </resources>
