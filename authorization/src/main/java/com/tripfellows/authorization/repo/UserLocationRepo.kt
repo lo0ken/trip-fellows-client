@@ -14,6 +14,7 @@ class UserLocationRepo(private var context: Context) {
     private val userLocation: MutableLiveData<LatLng> = MutableLiveData()
     private val LOCATION_REQUEST_INTERVAL: Long = 10000
     private val LOCATION_REQUEST_FASTEST_INTERVAL: Long = 3000
+    private val fusedLocationProviderClient = getFusedLocationProviderClient(context)
 
     companion object {
         fun getInstance(context: Context): UserLocationRepo {
@@ -37,9 +38,13 @@ class UserLocationRepo(private var context: Context) {
 
         checkPermission()
 
-        getFusedLocationProviderClient(context).requestLocationUpdates(locationRequest,
+        fusedLocationProviderClient.requestLocationUpdates(locationRequest,
             this.UserLocationCallBack(),
             Looper.myLooper())
+    }
+
+    fun stopLocationUpdates() {
+        fusedLocationProviderClient.removeLocationUpdates(this.UserLocationCallBack());
     }
 
     inner class UserLocationCallBack : LocationCallback() {
