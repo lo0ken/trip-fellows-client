@@ -76,8 +76,6 @@ class TripViewFragment : Fragment() {
                 TripStatusCodeEnum.STARTED -> viewModel.changeStatus(currentTrip.id, TripStatusCodeEnum.FINISHED)
             }
         }
-
-        showBottomMenu()
     }
 
     private fun showMap(location : LatLng) {

@@ -95,8 +95,6 @@ class CreateTripFragment : Fragment() {
             CreateTripViewModel::class.java)
 
         createButton(view)
-
-        showBottomMenu()
     }
 
     private fun showMap(targetAddress: TargetAddress) {
