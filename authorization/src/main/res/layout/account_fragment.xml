@@ -11,40 +11,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp">
+        android:layout_marginStart="-3dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/PhoneLayout"
             android:layout_width="match_parent"
             android:layout_height="85dp"
-            android:gravity="center"
             android:layout_marginTop="4dp"
+            android:background="@drawable/layout_bg"
+            android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/LayoutMailName"
-            app:layout_constraintVertical_bias="0.0"
-            android:background="@drawable/layout_bg">
+            app:layout_constraintVertical_bias="0.0">
 
             <TextView
                 android:id="@+id/accountPhoneKey"
                 android:layout_width="132dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="52dp"
+                android:layout_marginStart="40dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/phone"
                 android:textSize="25sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/accountPhoneVal"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="40dp"
+                android:layout_width="209dp"
+                android:layout_height="84dp"
+                android:layout_marginStart="30dp"
                 android:textSize="25sp"
                 app:layout_constraintStart_toEndOf="@+id/accountPhoneKey"
                 app:layout_constraintTop_toTopOf="parent"
@@ -57,8 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="85dp"
             android:layout_marginTop="68dp"
-            android:gravity="center"
             android:background="@drawable/layout_bg"
+            android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -69,7 +70,7 @@
                 android:id="@+id/accountNameKey"
                 android:layout_width="121dp"
                 android:layout_height="84dp"
-                android:layout_marginStart="52dp"
+                android:layout_marginStart="40dp"
                 android:fontFamily="sans-serif-medium"
 
                 android:text="@string/nameKey"
@@ -81,14 +82,14 @@
 
             <TextView
                 android:id="@+id/accountNameVal"
-                android:layout_width="79dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="40dp"
+                android:layout_width="213dp"
+                android:layout_height="86dp"
+                android:layout_marginStart="30dp"
                 android:textSize="25sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.043"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/accountNameKey"
-                tools:layout_editor_absoluteY="1dp"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="Alex" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -97,9 +98,9 @@
             android:layout_width="match_parent"
             android:layout_height="85dp"
             android:layout_marginTop="4dp"
-            android:orientation="horizontal"
-            android:gravity="center"
             android:background="@drawable/layout_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -109,7 +110,7 @@
                 android:id="@+id/accountMailKey"
                 android:layout_width="126dp"
                 android:layout_height="89dp"
-                android:layout_marginStart="52dp"
+                android:layout_marginStart="40dp"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/email"
                 android:textSize="25sp"
@@ -120,12 +121,14 @@
 
             <TextView
                 android:id="@+id/accountMailVal"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="40dp"
-                android:textSize="25sp"
+                android:layout_width="209dp"
+                android:layout_height="86dp"
+                android:layout_marginStart="30dp"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/accountMailKey"
-                tools:layout_editor_absoluteY="0dp"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="mail@mail.ru" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -144,19 +147,18 @@
 
         <Button
             android:id="@+id/sign_out_btn"
+            style="@style/RedRoundedCornerButton"
             android:layout_width="174dp"
             android:layout_height="51dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="100dp"
-            style="@style/RedRoundedCornerButton"
+            android:layout_marginEnd="136dp"
+            android:layout_marginBottom="70dp"
             android:background="@drawable/btn_red_rounded_corner"
             android:text="@string/sign_out_btn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/PhoneLayout"
-            app:layout_constraintVertical_bias="0.152" />
+            app:layout_constraintVertical_bias="1.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </RelativeLayout>

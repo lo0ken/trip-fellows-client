@@ -8,6 +8,7 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.basgeekball.awesomevalidation.AwesomeValidation
+import com.basgeekball.awesomevalidation.ValidationStyle
+import com.basgeekball.awesomevalidation.utility.RegexTemplate
 import com.tripfellows.authorization.R
 import com.tripfellows.authorization.listeners.AuthRouter
 import com.tripfellows.authorization.request.LoginRequest
@@ -68,17 +72,23 @@ class LoginFragment : Fragment() {
     }
 
     private fun loginButton(fragmentView: View) {
+        val awesomeVal = AwesomeValidation(ValidationStyle.BASIC)
+        awesomeVal.addValidation(activity, R.id.auth_email, Patterns.EMAIL_ADDRESS, R.string.invalide_email)
+        awesomeVal.addValidation(activity, R.id.auth_password, ".{6,}", R.string.invalide_password)
         val loginButton = fragmentView.findViewById<Button>(R.id.login_btn)
-
         loginViewModel.getProgress()
             .observe(viewLifecycleOwner, LoginButtonObserver(loginButton))
 
         loginButton.setOnClickListener {
-            val email = fragmentView.findViewById<TextView>(R.id.auth_email).text.toString()
-            val password = fragmentView.findViewById<TextView>(R.id.auth_password).text.toString()
-
-            val loginRequest = LoginRequest(email, password)
-            loginViewModel.login(loginRequest)
+            if (awesomeVal.validate()) {
+                val email = fragmentView.findViewById<TextView>(R.id.auth_email).text.toString()
+                val password = fragmentView.findViewById<TextView>(R.id.auth_password).text.toString()
+                val loginRequest = LoginRequest(email, password)
+                loginViewModel.login(loginRequest)
+            } else {
+                val toast = Toast.makeText(context, "Validation failed", Toast.LENGTH_SHORT)
+                toast.show()
+            }
         }
     }
 

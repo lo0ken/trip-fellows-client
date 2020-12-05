@@ -1,5 +1,7 @@
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +15,7 @@ import com.tripfellows.authorization.listeners.MainRouter
 import com.tripfellows.authorization.model.Trip
 import com.tripfellows.authorization.triplist.TripListAdapter
 import com.tripfellows.authorization.viewmodel.TripListViewModel
+import kotlinx.android.synthetic.main.trip_list_fragment.*
 import java.util.*
 
 class TripListFragment : Fragment() {
@@ -50,8 +53,16 @@ class TripListFragment : Fragment() {
         tripListViewModel = ViewModelProvider(activity!!, ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)).get(
             TripListViewModel::class.java)
 
-        tripListViewModel.getTrips().observe(viewLifecycleOwner,  TripsObserver())
+        tripListViewModel.getTrips().observe(viewLifecycleOwner, TripsObserver())
 
+        swipeRefresh.setOnRefreshListener {
+            val handler = Handler()
+            handler.postDelayed({
+                tripListViewModel.refresh()
+                swipeRefresh.isRefreshing = false
+            }, 1000)
+        }
+        swipeRefresh.setColorSchemeColors(Color.GRAY)
         recyclerView.adapter = adapter
     }
 

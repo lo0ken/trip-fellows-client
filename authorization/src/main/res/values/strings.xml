@@ -55,4 +55,6 @@
     <string name="create_trip_string">You doesn\'t have current trip now! Join some or create your own!</string>
     <string name="my_trip_string">You already have joined some trip! Go to MyTrip section to see it!</string>
     <string name="back">Back</string>
+    <string name="invalide_email">Please enter valid email</string>
+    <string name="invalide_password">Please enter valid password</string>
 </resources>
