@@ -18,6 +18,7 @@ import com.tripfellows.authorization.model.Trip
 import com.tripfellows.authorization.model.TripMember
 import com.tripfellows.authorization.model.TripStatusCodeEnum
 import com.tripfellows.authorization.states.ActionState
+import com.tripfellows.authorization.states.StateWithError
 import com.tripfellows.authorization.util.DateTimeUtil
 import com.tripfellows.authorization.viewmodel.TripViewViewModel
 
@@ -188,11 +189,17 @@ class TripViewFragment : Fragment() {
         }
     }
 
-    inner class JoinButtonObserver(private val joinBtn: Button) : Observer<ActionState> {
-        override fun onChanged(joinState: ActionState) {
-            when(joinState) {
+    inner class JoinButtonObserver(private val joinBtn: Button) : Observer<StateWithError> {
+        override fun onChanged(joinStateWithError: StateWithError) {
+            when(joinStateWithError.actionState) {
                 ActionState.ERROR -> {
                     Toast.makeText(context, "Error during joining", Toast.LENGTH_SHORT).show()
+                    joinBtn.isVisible = true
+                    joinBtn.isEnabled = true
+                }
+
+                ActionState.FAILED -> {
+                    Toast.makeText(context, joinStateWithError.errorMessage, Toast.LENGTH_SHORT).show()
                     joinBtn.isVisible = true
                     joinBtn.isEnabled = true
                 }

@@ -11,14 +11,19 @@ import com.tripfellows.authorization.network.request.JoinMemberRequest
 import com.tripfellows.authorization.repo.TripRepo
 import com.tripfellows.authorization.states.ActionState
 import com.tripfellows.authorization.states.RequestProgress
+import com.tripfellows.authorization.states.StateWithError
 
 class TripViewViewModel(application: Application) :  AndroidViewModel(application) {
 
     private var tripRepo: TripRepo = TripRepo.getInstance(getApplication())
     private var trip: MutableLiveData<Trip> = tripRepo.getTrip()
-    private val joiningState: MediatorLiveData<ActionState> = MediatorLiveData()
+    private val joiningStateWithError: MediatorLiveData<StateWithError> = MediatorLiveData()
     private val removingState: MediatorLiveData<ActionState> = MediatorLiveData()
 
+    init {
+        val stateWithError = StateWithError(ActionState.IN_PROGRESS, "")
+        joiningStateWithError.postValue(stateWithError)
+    }
 
     fun getTrip(): LiveData<Trip> {
         return trip
@@ -28,8 +33,8 @@ class TripViewViewModel(application: Application) :  AndroidViewModel(applicatio
         tripRepo.refreshTrip(tripId)
     }
 
-    fun getJoiningState(): MediatorLiveData<ActionState> {
-        return joiningState;
+    fun getJoiningState(): MediatorLiveData<StateWithError> {
+        return joiningStateWithError
     }
 
     fun getRemovingState(): MediatorLiveData<ActionState> {
@@ -37,17 +42,16 @@ class TripViewViewModel(application: Application) :  AndroidViewModel(applicatio
     }
 
     fun joinMember(tripId: Int) {
-        joiningState.postValue(ActionState.IN_PROGRESS)
-
+        joiningStateWithError.postValue(StateWithError(ActionState.IN_PROGRESS, ""))
         val progressLiveData = tripRepo.joinMember(JoinMemberRequest(tripId))
 
-        joiningState.addSource(progressLiveData) {
-            if (it == RequestProgress.SUCCESS) {
-                joiningState.postValue(ActionState.SUCCESS)
-                joiningState.removeSource(progressLiveData)
-            } else if (it == RequestProgress.FAILED) {
-                joiningState.postValue(ActionState.FAILED)
-                joiningState.removeSource(progressLiveData)
+        joiningStateWithError.addSource(progressLiveData) {
+            if (it.requestProgress == RequestProgress.SUCCESS) {
+                joiningStateWithError.postValue(StateWithError(ActionState.SUCCESS, ""))
+                joiningStateWithError.removeSource(progressLiveData)
+            } else if (it.requestProgress == RequestProgress.FAILED) {
+                joiningStateWithError.postValue(StateWithError(ActionState.FAILED, it.errorMessage))
+                joiningStateWithError.removeSource(progressLiveData)
             }
         }
 
