@@ -1,9 +1,6 @@
 package com.tripfellows.authorization.states
 
-enum class ActionState {
-    NONE,
-    ERROR,
-    IN_PROGRESS,
-    SUCCESS,
-    FAILED
-}
+data class ActionState (
+    var actionStatus: ActionStatus,
+    var errorMessage: String?
+)

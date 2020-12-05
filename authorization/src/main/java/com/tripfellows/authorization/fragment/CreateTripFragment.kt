@@ -20,7 +20,7 @@ import com.tripfellows.authorization.R
 import com.tripfellows.authorization.listeners.MainRouter
 import com.tripfellows.authorization.model.Address
 import com.tripfellows.authorization.network.request.CreateTripRequest
-import com.tripfellows.authorization.states.ActionState
+import com.tripfellows.authorization.states.ActionStatus
 import com.tripfellows.authorization.util.DateTimeUtil
 import com.tripfellows.authorization.util.TargetAddress
 import com.tripfellows.authorization.viewmodel.CreateTripViewModel
@@ -174,17 +174,17 @@ class CreateTripFragment : Fragment() {
         createTripViewModel.createTrip(newTrip)
     }
 
-    inner class CreateButtonObserver(private val createBtn: Button) : Observer<ActionState> {
+    inner class CreateButtonObserver(private val createBtn: Button) : Observer<ActionStatus> {
 
-        override fun onChanged(createTripState: ActionState) {
-            when (createTripState) {
-                ActionState.NONE -> setButtonEnable(true)
-                ActionState.ERROR -> {
+        override fun onChanged(createTripStatus: ActionStatus) {
+            when (createTripStatus) {
+                ActionStatus.NONE -> setButtonEnable(true)
+                ActionStatus.ERROR -> {
                     Toast.makeText(context, "Error during creating trip", Toast.LENGTH_LONG).show()
                     setButtonEnable(true)
                 }
-                ActionState.IN_PROGRESS -> setButtonEnable(false)
-                ActionState.SUCCESS -> {
+                ActionStatus.IN_PROGRESS -> setButtonEnable(false)
+                ActionStatus.SUCCESS -> {
                     router.tripCreated()
                     Toast.makeText(context, "Successfully created trip!", Toast.LENGTH_LONG).show()
                 }

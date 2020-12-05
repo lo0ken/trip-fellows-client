@@ -10,7 +10,7 @@ import com.google.maps.PendingResult
 import com.google.maps.model.GeocodingResult
 import com.google.maps.model.LatLng
 import com.tripfellows.authorization.ApplicationModified
-import com.tripfellows.authorization.network.response.ResultResponse
+import com.tripfellows.authorization.network.response.APIResponse
 import com.tripfellows.authorization.states.RequestProgress
 
 
@@ -26,31 +26,27 @@ class LocationRepo {
         }
     }
 
-    fun getAddress(latLng: LatLng): LiveData<ResultResponse<GeocodingResult>> {
-        val resultResponse =
-            ResultResponse<GeocodingResult>(
-                RequestProgress.IN_PROGRESS,
-                null,
-                null
-            )
-        val geocodingProgress = MutableLiveData(resultResponse)
+    fun getAddress(latLng: LatLng): LiveData<APIResponse<GeocodingResult>> {
+        val apiResponse = APIResponse<GeocodingResult>(RequestProgress.IN_PROGRESS, null, "")
+        val geocodingProgress = MutableLiveData(apiResponse)
 
         GeocodingApi.reverseGeocode(GeoApiContext.Builder().apiKey(API_KEY).build(), latLng)
             .setCallback(object : PendingResult.Callback<Array<GeocodingResult>> {
                 override fun onFailure(e: Throwable?) {
-                    resultResponse.requestProgress = RequestProgress.FAILED
-                    resultResponse.errorMessage = e?.message
-                    geocodingProgress.postValue(resultResponse)
+                    apiResponse.requestProgress = RequestProgress.FAILED
+                    apiResponse.errorMessage = e?.message.toString()
+                    geocodingProgress.postValue(apiResponse)
                 }
 
                 override fun onResult(result: Array<GeocodingResult>?) {
                     if (result.isNullOrEmpty()) {
-                        resultResponse.requestProgress = RequestProgress.FAILED
-                        resultResponse.errorMessage = "NOT FOUND"
+                        apiResponse.requestProgress = RequestProgress.FAILED
+                        apiResponse.errorMessage = "NOT FOUND"
                     } else {
-                        resultResponse.requestProgress = RequestProgress.SUCCESS
-                        resultResponse.data = result[0]
-                        geocodingProgress.postValue(resultResponse)
+                        apiResponse.requestProgress = RequestProgress.SUCCESS
+                        apiResponse.data = result[0]
+                        apiResponse.errorMessage = ""
+                        geocodingProgress.postValue(apiResponse)
                     }
                 }
             })
