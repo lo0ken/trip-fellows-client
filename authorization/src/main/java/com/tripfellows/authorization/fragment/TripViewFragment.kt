@@ -17,8 +17,8 @@ import com.tripfellows.authorization.R
 import com.tripfellows.authorization.model.Trip
 import com.tripfellows.authorization.model.TripMember
 import com.tripfellows.authorization.model.TripStatusCodeEnum
+import com.tripfellows.authorization.states.ActionStatus
 import com.tripfellows.authorization.states.ActionState
-import com.tripfellows.authorization.states.StateWithError
 import com.tripfellows.authorization.util.DateTimeUtil
 import com.tripfellows.authorization.viewmodel.TripViewViewModel
 
@@ -189,26 +189,26 @@ class TripViewFragment : Fragment() {
         }
     }
 
-    inner class JoinButtonObserver(private val joinBtn: Button) : Observer<StateWithError> {
-        override fun onChanged(joinStateWithError: StateWithError) {
-            when(joinStateWithError.actionState) {
-                ActionState.ERROR -> {
+    inner class JoinButtonObserver(private val joinBtn: Button) : Observer<ActionState> {
+        override fun onChanged(joinActionState: ActionState) {
+            when(joinActionState.actionStatus) {
+                ActionStatus.ERROR -> {
                     Toast.makeText(context, "Error during joining", Toast.LENGTH_SHORT).show()
                     joinBtn.isVisible = true
                     joinBtn.isEnabled = true
                 }
 
-                ActionState.FAILED -> {
-                    Toast.makeText(context, joinStateWithError.errorMessage, Toast.LENGTH_SHORT).show()
+                ActionStatus.FAILED -> {
+                    Toast.makeText(context, joinActionState.errorMessage, Toast.LENGTH_SHORT).show()
                     joinBtn.isVisible = true
                     joinBtn.isEnabled = true
                 }
 
-                ActionState.IN_PROGRESS -> {
+                ActionStatus.IN_PROGRESS -> {
                     joinBtn.isEnabled = false
                 }
 
-                ActionState.SUCCESS -> {
+                ActionStatus.SUCCESS -> {
                     Toast.makeText(context, "Success joining", Toast.LENGTH_SHORT).show()
                     joinBtn.isEnabled = true
                 }
@@ -217,20 +217,20 @@ class TripViewFragment : Fragment() {
 
     }
 
-    inner class GetOutButtonObserver(private val getOutBtn: Button) : Observer<ActionState> {
-        override fun onChanged(removingState: ActionState) {
-            when(removingState) {
-                ActionState.ERROR -> {
+    inner class GetOutButtonObserver(private val getOutBtn: Button) : Observer<ActionStatus> {
+        override fun onChanged(removingStatus: ActionStatus) {
+            when(removingStatus) {
+                ActionStatus.ERROR -> {
                     Toast.makeText(context, "Error during get out", Toast.LENGTH_SHORT).show()
                     getOutBtn.isVisible = true
                     getOutBtn.isEnabled = true
                 }
 
-                ActionState.IN_PROGRESS -> {
+                ActionStatus.IN_PROGRESS -> {
                     getOutBtn.isEnabled = false
                 }
 
-                ActionState.SUCCESS -> {
+                ActionStatus.SUCCESS -> {
                     Toast.makeText(context, "Success get out", Toast.LENGTH_SHORT).show()
                     getOutBtn.isEnabled = true
                 }
