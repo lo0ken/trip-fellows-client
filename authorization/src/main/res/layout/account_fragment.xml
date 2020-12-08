@@ -7,11 +7,17 @@
     android:id="@+id/account_fragment"
     android:background="@color/colorLightGray">
 
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="-3dp">
+        android:layout_alignParentStart="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/PhoneLayout"
@@ -148,15 +154,17 @@
         <Button
             android:id="@+id/sign_out_btn"
             style="@style/RedRoundedCornerButton"
-            android:layout_width="174dp"
-            android:layout_height="51dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="136dp"
-            android:layout_marginBottom="70dp"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120dp"
+            android:layout_marginRight="120dp"
+            android:layout_marginBottom="80dp"
             android:background="@drawable/btn_red_rounded_corner"
             android:text="@string/sign_out_btn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.016"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/PhoneLayout"
             app:layout_constraintVertical_bias="1.0" />
 

@@ -57,4 +57,8 @@
     <string name="back">Back</string>
     <string name="invalide_email">Please enter valid email</string>
     <string name="invalide_password">Please enter valid password</string>
+    <string name="invalide_name">Please enter valid name</string>
+    <string name="invalide_number_phone">Please enter valid mobile number</string>
+    <string name="invalide_field">Please fill in this field</string>
+    <string name="invalide_field_num">Choose the number of seats from 1 to 5</string>
 </resources>

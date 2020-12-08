@@ -5,6 +5,7 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.basgeekball.awesomevalidation.AwesomeValidation
+import com.basgeekball.awesomevalidation.ValidationStyle
+import com.basgeekball.awesomevalidation.utility.RegexTemplate
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tripfellows.authorization.R
 import com.tripfellows.authorization.listeners.MainRouter
@@ -148,10 +152,17 @@ class CreateTripFragment : Fragment() {
         createTripViewModel.getProgress()
             .observe(viewLifecycleOwner, CreateButtonObserver(createButton))
 
-        createButton.setOnClickListener { createButtonPressed(view) }
+        createButton.setOnClickListener { createButtonPressed(view)
+        }
     }
 
-    private fun createButtonPressed(view: View) {
+    private fun createButtonPressed(view: View) {val awesomeVal = AwesomeValidation(ValidationStyle.BASIC)
+        awesomeVal.addValidation(activity, R.id.places, "^[1-5]$", R.string.invalide_field_num)
+        awesomeVal.addValidation(activity, R.id.price, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
+        awesomeVal.addValidation(activity, R.id.departure_address, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
+        awesomeVal.addValidation(activity, R.id.destination_address, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
+        awesomeVal.addValidation(activity, R.id.start_time, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
+        if (awesomeVal.validate()) {
         val places = view.findViewById<EditText>(R.id.places).text.toString()
         val startTimeString = view.findViewById<TextView>(R.id.start_time).text.toString()
         val price = view.findViewById<EditText>(R.id.price).text.toString()
@@ -172,7 +183,9 @@ class CreateTripFragment : Fragment() {
         )
 
         createTripViewModel.createTrip(newTrip)
-    }
+    }else {
+        val toast = Toast.makeText(context, "Validation failed", Toast.LENGTH_SHORT)
+        toast.show()}}
 
     inner class CreateButtonObserver(private val createBtn: Button) : Observer<ActionStatus> {
 

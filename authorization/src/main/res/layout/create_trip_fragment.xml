@@ -47,18 +47,20 @@
     <Button
         android:id="@+id/create_button"
         style="@style/RoundedCornerButton"
-        android:layout_width="174dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="136dp"
-        android:layout_marginBottom="70dp"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginRight="120dp"
+        android:layout_marginBottom="80dp"
         android:background="@drawable/btn_green"
         android:text="@string/create_button"
         android:textColor="@color/colorLight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/comment"
-        app:layout_constraintVertical_bias="1.0"/>
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/departure_address"
