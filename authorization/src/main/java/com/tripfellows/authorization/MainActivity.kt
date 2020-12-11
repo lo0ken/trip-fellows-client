@@ -7,7 +7,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -15,8 +14,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.github.ybq.android.spinkit.sprite.Sprite
-import com.github.ybq.android.spinkit.style.Pulse
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
 import com.google.firebase.auth.FirebaseAuth
@@ -79,7 +76,7 @@ class MainActivity : AppCompatActivity(), MainRouter {
        val userUid = FirebaseAuth.getInstance().currentUser?.uid
 
         supportFragmentManager.beginTransaction()
-            //.addSharedElement(sharedElement, transitionName)
+            .setCustomAnimations(R.anim.enter_anim,R.anim.exit_anim)
             .replace(R.id.main_fragment_container, TripViewFragment.newInstance(tripId, userUid == creatorUid))
             .addToBackStack("Fragment close")
             .commit()

@@ -53,7 +53,7 @@
 
     <style name="backgroundTripView" parent="TripButtonStyle">
         <item name="android:minHeight">45dp</item>
-        <item name="android:maxHeight">45dp</item>
+        <item name="android:maxHeight">100dp</item>
         <item name="android:background">@drawable/layout_bg</item>
     </style>
 

@@ -5,7 +5,6 @@ import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -156,7 +155,8 @@ class CreateTripFragment : Fragment() {
         }
     }
 
-    private fun createButtonPressed(view: View) {val awesomeVal = AwesomeValidation(ValidationStyle.BASIC)
+    private fun createButtonPressed(view: View) {
+        val awesomeVal = AwesomeValidation(ValidationStyle.BASIC)
         awesomeVal.addValidation(activity, R.id.places, "^[1-5]$", R.string.invalide_field_num)
         awesomeVal.addValidation(activity, R.id.price, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
         awesomeVal.addValidation(activity, R.id.departure_address, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
@@ -167,7 +167,6 @@ class CreateTripFragment : Fragment() {
         val startTimeString = view.findViewById<TextView>(R.id.start_time).text.toString()
         val price = view.findViewById<EditText>(R.id.price).text.toString()
         val comment = view.findViewById<EditText>(R.id.comment).text.toString()
-
         val tripDateTime = DateTimeUtil.makeServerCurrentDayWithTime(startTimeString)
 
         departureAddress.address = view.findViewById<EditText>(R.id.departure_address).text.toString()

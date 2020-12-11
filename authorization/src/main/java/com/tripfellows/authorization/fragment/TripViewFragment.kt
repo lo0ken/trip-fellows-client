@@ -46,6 +46,10 @@ class TripViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        /*swipeRefresh.setOnRefreshListener {
+            swipeRefresh.isRefreshing = false
+        }
+        swipeRefresh.setColorSchemeColors(Color.GRAY)*/
 
         viewModel = ViewModelProvider(activity!!, ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)).get(
             TripViewViewModel::class.java)
