@@ -162,6 +162,7 @@ class CreateTripFragment : Fragment() {
         awesomeVal.addValidation(activity, R.id.departure_address, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
         awesomeVal.addValidation(activity, R.id.destination_address, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
         awesomeVal.addValidation(activity, R.id.start_time, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
+
         if (awesomeVal.validate()) {
         val places = view.findViewById<EditText>(R.id.places).text.toString()
         val startTimeString = view.findViewById<TextView>(R.id.start_time).text.toString()
@@ -182,7 +183,7 @@ class CreateTripFragment : Fragment() {
         )
 
         createTripViewModel.createTrip(newTrip)
-    }else {
+    } else {
         val toast = Toast.makeText(context, "Validation failed", Toast.LENGTH_SHORT)
         toast.show()}}
 
