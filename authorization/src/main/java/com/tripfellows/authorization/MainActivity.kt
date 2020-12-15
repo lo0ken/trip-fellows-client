@@ -5,8 +5,11 @@ import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -43,15 +46,40 @@ class MainActivity : AppCompatActivity(), MainRouter {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        val appLinkIntent: Intent = intent
+        val appLinkData: Uri? = appLinkIntent.data
+
+        if (appLinkData != null) {
+            openAppLink(appLinkData)
+            return
+        }
+
         if (savedInstanceState == null) {
             toolbar.title = getString(R.string.toolbar_search)
             loadFragment(TripListFragment())
         }
     }
 
+    private fun openAppLink(appLinkData: Uri) {
+        val tripId: String? = appLinkData.lastPathSegment
+        if (FirebaseAuth.getInstance().currentUser == null) {
+            this.finish()
+        }
+
+        if (tripId != null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fragment_container,
+                    TripViewFragment.newInstance(tripId.toInt(), false))
+                .addToBackStack("Fragment close")
+                .commit()
+        }
+    }
+
     private fun askForPermission(permission: String, requestCode: Int) {
         if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this@MainActivity, permission)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this@MainActivity,
+                    permission)
+            ) {
                 Toast.makeText(this,
                     "Please grant the requested permission to get your task done!",
                     Toast.LENGTH_LONG).show()
@@ -72,11 +100,12 @@ class MainActivity : AppCompatActivity(), MainRouter {
             .commit()
     }
 
-   override fun showTrip(tripId: Int, creatorUid: String) {
-       val userUid = FirebaseAuth.getInstance().currentUser?.uid
+    override fun showTrip(tripId: Int, creatorUid: String) {
+        val userUid = FirebaseAuth.getInstance().currentUser?.uid
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_fragment_container, TripViewFragment.newInstance(tripId, userUid == creatorUid))
+            .replace(R.id.main_fragment_container,
+                TripViewFragment.newInstance(tripId, userUid == creatorUid))
             .addToBackStack("Fragment close")
             .commit()
     }
@@ -88,6 +117,17 @@ class MainActivity : AppCompatActivity(), MainRouter {
     override fun signOut() {
         FirebaseAuth.getInstance().signOut()
         startActivity(Intent(this, AuthorizationActivity::class.java))
+    }
+
+    override fun showShareButton(): Button {
+        val shareButton: Button = findViewById(R.id.share_button)
+        shareButton.visibility = View.VISIBLE
+        return shareButton
+    }
+
+    override fun hideShareButton() {
+        val shareButton: Button = findViewById(R.id.share_button)
+        shareButton.visibility = View.GONE
     }
 
     private fun getOnNavigationItemSelectedListener(): OnNavigationItemSelectedListener {

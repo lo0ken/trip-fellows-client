@@ -22,13 +22,26 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="http"
+                    android:host="10.0.2.2"
+                    android:port="8080"
+                    android:pathPrefix="/api/trip/" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCJVA5RXMl1LVQsOGs6hef7ca6vZIMFWC8">
-        </meta-data>
+            android:value="AIzaSyCJVA5RXMl1LVQsOGs6hef7ca6vZIMFWC8"></meta-data>
     </application>
 
 </manifest>

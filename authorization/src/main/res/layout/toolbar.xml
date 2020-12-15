@@ -5,4 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorOrange"
     app:titleTextColor="@color/colorLight">
+
+    <Button
+        android:id="@+id/share_button"
+        style="@style/ShareButtonStyle"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:layout_gravity="end"
+        android:visibility="gone"
+        />
 </androidx.appcompat.widget.Toolbar>

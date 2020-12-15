@@ -42,7 +42,6 @@ class CreateTripFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         router = context as MainRouter
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
