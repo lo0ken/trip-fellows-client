@@ -14,7 +14,7 @@
         android:layout_alignParentStart="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/PhoneLayout"
+            android:id="@+id/phoneLayout"
             android:layout_width="match_parent"
             android:layout_height="85dp"
             android:layout_marginTop="4dp"
@@ -25,7 +25,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/LayoutMailName"
+            app:layout_constraintTop_toBottomOf="@+id/layoutMailName"
             app:layout_constraintVertical_bias="0.0">
 
             <TextView
@@ -50,11 +50,10 @@
                 app:layout_constraintStart_toEndOf="@+id/accountPhoneKey"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="+78481221464" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/LayoutUserName"
+            android:id="@+id/layoutUserName"
             android:layout_width="match_parent"
             android:layout_height="85dp"
             android:layout_marginTop="68dp"
@@ -94,7 +93,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/LayoutMailName"
+            android:id="@+id/layoutMailName"
             android:layout_width="match_parent"
             android:layout_height="85dp"
             android:layout_marginTop="4dp"
@@ -104,7 +103,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/LayoutUserName">
+            app:layout_constraintTop_toBottomOf="@+id/layoutUserName">
 
             <TextView
                 android:id="@+id/accountMailKey"
@@ -130,7 +129,6 @@
                 app:layout_constraintStart_toEndOf="@+id/accountMailKey"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="mail@mail.ru" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -160,7 +158,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.016"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/PhoneLayout"
+            app:layout_constraintTop_toBottomOf="@+id/phoneLayout"
             app:layout_constraintVertical_bias="1.0" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -172,9 +170,8 @@
             android:clickable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/PhoneLayout"
+            app:layout_constraintTop_toBottomOf="@+id/phoneLayout"
             app:layout_constraintVertical_bias="0.086"
             app:srcCompat="@drawable/ic_baseline_bedtime_24" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>
