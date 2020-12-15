@@ -43,26 +43,29 @@
                 android:id="@+id/tripDepartureKey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:fontFamily="sans-serif-black"
                 android:gravity="left"
                 android:text="@string/tripDepartureKey"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/tripDepartureVal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.01"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/tripDepartureVal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
                 android:gravity="left"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.021"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0"
@@ -84,11 +87,13 @@
                 android:id="@+id/tripDestinationVal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
                 android:gravity="left"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.036"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="1.0"
@@ -109,19 +114,20 @@
                 android:id="@+id/tripDestinationKey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:fontFamily="sans-serif-black"
                 android:gravity="left"
                 android:text="@string/tripDestinationKey"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toTopOf="@+id/tripDestinationVal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.017"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.066" />
+                app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             style="@style/backgroundTripView"
@@ -135,6 +141,7 @@
                 android:id="@+id/tripStartTimeKey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:fontFamily="sans-serif-black"
                 android:text="@string/tripStartTimeKey"
                 android:textSize="20sp"
@@ -145,13 +152,18 @@
                 android:id="@+id/tripStartTimeVal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
                 android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tripStartTimeKey"
                 tools:text="14:25 29-11-2020" />
-        </LinearLayout>
 
-        <LinearLayout
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
             style="@style/backgroundTripView"
@@ -164,8 +176,9 @@
             <TextView
                 android:id="@+id/tripPlacesKey"
                 android:layout_width="wrap_content"
-                android:fontFamily="sans-serif-black"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="sans-serif-black"
                 android:text="@string/tripPlacesKey"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -175,13 +188,15 @@
                 android:id="@+id/tripPlacesVal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tripPlacesKey"
                 tools:text="3/4" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
             style="@style/backgroundTripView"
@@ -195,8 +210,9 @@
                 android:id="@+id/tripPriceKey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/tripPriceKey"
+                android:layout_marginStart="4dp"
                 android:fontFamily="sans-serif-black"
+                android:text="@string/tripPriceKey"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -205,13 +221,15 @@
                 android:id="@+id/tripPriceVal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tripPriceKey"
                 tools:text="500p" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout6"
             android:layout_width="match_parent"
             style="@style/backgroundTripView"
@@ -226,9 +244,10 @@
                 android:id="@+id/tripDriverKey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="sans-serif-black"
                 android:text="@string/tripDriverKey"
                 android:textSize="20sp"
-                android:fontFamily="sans-serif-black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -236,13 +255,15 @@
                 android:id="@+id/tripDriverVal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tripDriverKey"
                 tools:text="DriverName" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout7"
             android:layout_width="match_parent"
             android:layout_marginTop="5dp"
@@ -258,9 +279,10 @@
                 android:id="@+id/tripStatusKey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="sans-serif-black"
                 android:text="@string/tripStatusKey"
                 android:textSize="20sp"
-                android:fontFamily="sans-serif-black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -268,13 +290,15 @@
                 android:id="@+id/tripStatusVal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tripStatusKey"
                 tools:text="Waiting" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout8"
             style="@style/backgroundTripView"
             android:layout_width="match_parent"
@@ -290,6 +314,8 @@
                 android:id="@+id/tripCommentKey"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="sans-serif-black"
                 android:text="Comment:"
                 android:textSize="20sp"
@@ -300,17 +326,19 @@
                 android:id="@+id/tripCommentVal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tripCommentKey"
                 tools:text="Good trip" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ListView
             android:id="@+id/tripPassengersList"
             android:layout_width="match_parent"
             android:layout_height="325dp"
-            android:layout_marginTop="132dp"
+            android:layout_marginTop="138dp"
             android:layout_marginBottom="55dp"
             android:background="@drawable/layout_bg"
             android:maxHeight="50dp"
@@ -320,9 +348,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
             app:layout_constraintVertical_bias="0.0"
-            tools:listheader="asdasd">
-
-        </ListView>
+            tools:listheader="asdasd"></ListView>
 
         <Button
             android:id="@+id/join_btn"
@@ -365,5 +391,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tripPassengersList"
             app:layout_constraintVertical_bias="1.0" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
