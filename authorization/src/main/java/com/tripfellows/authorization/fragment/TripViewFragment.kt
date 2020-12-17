@@ -1,6 +1,7 @@
 package com.tripfellows.authorization.fragment
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,10 +18,11 @@ import com.tripfellows.authorization.R
 import com.tripfellows.authorization.model.Trip
 import com.tripfellows.authorization.model.TripMember
 import com.tripfellows.authorization.model.TripStatusCodeEnum
-import com.tripfellows.authorization.states.ActionStatus
 import com.tripfellows.authorization.states.ActionState
+import com.tripfellows.authorization.states.ActionStatus
 import com.tripfellows.authorization.util.DateTimeUtil
 import com.tripfellows.authorization.viewmodel.TripViewViewModel
+import kotlinx.android.synthetic.main.trip_view_fragment.*
 
 class TripViewFragment : Fragment() {
 
@@ -59,6 +61,11 @@ class TripViewFragment : Fragment() {
             viewModel.refresh(arguments!!.getInt(TRIP_ID_KEY))
         }
 
+        swipeRefreshView.setOnRefreshListener {
+            viewModel.refresh(arguments!!.getInt(TRIP_ID_KEY))
+            swipeRefreshView.isRefreshing = false
+        }
+        swipeRefreshView.setColorSchemeColors(Color.GRAY)
         viewModel.getJoiningState().observe(viewLifecycleOwner, JoinButtonObserver(joinTripButton))
         viewModel.getRemovingState().observe(viewLifecycleOwner, GetOutButtonObserver(getOutBtn))
 
@@ -79,7 +86,7 @@ class TripViewFragment : Fragment() {
         showBottomMenu()
     }
 
-    private fun showMap(location : LatLng) {
+    private fun showMap(location: LatLng) {
         val mapFragment = DisabledMapFragment.newInstance(location)
         mapFragment.setTargetFragment(this, 100)
         fragmentManager?.beginTransaction()
