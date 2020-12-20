@@ -7,7 +7,6 @@
     tools:context="com.tripfellows.authorization.MainActivity"
     android:orientation="vertical">
 
-
     <TextView
         android:id="@+id/my_trip_text"
         android:layout_width="wrap_content"

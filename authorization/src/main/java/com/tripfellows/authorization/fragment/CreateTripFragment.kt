@@ -151,8 +151,7 @@ class CreateTripFragment : Fragment() {
         createTripViewModel.getProgress()
             .observe(viewLifecycleOwner, CreateButtonObserver(createButton))
 
-        createButton.setOnClickListener { createButtonPressed(view)
-        }
+        createButton.setOnClickListener { createButtonPressed(view) }
     }
 
     private fun createButtonPressed(view: View) {
@@ -163,29 +162,32 @@ class CreateTripFragment : Fragment() {
         awesomeVal.addValidation(activity, R.id.destination_address, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
         awesomeVal.addValidation(activity, R.id.start_time, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
 
-        if (awesomeVal.validate()) {
+        if (!awesomeVal.validate()) {
+            val toast = Toast.makeText(context, "Validation failed", Toast.LENGTH_SHORT)
+            toast.show()
+            return
+        }
+
         val places = view.findViewById<EditText>(R.id.places).text.toString()
         val startTimeString = view.findViewById<TextView>(R.id.start_time).text.toString()
         val price = view.findViewById<EditText>(R.id.price).text.toString()
         val comment = view.findViewById<EditText>(R.id.comment).text.toString()
+
         val tripDateTime = DateTimeUtil.makeServerCurrentDayWithTime(startTimeString)
 
         departureAddress.address = view.findViewById<EditText>(R.id.departure_address).text.toString()
         destinationAddress.address = view.findViewById<EditText>(R.id.destination_address).text.toString()
-
         val newTrip = CreateTripRequest(
-                this.departureAddress,
-                this.destinationAddress,
-                Integer.parseInt(places),
-                tripDateTime,
-                Integer.parseInt(price),
-                comment
+            this.departureAddress,
+            this.destinationAddress,
+            Integer.parseInt(places),
+            tripDateTime,
+            Integer.parseInt(price),
+            comment
         )
 
-        createTripViewModel.createTrip(newTrip)
-    } else {
-        val toast = Toast.makeText(context, "Validation failed", Toast.LENGTH_SHORT)
-        toast.show()}}
+        createTripViewModel.createTrip(newTrip)}
+
 
     inner class CreateButtonObserver(private val createBtn: Button) : Observer<ActionStatus> {
 

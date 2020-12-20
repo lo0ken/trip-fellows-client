@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@color/colorDark"
     tools:context=".fragment.TripListFragment">
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="fill_parent"
