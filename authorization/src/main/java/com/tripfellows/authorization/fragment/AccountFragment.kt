@@ -1,15 +1,21 @@
 package com.tripfellows.authorization.fragment
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.tripfellows.authorization.R
 import com.tripfellows.authorization.listeners.MainRouter
@@ -22,6 +28,8 @@ class AccountFragment : Fragment() {
 
     private lateinit var viewModel: AccountViewModel
     private lateinit var router: MainRouter
+    private val nightModeKey = "NightMode"
+    private val appSettingPref = "AppSettingPrefs"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -40,7 +48,21 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val btnToggleDark = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
+        val appSettingPrefs: SharedPreferences = activity!!.getSharedPreferences(appSettingPref, MODE_PRIVATE)
+        val sharedPrefsEdit: SharedPreferences.Editor = appSettingPrefs.edit()
+        val isNightModeOn: Boolean = appSettingPrefs.getBoolean(nightModeKey, false)
 
+        turnNightMode(
+            if (isNightModeOn) MODE_NIGHT_YES else MODE_NIGHT_NO
+        )
+
+        btnToggleDark.setOnClickListener {
+            val newNightModeState = if (isNightModeOn) MODE_NIGHT_NO else MODE_NIGHT_YES
+            turnNightMode(newNightModeState)
+            sharedPrefsEdit.putBoolean(nightModeKey, !isNightModeOn)
+            sharedPrefsEdit.apply()
+        }
         viewModel = ViewModelProvider(activity!!, ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)).get(
             AccountViewModel::class.java)
 
@@ -55,6 +77,10 @@ class AccountFragment : Fragment() {
                 }
             })
         }
+    }
+
+    private fun turnNightMode(nightMode: Int) {
+        AppCompatDelegate.setDefaultNightMode(nightMode)
     }
 
     inner class AccountObserver : Observer<Account> {

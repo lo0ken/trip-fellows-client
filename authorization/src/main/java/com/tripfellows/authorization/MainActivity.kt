@@ -117,6 +117,7 @@ class MainActivity : AppCompatActivity(), MainRouter {
         val userUid = FirebaseAuth.getInstance().currentUser?.uid
 
         supportFragmentManager.beginTransaction()
+            .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
             .replace(R.id.main_fragment_container,
                 TripViewFragment.newInstance(tripId, userUid == creatorUid))
             .addToBackStack("Fragment close")

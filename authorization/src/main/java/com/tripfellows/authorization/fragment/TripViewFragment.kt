@@ -2,6 +2,7 @@ package com.tripfellows.authorization.fragment
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,7 @@ import com.tripfellows.authorization.util.DateTimeUtil
 import com.tripfellows.authorization.util.UtilConstants.getServerURL
 import com.tripfellows.authorization.util.UtilConstants.getTripPath
 import com.tripfellows.authorization.viewmodel.TripViewViewModel
+import kotlinx.android.synthetic.main.trip_view_fragment.*
 
 class TripViewFragment : Fragment() {
 
@@ -76,6 +78,11 @@ class TripViewFragment : Fragment() {
             viewModel.refresh(arguments!!.getInt(TRIP_ID_KEY))
         }
 
+        swipeRefreshView.setOnRefreshListener {
+            viewModel.refresh(arguments!!.getInt(TRIP_ID_KEY))
+            swipeRefreshView.isRefreshing = false
+        }
+        swipeRefreshView.setColorSchemeColors(Color.GRAY)
         viewModel.getJoiningState().observe(viewLifecycleOwner, JoinButtonObserver(joinTripButton))
         viewModel.getRemovingState().observe(viewLifecycleOwner, GetOutButtonObserver(getOutBtn))
 
@@ -93,7 +100,6 @@ class TripViewFragment : Fragment() {
                 TripStatusCodeEnum.STARTED -> viewModel.changeStatus(currentTrip.id, TripStatusCodeEnum.FINISHED)
             }
         }
-
         showBottomMenu()
     }
 

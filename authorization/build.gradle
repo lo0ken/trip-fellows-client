@@ -60,5 +60,6 @@ dependencies {
         force = true
     }
     implementation'com.basgeekball:awesome-validation:4.2'
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.12'
 }

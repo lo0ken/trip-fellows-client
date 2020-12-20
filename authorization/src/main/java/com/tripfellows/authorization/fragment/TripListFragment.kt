@@ -47,6 +47,7 @@ class TripListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(view.context)
 
@@ -56,11 +57,8 @@ class TripListFragment : Fragment() {
         tripListViewModel.getTrips().observe(viewLifecycleOwner, TripsObserver())
 
         swipeRefresh.setOnRefreshListener {
-            val handler = Handler()
-            handler.postDelayed({
                 tripListViewModel.refresh()
                 swipeRefresh.isRefreshing = false
-            }, 1000)
         }
         swipeRefresh.setColorSchemeColors(Color.GRAY)
         recyclerView.adapter = adapter

@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         app:menu="@menu/bottom_navigation_menu"
         tools:ignore="MissingConstraints"
-        android:background="@color/colorOrange"
+        android:background="@color/alpa_logo_background"
         android:layout_gravity="bottom"
         app:labelVisibilityMode="unlabeled"/>
 

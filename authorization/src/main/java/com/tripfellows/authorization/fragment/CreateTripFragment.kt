@@ -15,6 +15,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.basgeekball.awesomevalidation.AwesomeValidation
+import com.basgeekball.awesomevalidation.ValidationStyle
+import com.basgeekball.awesomevalidation.utility.RegexTemplate
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tripfellows.authorization.R
 import com.tripfellows.authorization.listeners.MainRouter
@@ -23,6 +26,7 @@ import com.tripfellows.authorization.network.request.CreateTripRequest
 import com.tripfellows.authorization.states.ActionStatus
 import com.tripfellows.authorization.util.DateTimeUtil
 import com.tripfellows.authorization.util.TargetAddress
+import com.tripfellows.authorization.util.ValidationPatterns
 import com.tripfellows.authorization.viewmodel.CreateTripViewModel
 import com.tripfellows.authorization.viewmodel.LocationViewModel
 import java.util.*
@@ -151,6 +155,19 @@ class CreateTripFragment : Fragment() {
     }
 
     private fun createButtonPressed(view: View) {
+        val awesomeVal = AwesomeValidation(ValidationStyle.BASIC)
+        awesomeVal.addValidation(activity, R.id.places, ValidationPatterns.SEATS_NUMBER, R.string.invalide_field_num)
+        awesomeVal.addValidation(activity, R.id.price, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
+        awesomeVal.addValidation(activity, R.id.departure_address, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
+        awesomeVal.addValidation(activity, R.id.destination_address, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
+        awesomeVal.addValidation(activity, R.id.start_time, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
+
+        if (!awesomeVal.validate()) {
+            val toast = Toast.makeText(context, "Validation failed", Toast.LENGTH_SHORT)
+            toast.show()
+            return
+        }
+
         val places = view.findViewById<EditText>(R.id.places).text.toString()
         val startTimeString = view.findViewById<TextView>(R.id.start_time).text.toString()
         val price = view.findViewById<EditText>(R.id.price).text.toString()
@@ -160,14 +177,13 @@ class CreateTripFragment : Fragment() {
 
         departureAddress.address = view.findViewById<EditText>(R.id.departure_address).text.toString()
         destinationAddress.address = view.findViewById<EditText>(R.id.destination_address).text.toString()
-
         val newTrip = CreateTripRequest(
-                this.departureAddress,
-                this.destinationAddress,
-                Integer.parseInt(places),
-                tripDateTime,
-                Integer.parseInt(price),
-                comment
+            this.departureAddress,
+            this.destinationAddress,
+            Integer.parseInt(places),
+            tripDateTime,
+            Integer.parseInt(price),
+            comment
         )
 
         createTripViewModel.createTrip(newTrip)
