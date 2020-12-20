@@ -6,6 +6,18 @@ object UtilConstants {
     }
 
     fun getTripPath(): String {
-        return "trip/"
+        return "trip/?"
+    }
+
+    fun getIdPath(): String {
+        return "id="
+    }
+
+    fun getAndPathPart(): String {
+        return "&"
+    }
+
+    fun getTripCreatorUidPath(): String {
+        return "creatorUid="
     }
 }
