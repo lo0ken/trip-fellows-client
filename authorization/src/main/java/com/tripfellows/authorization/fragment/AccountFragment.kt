@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.tripfellows.authorization.R
 import com.tripfellows.authorization.listeners.MainRouter
 import com.tripfellows.authorization.model.Account
+import com.tripfellows.authorization.repo.FcmTokenRepo
+import com.tripfellows.authorization.states.RequestProgress
 import com.tripfellows.authorization.viewmodel.AccountViewModel
 
 class AccountFragment : Fragment() {
@@ -67,7 +69,13 @@ class AccountFragment : Fragment() {
         viewModel.getAccount().observe(viewLifecycleOwner, AccountObserver())
 
         view.findViewById<Button>(R.id.sign_out_btn).setOnClickListener {
-            router.signOut()
+            FcmTokenRepo.getInstance(context!!).deleteFcmToken().observe(viewLifecycleOwner, object: Observer<RequestProgress> {
+                override fun onChanged(progress: RequestProgress) {
+                    if (RequestProgress.SUCCESS == progress) {
+                        router.signOut()
+                    }
+                }
+            })
         }
     }
 

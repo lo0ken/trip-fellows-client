@@ -5,8 +5,11 @@ import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -17,8 +20,11 @@ import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
 import com.tripfellows.authorization.fragment.*
 import com.tripfellows.authorization.listeners.MainRouter
+import com.tripfellows.authorization.network.request.UpdateFcmTokenRequest
+import com.tripfellows.authorization.repo.FcmTokenRepo
 import com.tripfellows.authorization.repo.TripRepo
 
 
@@ -43,9 +49,34 @@ class MainActivity : AppCompatActivity(), MainRouter {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        initializeFcmMessaging()
+
+        val appLinkIntent: Intent = intent
+        val appLinkData: Uri? = appLinkIntent.data
+
+        if (appLinkData != null) {
+            openAppLink(appLinkData)
+            return
+        }
+
         if (savedInstanceState == null) {
             toolbar.title = getString(R.string.toolbar_search)
             loadFragment(TripListFragment())
+        }
+    }
+
+    private fun openAppLink(appLinkData: Uri) {
+        val tripId: String? = appLinkData.lastPathSegment
+        if (FirebaseAuth.getInstance().currentUser == null) {
+            this.finish()
+        }
+
+        if (tripId != null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fragment_container,
+                    TripViewFragment.newInstance(tripId.toInt(), false))
+                .addToBackStack("Fragment close")
+                .commit()
         }
     }
 
@@ -66,18 +97,29 @@ class MainActivity : AppCompatActivity(), MainRouter {
         }
     }
 
+    private fun initializeFcmMessaging() {
+        FirebaseMessaging.getInstance().isAutoInitEnabled = true
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            if (it.isSuccessful && it.result != null) {
+                FcmTokenRepo.getInstance(this).updateFcmToken(UpdateFcmTokenRequest(it.result))
+            }
+        }
+    }
+
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_fragment_container, fragment)
             .commit()
     }
 
-   override fun showTrip(tripId: Int, creatorUid: String) {
-       val userUid = FirebaseAuth.getInstance().currentUser?.uid
+    override fun showTrip(tripId: Int, creatorUid: String) {
+        val userUid = FirebaseAuth.getInstance().currentUser?.uid
 
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(R.anim.enter_anim, R.anim.exit_anim)
-            .replace(R.id.main_fragment_container, TripViewFragment.newInstance(tripId, userUid == creatorUid))
+            .replace(R.id.main_fragment_container,
+                TripViewFragment.newInstance(tripId, userUid == creatorUid))
             .addToBackStack("Fragment close")
             .commit()
     }
@@ -89,6 +131,17 @@ class MainActivity : AppCompatActivity(), MainRouter {
     override fun signOut() {
         FirebaseAuth.getInstance().signOut()
         startActivity(Intent(this, AuthorizationActivity::class.java))
+    }
+
+    override fun showShareButton(): Button {
+        val shareButton: Button = findViewById(R.id.share_button)
+        shareButton.visibility = View.VISIBLE
+        return shareButton
+    }
+
+    override fun hideShareButton() {
+        val shareButton: Button = findViewById(R.id.share_button)
+        shareButton.visibility = View.GONE
     }
 
     private fun getOnNavigationItemSelectedListener(): OnNavigationItemSelectedListener {

@@ -1,5 +1,6 @@
 package com.tripfellows.authorization.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -15,19 +16,24 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.tripfellows.authorization.R
+import com.tripfellows.authorization.listeners.MainRouter
 import com.tripfellows.authorization.model.Trip
 import com.tripfellows.authorization.model.TripMember
 import com.tripfellows.authorization.model.TripStatusCodeEnum
 import com.tripfellows.authorization.states.ActionState
 import com.tripfellows.authorization.states.ActionStatus
 import com.tripfellows.authorization.util.DateTimeUtil
+import com.tripfellows.authorization.util.UtilConstants.getServerURL
+import com.tripfellows.authorization.util.UtilConstants.getTripPath
 import com.tripfellows.authorization.viewmodel.TripViewViewModel
 import kotlinx.android.synthetic.main.trip_view_fragment.*
 
 class TripViewFragment : Fragment() {
 
     private lateinit var viewModel: TripViewViewModel
+    private lateinit var router: MainRouter
     private lateinit var currentTrip: Trip
+    private lateinit var shareButton: Button
 
     companion object {
         private const val TRIP_ID_KEY = "tripId"
@@ -42,12 +48,22 @@ class TripViewFragment : Fragment() {
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        router = context as MainRouter
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.trip_view_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        shareButton = router.showShareButton()
+        shareButton.setOnClickListener {
+            shareTrip()
+        }
 
         viewModel = ViewModelProvider(activity!!, ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)).get(
             TripViewViewModel::class.java)
@@ -87,7 +103,17 @@ class TripViewFragment : Fragment() {
         showBottomMenu()
     }
 
-    private fun showMap(location: LatLng) {
+    private fun shareTrip() {
+        val sharingIntent = Intent(Intent.ACTION_SEND)
+        sharingIntent.type = "text/plain"
+        val shareBody = "Trip Link : " + getServerURL() + getTripPath() + currentTrip.id
+
+        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Trip link")
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
+        startActivity(Intent.createChooser(sharingIntent, "Share Trip Link Via :"))
+    }
+
+    private fun showMap(location : LatLng) {
         val mapFragment = DisabledMapFragment.newInstance(location)
         mapFragment.setTargetFragment(this, 100)
         fragmentManager?.beginTransaction()
@@ -99,6 +125,16 @@ class TripViewFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         showBottomMenu()
+    }
+
+    override fun onPause() {
+        router.hideShareButton()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        router.showShareButton()
+        super.onResume()
     }
 
     private fun showBottomMenu() {
@@ -120,7 +156,14 @@ class TripViewFragment : Fragment() {
     }
 
     inner class TripObserver: Observer<Trip> {
-        override fun onChanged(trip: Trip) {
+        override fun onChanged(trip: Trip?) {
+
+            if (trip == null) {
+                hideAllButtons(true)
+                return
+            }
+            hideAllButtons(false)
+
             val departureVal = view?.findViewById<TextView>(R.id.tripDepartureVal)!!
             departureVal.text = trip.departureAddress.address
             departureVal.setOnClickListener {
@@ -155,6 +198,17 @@ class TripViewFragment : Fragment() {
 
             resolveButtonsVisibility(trip)
             currentTrip = trip
+        }
+
+        private fun hideAllButtons(isHidden: Boolean) {
+            val joinBtn = view?.findViewById<Button>(R.id.join_btn)!!
+            val getOutBtn = view?.findViewById<Button>(R.id.get_out_btn)!!
+            val changeStatusButton = view?.findViewById<Button>(R.id.change_status_button)!!
+
+            val buttonsVisibility = if (isHidden) View.GONE else View.VISIBLE
+            joinBtn.visibility = buttonsVisibility
+            getOutBtn.visibility = buttonsVisibility
+            changeStatusButton.visibility = buttonsVisibility
         }
 
         private fun resolveButtonsVisibility(trip: Trip) {
