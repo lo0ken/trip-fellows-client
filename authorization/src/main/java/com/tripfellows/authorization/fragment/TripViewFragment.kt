@@ -198,15 +198,11 @@ class TripViewFragment : Fragment() {
             val joinBtn = view?.findViewById<Button>(R.id.join_btn)!!
             val getOutBtn = view?.findViewById<Button>(R.id.get_out_btn)!!
             val changeStatusButton = view?.findViewById<Button>(R.id.change_status_button)!!
-            if (isHidden) {
-                joinBtn.visibility = View.GONE
-                getOutBtn.visibility = View.GONE
-                changeStatusButton.visibility = View.GONE
-            } else {
-                joinBtn.visibility = View.VISIBLE
-                getOutBtn.visibility = View.VISIBLE
-                changeStatusButton.visibility = View.VISIBLE
-            }
+
+            val buttonsVisibility = if (isHidden) View.GONE else View.VISIBLE
+            joinBtn.visibility = buttonsVisibility
+            getOutBtn.visibility = buttonsVisibility
+            changeStatusButton.visibility = buttonsVisibility
         }
 
         private fun resolveButtonsVisibility(trip: Trip) {

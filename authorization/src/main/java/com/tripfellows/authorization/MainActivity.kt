@@ -77,9 +77,7 @@ class MainActivity : AppCompatActivity(), MainRouter {
 
     private fun askForPermission(permission: String, requestCode: Int) {
         if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this@MainActivity,
-                    permission)
-            ) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this@MainActivity, permission)) {
                 Toast.makeText(this,
                     "Please grant the requested permission to get your task done!",
                     Toast.LENGTH_LONG).show()
