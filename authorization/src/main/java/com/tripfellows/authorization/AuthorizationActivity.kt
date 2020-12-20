@@ -31,7 +31,7 @@ class AuthorizationActivity: AppCompatActivity(), AuthRouter, ConnectionRouter {
         }
 
         if (savedInstanceState == null) {
-            authoriseUser()
+            authenticateUser()
         }
     }
 
@@ -49,11 +49,11 @@ class AuthorizationActivity: AppCompatActivity(), AuthRouter, ConnectionRouter {
     override fun reload() {
         if (isOnline()) {
             supportFragmentManager.popBackStack()
-            authoriseUser()
+            authenticateUser()
         }
     }
 
-    private fun authoriseUser() {
+    private fun authenticateUser() {
         val currentUser = fbAuth.currentUser
         if (currentUser != null) {
             val intent = Intent(this, MainActivity::class.java)
