@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +26,8 @@ class AccountFragment : Fragment() {
 
     private lateinit var viewModel: AccountViewModel
     private lateinit var router: MainRouter
+    private val nightModeKey = "NightMode"
+    private val appSettingPref = "AppSettingPrefs"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -43,19 +47,18 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val btnToggleDark = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
-        val appSettingPrefs: SharedPreferences = activity!!.getSharedPreferences("AppSettingPrefs", MODE_PRIVATE)
+        val appSettingPrefs: SharedPreferences = activity!!.getSharedPreferences(appSettingPref, MODE_PRIVATE)
         val sharedPrefsEdit: SharedPreferences.Editor = appSettingPrefs.edit()
-        val isNightModeOn: Boolean = appSettingPrefs.getBoolean("NightMode", false)
+        val isNightModeOn: Boolean = appSettingPrefs.getBoolean(nightModeKey, false)
 
-        if (isNightModeOn) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES) else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        turnNightMode(
+            if (isNightModeOn) MODE_NIGHT_YES else MODE_NIGHT_NO
+        )
+
         btnToggleDark.setOnClickListener {
-            if (isNightModeOn) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                sharedPrefsEdit.putBoolean("NightMode", false)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                sharedPrefsEdit.putBoolean("NightMode", true)
-            }
+            val newNightModeState = if (isNightModeOn) MODE_NIGHT_NO else MODE_NIGHT_YES
+            turnNightMode(newNightModeState)
+            sharedPrefsEdit.putBoolean(nightModeKey, !isNightModeOn)
             sharedPrefsEdit.apply()
         }
         viewModel = ViewModelProvider(activity!!, ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)).get(
@@ -66,6 +69,10 @@ class AccountFragment : Fragment() {
         view.findViewById<Button>(R.id.sign_out_btn).setOnClickListener {
             router.signOut()
         }
+    }
+
+    private fun turnNightMode(nightMode: Int) {
+        AppCompatDelegate.setDefaultNightMode(nightMode)
     }
 
     inner class AccountObserver : Observer<Account> {
