@@ -20,9 +20,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.basgeekball.awesomevalidation.AwesomeValidation
 import com.basgeekball.awesomevalidation.ValidationStyle
-import com.basgeekball.awesomevalidation.utility.RegexTemplate
 import com.tripfellows.authorization.R
 import com.tripfellows.authorization.listeners.AuthRouter
+import com.tripfellows.authorization.listeners.ConnectionRouter
 import com.tripfellows.authorization.request.LoginRequest
 import com.tripfellows.authorization.states.ActionStatus
 import com.tripfellows.authorization.viewmodel.LoginViewModel
@@ -31,10 +31,12 @@ class LoginFragment : Fragment() {
 
     private lateinit var authRouter: AuthRouter
     private lateinit var loginViewModel: LoginViewModel
+    private lateinit var connectionRouter : ConnectionRouter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         authRouter = context as AuthRouter
+        connectionRouter = context as ConnectionRouter
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -54,6 +56,9 @@ class LoginFragment : Fragment() {
 
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {
+                if (!connectionRouter.hasInternetConnection()) {
+                    return
+                }
                 authRouter.goToSignUp()
             }
 
@@ -80,6 +85,10 @@ class LoginFragment : Fragment() {
             .observe(viewLifecycleOwner, LoginButtonObserver(loginButton))
 
         loginButton.setOnClickListener {
+            if (!connectionRouter.hasInternetConnection()) {
+                return@setOnClickListener
+            }
+
             if (awesomeVal.validate()) {
                 val email = fragmentView.findViewById<TextView>(R.id.auth_email).text.toString()
                 val password = fragmentView.findViewById<TextView>(R.id.auth_password).text.toString()

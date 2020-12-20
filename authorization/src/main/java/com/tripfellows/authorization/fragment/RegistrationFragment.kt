@@ -17,6 +17,7 @@ import com.basgeekball.awesomevalidation.ValidationStyle
 import com.basgeekball.awesomevalidation.utility.RegexTemplate
 import com.tripfellows.authorization.R
 import com.tripfellows.authorization.listeners.AuthRouter
+import com.tripfellows.authorization.listeners.ConnectionRouter
 import com.tripfellows.authorization.request.SignUpRequest
 import com.tripfellows.authorization.states.ActionStatus
 import com.tripfellows.authorization.util.ValidationPatterns
@@ -26,10 +27,12 @@ class RegistrationFragment : Fragment() {
 
     private lateinit var authRouter: AuthRouter
     private lateinit var signUpViewModel: RegistrationViewModel
+    private lateinit var connectionRouter : ConnectionRouter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         authRouter = context as AuthRouter
+        connectionRouter = context as ConnectionRouter
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -62,6 +65,10 @@ class RegistrationFragment : Fragment() {
                 val toast = Toast.makeText(context, "Validation failed", Toast.LENGTH_SHORT)
                 toast.show()
             }
+            if (!connectionRouter.hasInternetConnection()) {
+                return@setOnClickListener
+            }
+
             val email = fragmentView.findViewById<TextView>(R.id.sign_up_email).text.toString()
             val password = fragmentView.findViewById<TextView>(R.id.sign_up_password).text.toString()
             val name = fragmentView.findViewById<TextView>(R.id.sign_up_name).text.toString()
