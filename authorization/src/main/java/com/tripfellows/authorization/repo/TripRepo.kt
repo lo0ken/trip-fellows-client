@@ -11,9 +11,9 @@ import com.tripfellows.authorization.model.TripStatusCodeEnum
 import com.tripfellows.authorization.network.ApiRepo
 import com.tripfellows.authorization.network.request.CreateTripRequest
 import com.tripfellows.authorization.network.request.JoinMemberRequest
+import com.tripfellows.authorization.network.response.APIError
 import com.tripfellows.authorization.network.response.APIResponse
 import com.tripfellows.authorization.states.RequestProgress
-import com.tripfellows.authorization.network.response.APIError
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -85,6 +85,8 @@ class TripRepo(
             override fun onResponse(call: Call<Trip>, response: Response<Trip>) {
                 if (response.isSuccessful && response.body() != null) {
                     trip.postValue(response.body())
+                } else {
+                    trip.postValue(null)
                 }
             }
 

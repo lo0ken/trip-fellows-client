@@ -3,6 +3,7 @@ package com.tripfellows.authorization.network
 import com.google.android.gms.tasks.Tasks
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GetTokenResult
+import com.tripfellows.authorization.util.UtilConstants.getServerURL
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -28,7 +29,7 @@ class ApiRepo(
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create())
-        .baseUrl("http://10.0.2.2:8080/api/")
+        .baseUrl(getServerURL())
         .client(okHttpClient)
         .build(),
 
