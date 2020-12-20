@@ -51,25 +51,33 @@ class MainActivity : AppCompatActivity(), MainRouter {
 
         initializeFcmMessaging()
 
-        val appLinkIntent: Intent = intent
-        val appLinkData: Uri? = appLinkIntent.data
-
-        if (appLinkData != null) {
-            openAppLink(appLinkData)
+        if (isAppLink(intent)) {
+            openAppLink(intent.data!!)
             return
         }
 
-        if (savedInstanceState == null) {
+        if (isPushNotification(intent)) {
+            openPushNotification(intent)
+            return
+        }
+
+        if (savedInstanceState == null){
             toolbar.title = getString(R.string.toolbar_search)
             loadFragment(TripListFragment())
         }
     }
 
+    private fun isAppLink(intent: Intent?): Boolean {
+        return intent != null && intent.data != null
+    }
+
+    private fun isPushNotification(intent: Intent?): Boolean {
+        return intent?.getBooleanExtra("isPush", false)!!
+    }
+
     private fun openAppLink(appLinkData: Uri) {
+        checkAuthentication()
         val tripId: String? = appLinkData.lastPathSegment
-        if (FirebaseAuth.getInstance().currentUser == null) {
-            this.finish()
-        }
 
         if (tripId != null) {
             supportFragmentManager.beginTransaction()
@@ -77,6 +85,22 @@ class MainActivity : AppCompatActivity(), MainRouter {
                     TripViewFragment.newInstance(tripId.toInt(), false))
                 .addToBackStack("Fragment close")
                 .commit()
+        }
+    }
+
+    private fun openPushNotification(intent: Intent) {
+        checkAuthentication()
+        val tripId = intent.getStringExtra("tripId")
+        val creatorUid: String? = intent.getStringExtra("creatorUid")
+
+        if (tripId != null && creatorUid != null) {
+            showTrip(tripId.toInt(), creatorUid)
+        }
+    }
+
+    private fun checkAuthentication() {
+        if (FirebaseAuth.getInstance().currentUser == null) {
+            this.finish()
         }
     }
 
@@ -99,6 +123,8 @@ class MainActivity : AppCompatActivity(), MainRouter {
 
     private fun initializeFcmMessaging() {
         FirebaseMessaging.getInstance().isAutoInitEnabled = true
+
+        FirebaseMessaging.getInstance().subscribeToTopic("TRIP")
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener {
             if (it.isSuccessful && it.result != null) {
