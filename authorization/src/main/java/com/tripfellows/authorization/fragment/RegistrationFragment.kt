@@ -19,7 +19,7 @@ import com.tripfellows.authorization.R
 import com.tripfellows.authorization.listeners.AuthRouter
 import com.tripfellows.authorization.request.SignUpRequest
 import com.tripfellows.authorization.states.ActionStatus
-import com.tripfellows.authorization.util.ValidationPaterns
+import com.tripfellows.authorization.util.ValidationPatterns
 import com.tripfellows.authorization.viewmodel.RegistrationViewModel
 
 class RegistrationFragment : Fragment() {
@@ -39,6 +39,7 @@ class RegistrationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         signUpViewModel = ViewModelProvider(activity!!, ViewModelProvider.AndroidViewModelFactory.getInstance(activity!!.application)).get(
             RegistrationViewModel::class.java)
         
@@ -49,9 +50,9 @@ class RegistrationFragment : Fragment() {
         val signUpButton = fragmentView.findViewById<Button>(R.id.sign_up_btn)
         val awesomeVal = AwesomeValidation(ValidationStyle.BASIC)
         awesomeVal.addValidation(activity, R.id.sign_up_email, Patterns.EMAIL_ADDRESS, R.string.invalide_email)
-        awesomeVal.addValidation(activity, R.id.sign_up_password, ValidationPaterns.PASSWORD, R.string.invalide_password)
-        awesomeVal.addValidation(activity, R.id.sign_up_name,RegexTemplate.NOT_EMPTY, R.string.invalide_name)
-        awesomeVal.addValidation(activity, R.id.sign_up_phone, "^((\\+7|7|8)+([0-9]){10})\$", R.string.invalide_number_phone)
+        awesomeVal.addValidation(activity, R.id.sign_up_password, ValidationPatterns.PASSWORD, R.string.invalide_password)
+        awesomeVal.addValidation(activity, R.id.sign_up_name, RegexTemplate.NOT_EMPTY, R.string.invalide_name)
+        awesomeVal.addValidation(activity, R.id.sign_up_phone, ValidationPatterns.PHONE_NUMBER, R.string.invalide_number_phone)
 
         signUpViewModel.getProgress()
             .observe(viewLifecycleOwner, SignUpButtonObserver(signUpButton))
@@ -61,16 +62,16 @@ class RegistrationFragment : Fragment() {
                 val toast = Toast.makeText(context, "Validation failed", Toast.LENGTH_SHORT)
                 toast.show()
             }
-                val email = fragmentView.findViewById<TextView>(R.id.sign_up_email).text.toString()
-                val password = fragmentView.findViewById<TextView>(R.id.sign_up_password).text.toString()
-                val name = fragmentView.findViewById<TextView>(R.id.sign_up_name).text.toString()
-                val phoneNumber = fragmentView.findViewById<TextView>(R.id.sign_up_phone).text.toString()
+            val email = fragmentView.findViewById<TextView>(R.id.sign_up_email).text.toString()
+            val password = fragmentView.findViewById<TextView>(R.id.sign_up_password).text.toString()
+            val name = fragmentView.findViewById<TextView>(R.id.sign_up_name).text.toString()
+            val phoneNumber = fragmentView.findViewById<TextView>(R.id.sign_up_phone).text.toString()
 
-                val signUpRequest = SignUpRequest(email, password, name, phoneNumber)
+            val signUpRequest = SignUpRequest(email, password, name, phoneNumber)
 
-                signUpViewModel.signUp(signUpRequest)
-            }
+            signUpViewModel.signUp(signUpRequest)
         }
+    }
 
     inner class SignUpButtonObserver(private val signUpBtn: Button) : Observer<ActionStatus> {
         override fun onChanged(signUpStatus: ActionStatus) {
