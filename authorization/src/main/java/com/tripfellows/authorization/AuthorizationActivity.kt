@@ -31,15 +31,45 @@ class AuthorizationActivity: AppCompatActivity(), AuthRouter, ConnectionRouter {
         }
 
         if (savedInstanceState == null) {
-            val currentUser = fbAuth.currentUser
-            if (currentUser != null) {
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("USER_UID", currentUser.uid)
-                startActivity(intent)
-            } else {
-                loadFragment(LoginFragment())
-            }
+            authoriseUser()
         }
+    }
+
+    private fun isOnline(): Boolean {
+        val connectivityManager = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val network: Network? = connectivityManager.activeNetwork
+        val capabilities : NetworkCapabilities = connectivityManager.getNetworkCapabilities(network)
+            ?: return false
+
+        return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || capabilities.hasTransport(
+            NetworkCapabilities.TRANSPORT_CELLULAR)
+    }
+
+    override fun reload() {
+        if (isOnline()) {
+            supportFragmentManager.popBackStack()
+            authoriseUser()
+        }
+    }
+
+    private fun authoriseUser() {
+        val currentUser = fbAuth.currentUser
+        if (currentUser != null) {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("USER_UID", currentUser.uid)
+            startActivity(intent)
+        } else {
+            loadFragment(LoginFragment())
+        }
+    }
+
+    override fun hasInternetConnection(): Boolean {
+        val isOnline: Boolean = isOnline()
+        if (!isOnline) {
+            loadFragment(NoConnectionFragment())
+        }
+        return isOnline
     }
 
     private fun loadFragment(fragment: Fragment) {
@@ -58,41 +88,5 @@ class AuthorizationActivity: AppCompatActivity(), AuthRouter, ConnectionRouter {
 
     override fun mainMenu() {
         startActivity(Intent(this, MainActivity::class.java))
-    }
-
-    override fun reload() {
-        if (isOnline()) {
-            supportFragmentManager.popBackStack()
-            resumeActivity()
-        }
-    }
-
-    override fun hasInternetConnection() : Boolean {
-        if (!isOnline()) {
-            loadFragment(NoConnectionFragment())
-        }
-        return isOnline()
-    }
-
-    private fun resumeActivity() {
-        val currentUser = fbAuth.currentUser
-        if (currentUser != null) {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra("USER_UID", currentUser.uid)
-            startActivity(intent)
-        } else {
-            loadFragment(LoginFragment())
-        }
-    }
-
-    private fun isOnline(): Boolean {
-        val connectivityManager = getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
-
-        val network: Network? = connectivityManager.activeNetwork
-        val capabilities : NetworkCapabilities = connectivityManager.getNetworkCapabilities(network)
-            ?: return false
-
-        return capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || capabilities.hasTransport(
-            NetworkCapabilities.TRANSPORT_CELLULAR)
     }
 }
