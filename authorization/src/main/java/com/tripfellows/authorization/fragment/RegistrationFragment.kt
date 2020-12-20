@@ -57,7 +57,10 @@ class RegistrationFragment : Fragment() {
             .observe(viewLifecycleOwner, SignUpButtonObserver(signUpButton))
 
         signUpButton.setOnClickListener {
-            if (awesomeVal.validate()) {
+            if (!awesomeVal.validate()) {
+                val toast = Toast.makeText(context, "Validation failed", Toast.LENGTH_SHORT)
+                toast.show()
+            }
                 val email = fragmentView.findViewById<TextView>(R.id.sign_up_email).text.toString()
                 val password = fragmentView.findViewById<TextView>(R.id.sign_up_password).text.toString()
                 val name = fragmentView.findViewById<TextView>(R.id.sign_up_name).text.toString()
@@ -66,12 +69,8 @@ class RegistrationFragment : Fragment() {
                 val signUpRequest = SignUpRequest(email, password, name, phoneNumber)
 
                 signUpViewModel.signUp(signUpRequest)
-            } else {
-                val toast = Toast.makeText(context, "Validation failed", Toast.LENGTH_SHORT)
-                toast.show()
             }
         }
-    }
 
     inner class SignUpButtonObserver(private val signUpBtn: Button) : Observer<ActionStatus> {
         override fun onChanged(signUpStatus: ActionStatus) {

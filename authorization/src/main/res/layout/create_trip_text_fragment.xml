@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/my_trip_text"
         android:layout_width="wrap_content"
-        style="@style/backgroundCreateTripText"
+        style="@style/BackgroundCreateTripText"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="monospace"

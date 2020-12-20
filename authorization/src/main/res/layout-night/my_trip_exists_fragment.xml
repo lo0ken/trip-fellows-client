@@ -7,12 +7,11 @@
     tools:context="com.tripfellows.authorization.MainActivity"
     android:orientation="vertical">
 
-
     <TextView
         android:id="@+id/create_trip_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/backgroundCreateTripText"
+        style="@style/BackgroundCreateTripText"
         android:layout_gravity="center"
         android:fontFamily="monospace"
         android:text="@string/create_trip_string"

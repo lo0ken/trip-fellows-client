@@ -6,7 +6,6 @@
     android:layout_marginTop="30dp"
     android:layout_marginRight="15.7dp"
     android:gravity="center_vertical"
-
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,7 +13,6 @@
         android:layout_height="match_parent"
         android:background="@drawable/layout_bg"
         android:orientation="vertical">
-
 
         <EditText
             android:id="@+id/sign_up_email"
@@ -71,5 +69,4 @@
             android:layout_marginBottom="@dimen/margin_bottom"
             android:text="@string/sign_up_btn" />
     </LinearLayout>
-
 </RelativeLayout>

@@ -26,6 +26,7 @@ import com.tripfellows.authorization.network.request.CreateTripRequest
 import com.tripfellows.authorization.states.ActionStatus
 import com.tripfellows.authorization.util.DateTimeUtil
 import com.tripfellows.authorization.util.TargetAddress
+import com.tripfellows.authorization.util.ValidationPaterns
 import com.tripfellows.authorization.viewmodel.CreateTripViewModel
 import com.tripfellows.authorization.viewmodel.LocationViewModel
 import java.util.*
@@ -156,7 +157,7 @@ class CreateTripFragment : Fragment() {
 
     private fun createButtonPressed(view: View) {
         val awesomeVal = AwesomeValidation(ValidationStyle.BASIC)
-        awesomeVal.addValidation(activity, R.id.places, "^[1-5]$", R.string.invalide_field_num)
+        awesomeVal.addValidation(activity, R.id.places, ValidationPaterns.SEATS_NUMBER_PATTERN, R.string.invalide_field_num)
         awesomeVal.addValidation(activity, R.id.price, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
         awesomeVal.addValidation(activity, R.id.departure_address, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
         awesomeVal.addValidation(activity, R.id.destination_address, RegexTemplate.NOT_EMPTY, R.string.invalide_field)
@@ -186,8 +187,8 @@ class CreateTripFragment : Fragment() {
             comment
         )
 
-        createTripViewModel.createTrip(newTrip)}
-
+        createTripViewModel.createTrip(newTrip)
+    }
 
     inner class CreateButtonObserver(private val createBtn: Button) : Observer<ActionStatus> {
 
