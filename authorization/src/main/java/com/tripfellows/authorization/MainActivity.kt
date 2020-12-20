@@ -77,12 +77,14 @@ class MainActivity : AppCompatActivity(), MainRouter {
 
     private fun openAppLink(appLinkData: Uri) {
         checkAuthentication()
-        val tripId: String? = appLinkData.lastPathSegment
+        val tripId: String? = appLinkData.getQueryParameter("id")
+        val driverUid: String? = appLinkData.getQueryParameter("creatorUid")
+        val userUid = FirebaseAuth.getInstance().currentUser?.uid
 
         if (tripId != null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.main_fragment_container,
-                    TripViewFragment.newInstance(tripId.toInt(), false))
+                    TripViewFragment.newInstance(tripId.toInt(), driverUid == userUid))
                 .addToBackStack("Fragment close")
                 .commit()
         }

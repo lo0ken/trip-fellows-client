@@ -23,7 +23,10 @@ import com.tripfellows.authorization.model.TripStatusCodeEnum
 import com.tripfellows.authorization.states.ActionState
 import com.tripfellows.authorization.states.ActionStatus
 import com.tripfellows.authorization.util.DateTimeUtil
+import com.tripfellows.authorization.util.UtilConstants.getAndPathPart
+import com.tripfellows.authorization.util.UtilConstants.getIdPath
 import com.tripfellows.authorization.util.UtilConstants.getServerURL
+import com.tripfellows.authorization.util.UtilConstants.getTripCreatorUidPath
 import com.tripfellows.authorization.util.UtilConstants.getTripPath
 import com.tripfellows.authorization.viewmodel.TripViewViewModel
 import kotlinx.android.synthetic.main.trip_view_fragment.*
@@ -106,11 +109,16 @@ class TripViewFragment : Fragment() {
     private fun shareTrip() {
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
-        val shareBody = "Trip Link : " + getServerURL() + getTripPath() + currentTrip.id
+        val shareBody: String = buildTripLink()
 
         sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "Trip link")
         sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody)
         startActivity(Intent.createChooser(sharingIntent, "Share Trip Link Via :"))
+    }
+
+    private fun buildTripLink(): String {
+        return "Trip Link : " + getServerURL() + getTripPath() + getIdPath() +
+                currentTrip.id + getAndPathPart() + getTripCreatorUidPath() + currentTrip.creator.uid;
     }
 
     private fun showMap(location : LatLng) {
