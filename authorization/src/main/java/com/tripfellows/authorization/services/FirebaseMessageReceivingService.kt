@@ -18,9 +18,9 @@ import com.tripfellows.authorization.repo.FcmTokenRepo
 
 class FirebaseMessageReceivingService : FirebaseMessagingService() {
 
-    override fun onNewToken(p0: String) {
-        FcmTokenRepo.getInstance(applicationContext).updateFcmToken(UpdateFcmTokenRequest(p0))
-        super.onNewToken(p0)
+    override fun onNewToken(token: String) {
+        FcmTokenRepo.getInstance(applicationContext).updateFcmToken(UpdateFcmTokenRequest(token))
+        super.onNewToken(token)
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
