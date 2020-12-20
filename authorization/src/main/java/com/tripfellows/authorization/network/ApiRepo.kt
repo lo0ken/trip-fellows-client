@@ -34,5 +34,6 @@ class ApiRepo(
         .build(),
 
     val accountApi: AccountApi = retrofit.create(AccountApi::class.java),
-    val tripApi: TripApi = retrofit.create(TripApi::class.java)
+    val tripApi: TripApi = retrofit.create(TripApi::class.java),
+    val fcmTokenApi: FcmTokenApi = retrofit.create(FcmTokenApi::class.java)
 )

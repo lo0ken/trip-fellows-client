@@ -20,8 +20,11 @@ import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
 import com.tripfellows.authorization.fragment.*
 import com.tripfellows.authorization.listeners.MainRouter
+import com.tripfellows.authorization.network.request.UpdateFcmTokenRequest
+import com.tripfellows.authorization.repo.FcmTokenRepo
 import com.tripfellows.authorization.repo.TripRepo
 
 
@@ -45,6 +48,8 @@ class MainActivity : AppCompatActivity(), MainRouter {
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        initializeFcmMessaging()
 
         val appLinkIntent: Intent = intent
         val appLinkData: Uri? = appLinkIntent.data
@@ -88,6 +93,16 @@ class MainActivity : AppCompatActivity(), MainRouter {
                 requestPermissions(this@MainActivity,
                     arrayOf(permission),
                     requestCode)
+            }
+        }
+    }
+
+    private fun initializeFcmMessaging() {
+        FirebaseMessaging.getInstance().isAutoInitEnabled = true
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            if (it.isSuccessful && it.result != null) {
+                FcmTokenRepo.getInstance(this).updateFcmToken(UpdateFcmTokenRequest(it.result))
             }
         }
     }
