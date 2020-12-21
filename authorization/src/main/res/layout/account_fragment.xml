@@ -174,29 +174,30 @@
             android:id="@+id/floatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="32dp"
             android:backgroundTint="#FFFFFF"
             android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/phoneLayout"
-            app:layout_constraintVertical_bias="0.096"
-            app:srcCompat="@drawable/ic_baseline_bedtime_24"
-            android:focusable="true" />
+            app:layout_constraintVertical_bias="0.093"
+            app:srcCompat="@drawable/ic_baseline_bedtime_24" />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/Pushes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/pushesSetting"
+            android:layout_width="183dp"
+            android:layout_height="65dp"
             android:layout_marginTop="20dp"
-            android:text="@string/pushes"
-            android:textSize="30sp"
+            android:text="@string/pushesSettingText"
+            android:textColor="@color/colorDark"
+            android:textSize="25sp"
             app:layout_constraintBottom_toTopOf="@+id/sign_out_btn"
             app:layout_constraintEnd_toStartOf="@+id/floatingActionButton"
-            app:layout_constraintHorizontal_bias="0.132"
+            app:layout_constraintHorizontal_bias="0.235"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/phoneLayout"
-            app:layout_constraintVertical_bias="0.104"
+            app:layout_constraintVertical_bias="0.062"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

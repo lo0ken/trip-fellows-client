@@ -32,7 +32,7 @@ class AccountFragment : Fragment() {
     private lateinit var router: MainRouter
     private val nightModeKey = "NightMode"
     private val appSettingPref = "AppSettingPrefs"
-    private val pushEnable = "PushEnable"
+    private val pushes = "Pushes"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -55,7 +55,7 @@ class AccountFragment : Fragment() {
         val btnToggleDark = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
         val sharedPrefsEdit: SharedPreferences.Editor = appSettingPrefs.edit()
         val isNightModeOn: Boolean = appSettingPrefs.getBoolean(nightModeKey, false)
-        val createTripPushesEnabled: Boolean = appSettingPrefs.getBoolean(pushEnable, false)
+        val createTripPushesEnabled: Boolean = appSettingPrefs.getBoolean(pushes, false)
 
         turnNightMode(
             if (isNightModeOn) MODE_NIGHT_YES else MODE_NIGHT_NO
@@ -72,13 +72,16 @@ class AccountFragment : Fragment() {
             AccountViewModel::class.java)
 
         viewModel.getAccount().observe(viewLifecycleOwner, AccountObserver())
-        val switch = view.findViewById<SwitchCompat>(R.id.Pushes)
+        val switch = view.findViewById<SwitchCompat>(R.id.pushesSetting)
         switch.isChecked = createTripPushesEnabled
 
         switch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) FirebaseMessaging.getInstance().subscribeToTopic("TRIP")
-            else FirebaseMessaging.getInstance().unsubscribeFromTopic("TRIP")
-            sharedPrefsEdit.putBoolean(pushEnable, !createTripPushesEnabled)
+            if (isChecked) {
+                FirebaseMessaging.getInstance().subscribeToTopic("TRIP")
+            } else {
+                FirebaseMessaging.getInstance().unsubscribeFromTopic("TRIP")
+            }
+            sharedPrefsEdit.putBoolean(pushes, !createTripPushesEnabled)
             sharedPrefsEdit.apply()
         }
 

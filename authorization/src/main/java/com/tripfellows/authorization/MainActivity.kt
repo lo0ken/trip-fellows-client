@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity(), MainRouter {
 
         askForPermission(ACCESS_FINE_LOCATION, 1)
         askForPermission(ACCESS_COARSE_LOCATION, 2)
+
         bottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
