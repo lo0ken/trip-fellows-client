@@ -174,13 +174,17 @@ class TripViewFragment : Fragment() {
 
             val departureVal = view?.findViewById<TextView>(R.id.tripDepartureVal)!!
             departureVal.text = trip.departureAddress.address
-            departureVal.setOnClickListener {
+
+            val departureButton = view?.findViewById<Button>(R.id.departure_location_button)!!
+            departureButton.setOnClickListener {
                 showMap(LatLng(trip.departureAddress.latitude!!, trip.departureAddress.longitude!!))
             }
 
             val destinationVal = view?.findViewById<TextView>(R.id.tripDestinationVal)!!
             destinationVal.text = trip.destinationAddress.address
-            destinationVal.setOnClickListener {
+
+            val destinationButton = view?.findViewById<Button>(R.id.destination_location_button)!!
+            destinationButton.setOnClickListener {
                 showMap(LatLng(trip.destinationAddress.latitude!!, trip.destinationAddress.longitude!!))
             }
 
