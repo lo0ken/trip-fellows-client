@@ -78,11 +78,11 @@ class TripViewFragment : Fragment() {
         viewModel.getTrip().observe(viewLifecycleOwner, TripObserver())
 
         if (arguments != null) {
-            viewModel.refresh(arguments!!.getInt(TRIP_ID_KEY))
+            refreshFragment()
         }
 
         swipeRefreshView.setOnRefreshListener {
-            viewModel.refresh(arguments!!.getInt(TRIP_ID_KEY))
+            refreshFragment()
             swipeRefreshView.isRefreshing = false
         }
         swipeRefreshView.setColorSchemeColors(Color.GRAY)
@@ -101,9 +101,15 @@ class TripViewFragment : Fragment() {
             when(currentTrip.status.code) {
                 TripStatusCodeEnum.WAITING -> viewModel.changeStatus(currentTrip.id, TripStatusCodeEnum.STARTED)
                 TripStatusCodeEnum.STARTED -> viewModel.changeStatus(currentTrip.id, TripStatusCodeEnum.FINISHED)
+                else -> {}
             }
+            refreshFragment()
         }
         showBottomMenu()
+    }
+
+    private fun refreshFragment() {
+        viewModel.refresh(arguments!!.getInt(TRIP_ID_KEY))
     }
 
     private fun shareTrip() {
