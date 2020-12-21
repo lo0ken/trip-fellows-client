@@ -4,6 +4,7 @@ import TripListFragment
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.requestPermissions
@@ -30,8 +32,9 @@ import com.tripfellows.authorization.repo.TripRepo
 
 class MainActivity : AppCompatActivity(), MainRouter {
     private lateinit var bottomNavigationView: BottomNavigationView
-
     private lateinit var toolbar: Toolbar
+    private val nightModeKey = "NightMode"
+    private val appSettingPref = "AppSettingPrefs"
 
     private val onNavigationItemSelectedListener: OnNavigationItemSelectedListener =
         getOnNavigationItemSelectedListener()
@@ -39,10 +42,14 @@ class MainActivity : AppCompatActivity(), MainRouter {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val appSettingPrefs: SharedPreferences = getSharedPreferences(appSettingPref, MODE_PRIVATE)
+        val isNightModeOn: Boolean = appSettingPrefs.getBoolean(nightModeKey, false)
+        turnNightMode(
+            if (isNightModeOn) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+        )
 
         askForPermission(ACCESS_FINE_LOCATION, 1)
         askForPermission(ACCESS_COARSE_LOCATION, 2)
-
         bottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
@@ -65,6 +72,10 @@ class MainActivity : AppCompatActivity(), MainRouter {
             toolbar.title = getString(R.string.toolbar_search)
             loadFragment(TripListFragment())
         }
+    }
+
+    private fun turnNightMode(nightMode: Int) {
+        AppCompatDelegate.setDefaultNightMode(nightMode)
     }
 
     private fun isAppLink(intent: Intent?): Boolean {
@@ -123,8 +134,6 @@ class MainActivity : AppCompatActivity(), MainRouter {
 
     private fun initializeFcmMessaging() {
         FirebaseMessaging.getInstance().isAutoInitEnabled = true
-
-        FirebaseMessaging.getInstance().subscribeToTopic("TRIP")
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener {
             if (it.isSuccessful && it.result != null) {
