@@ -10,9 +10,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:shape="rectangle"
-                android:tint="@color/ColorRed">
+                android:tint="@color/colorRed">
                 <corners android:radius="10dp" />
-                <solid android:color="@color/ColorRedMax" />
+                <solid android:color="@color/colorRedMax" />
                 <padding android:bottom="6dp" />
             </shape>
         </item>

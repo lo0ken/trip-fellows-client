@@ -63,4 +63,6 @@
     <string name="invalide_field_num">Choose the number of seats from 1 to 5</string>
     <string name="noConnection">There is no Internet connection currently on device. Try to reload or change internet settings</string>
     <string name="reload">Reload</string>
+    <string name="pushesSettingText">Enable pushes</string>
+    <string name="passengers">Passengers</string>
 </resources>
