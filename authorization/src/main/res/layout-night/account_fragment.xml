@@ -185,11 +185,11 @@
             android:focusable="true" />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switchPush"
+            android:id="@+id/Pushes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/enable_push"
+            android:text="@string/pushes"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/sign_out_btn"
             app:layout_constraintEnd_toStartOf="@+id/floatingActionButton"

@@ -1,4 +1,5 @@
 package com.tripfellows.authorization.fragment
+
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
@@ -31,7 +32,7 @@ class AccountFragment : Fragment() {
     private lateinit var router: MainRouter
     private val nightModeKey = "NightMode"
     private val appSettingPref = "AppSettingPrefs"
-    private val pushEnb = "pushSaves"
+    private val pushEnable = "PushEnable"
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -54,7 +55,7 @@ class AccountFragment : Fragment() {
         val btnToggleDark = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
         val sharedPrefsEdit: SharedPreferences.Editor = appSettingPrefs.edit()
         val isNightModeOn: Boolean = appSettingPrefs.getBoolean(nightModeKey, false)
-        val createTripPushesEnabled: Boolean = appSettingPrefs.getBoolean(pushEnb, false)
+        val createTripPushesEnabled: Boolean = appSettingPrefs.getBoolean(pushEnable, false)
 
         turnNightMode(
             if (isNightModeOn) MODE_NIGHT_YES else MODE_NIGHT_NO
@@ -71,12 +72,13 @@ class AccountFragment : Fragment() {
             AccountViewModel::class.java)
 
         viewModel.getAccount().observe(viewLifecycleOwner, AccountObserver())
-        val switch = view.findViewById<SwitchCompat>(R.id.switchPush)
+        val switch = view.findViewById<SwitchCompat>(R.id.Pushes)
         switch.isChecked = createTripPushesEnabled
 
         switch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) FirebaseMessaging.getInstance().subscribeToTopic("TRIP") else FirebaseMessaging.getInstance().unsubscribeFromTopic("TRIP")
-            sharedPrefsEdit.putBoolean(pushEnb, !createTripPushesEnabled)
+            if (isChecked) FirebaseMessaging.getInstance().subscribeToTopic("TRIP")
+            else FirebaseMessaging.getInstance().unsubscribeFromTopic("TRIP")
+            sharedPrefsEdit.putBoolean(pushEnable, !createTripPushesEnabled)
             sharedPrefsEdit.apply()
         }
 
