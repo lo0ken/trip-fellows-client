@@ -52,17 +52,14 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val appSettingPrefs: SharedPreferences = activity!!.getSharedPreferences(appSettingPref, MODE_PRIVATE)
-        val btnToggleDark = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
+        val btnToggleDark = view.findViewById<SwitchCompat>(R.id.floatingActionButton)
         val sharedPrefsEdit: SharedPreferences.Editor = appSettingPrefs.edit()
         val isNightModeOn: Boolean = appSettingPrefs.getBoolean(nightModeKey, false)
         val createTripPushesEnabled: Boolean = appSettingPrefs.getBoolean(pushes, false)
 
-        turnNightMode(
-            if (isNightModeOn) MODE_NIGHT_YES else MODE_NIGHT_NO
-        )
-
-        btnToggleDark.setOnClickListener {
-            val newNightModeState = if (isNightModeOn) MODE_NIGHT_NO else MODE_NIGHT_YES
+        btnToggleDark.isChecked = isNightModeOn
+        btnToggleDark.setOnCheckedChangeListener { _, isChecked ->
+            val newNightModeState = if (isChecked ) MODE_NIGHT_YES else MODE_NIGHT_NO
             turnNightMode(newNightModeState)
             sharedPrefsEdit.putBoolean(nightModeKey, !isNightModeOn)
             sharedPrefsEdit.apply()

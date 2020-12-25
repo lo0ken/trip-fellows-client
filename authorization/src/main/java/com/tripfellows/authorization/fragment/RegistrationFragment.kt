@@ -68,15 +68,18 @@ class RegistrationFragment : Fragment() {
             if (!connectionRouter.hasInternetConnection()) {
                 return@setOnClickListener
             }
+            if (awesomeVal.validate()){
+                val email = fragmentView.findViewById<TextView>(R.id.sign_up_email).text.toString()
+                val password = fragmentView.findViewById<TextView>(R.id.sign_up_password).text.toString()
+                val name = fragmentView.findViewById<TextView>(R.id.sign_up_name).text.toString()
+                val phoneNumber = fragmentView.findViewById<TextView>(R.id.sign_up_phone).text.toString()
 
-            val email = fragmentView.findViewById<TextView>(R.id.sign_up_email).text.toString()
-            val password = fragmentView.findViewById<TextView>(R.id.sign_up_password).text.toString()
-            val name = fragmentView.findViewById<TextView>(R.id.sign_up_name).text.toString()
-            val phoneNumber = fragmentView.findViewById<TextView>(R.id.sign_up_phone).text.toString()
+                val signUpRequest = SignUpRequest(email, password, name, phoneNumber)
 
-            val signUpRequest = SignUpRequest(email, password, name, phoneNumber)
-
-            signUpViewModel.signUp(signUpRequest)
+                if (!connectionRouter.hasInternetConnection()) {
+                    return@setOnClickListener
+                }
+                signUpViewModel.signUp(signUpRequest)}
         }
     }
 

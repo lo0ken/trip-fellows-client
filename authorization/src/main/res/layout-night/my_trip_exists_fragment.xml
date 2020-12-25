@@ -9,12 +9,13 @@
 
     <TextView
         android:id="@+id/create_trip_text"
+        style="@style/BackgroundCreateTripText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/BackgroundCreateTripText"
         android:layout_gravity="center"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:fontFamily="monospace"
         android:text="@string/create_trip_string"
         android:textSize="30sp" />
-
 </FrameLayout>

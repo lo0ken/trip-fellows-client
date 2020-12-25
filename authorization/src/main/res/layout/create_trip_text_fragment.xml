@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="monospace"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:text="@string/my_trip_string"
         android:textSize="30sp" />
-
 </FrameLayout>
