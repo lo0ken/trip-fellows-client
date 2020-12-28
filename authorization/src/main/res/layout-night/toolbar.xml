@@ -5,4 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/alpa_logo_background"
     app:titleTextColor="@color/colorLight">
+
+    <Button
+        android:id="@+id/share_button"
+        style="@style/ShareButtonStyle"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone" />
 </androidx.appcompat.widget.Toolbar>
