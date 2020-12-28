@@ -30,7 +30,6 @@ class AuthRepo(private val apiRepo: ApiRepo) {
         return account
     }
 
-
     var fbAuth = FirebaseAuth.getInstance()
 
     fun login(loginRequest: LoginRequest): LiveData<RequestProgress> {

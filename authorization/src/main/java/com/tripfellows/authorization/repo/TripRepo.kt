@@ -3,6 +3,7 @@ package com.tripfellows.authorization.repo
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
 import com.tripfellows.authorization.ApplicationModified
 import com.tripfellows.authorization.model.Trip
 import com.tripfellows.authorization.model.TripMember
@@ -10,6 +11,8 @@ import com.tripfellows.authorization.model.TripStatusCodeEnum
 import com.tripfellows.authorization.network.ApiRepo
 import com.tripfellows.authorization.network.request.CreateTripRequest
 import com.tripfellows.authorization.network.request.JoinMemberRequest
+import com.tripfellows.authorization.network.response.APIError
+import com.tripfellows.authorization.network.response.APIResponse
 import com.tripfellows.authorization.states.RequestProgress
 import retrofit2.Call
 import retrofit2.Callback
@@ -52,11 +55,11 @@ class TripRepo(
     }
 
     fun getTrips(): MutableLiveData<List<Trip>> {
-        return trips;
+        return trips
     }
 
     fun getTrip(): MutableLiveData<Trip> {
-        return trip;
+        return trip
     }
 
     fun getCurrentTrip(): MutableLiveData<Trip> {
@@ -82,6 +85,8 @@ class TripRepo(
             override fun onResponse(call: Call<Trip>, response: Response<Trip>) {
                 if (response.isSuccessful && response.body() != null) {
                     trip.postValue(response.body())
+                } else {
+                    trip.postValue(null)
                 }
             }
 
@@ -90,21 +95,33 @@ class TripRepo(
         })
     }
 
-    fun joinMember(joinMemberRequest: JoinMemberRequest): MutableLiveData<RequestProgress> {
-        val joinProgress: MutableLiveData<RequestProgress> = MutableLiveData()
-        joinProgress.value = RequestProgress.IN_PROGRESS
+    fun joinMember(joinMemberRequest: JoinMemberRequest): MutableLiveData<APIResponse<TripMember>> {
+        val apiResponse = APIResponse<TripMember>(RequestProgress.IN_PROGRESS, null, "")
+        val joinProgress = MutableLiveData(apiResponse)
 
         apiRepo.tripApi.joinMember(joinMemberRequest).enqueue(object: Callback<TripMember> {
             override fun onResponse(call: Call<TripMember>, response: Response<TripMember>) {
-                joinProgress.postValue(RequestProgress.SUCCESS)
+                if (response.isSuccessful) {
+                    apiResponse.requestProgress = RequestProgress.SUCCESS
+                    apiResponse.data = response.body()
+                    joinProgress.postValue(apiResponse)
+                } else {
+                    val message = Gson().fromJson(response.errorBody()!!.charStream(),
+                        APIError::class.java)
+                    apiResponse.requestProgress = RequestProgress.FAILED
+                    apiResponse.errorMessage = message.message.toString()
+                    joinProgress.postValue(apiResponse)
+                }
             }
 
             override fun onFailure(call: Call<TripMember>, t: Throwable) {
-                joinProgress.postValue(RequestProgress.FAILED)
+                apiResponse.requestProgress = RequestProgress.FAILED
+                apiResponse.errorMessage = t.message.toString()
+                joinProgress.postValue(apiResponse)
             }
         })
 
-        return joinProgress;
+        return joinProgress
     }
 
     fun removeMember(tripMemberId: Int): MutableLiveData<RequestProgress> {

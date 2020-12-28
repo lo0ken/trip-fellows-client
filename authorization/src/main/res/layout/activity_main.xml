@@ -17,8 +17,7 @@
         android:id="@+id/main_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
-        >
+        android:layout_marginTop="55dp">
     </RelativeLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

@@ -77,14 +77,11 @@
                         android:id="@+id/login_btn"
                         style="@style/RoundedCornerButton"
                         android:layout_width="107dp"
+                        android:background="@drawable/btn_green"
                         android:layout_height="wrap_content"
                         android:text="@string/login_btn" />
                 </LinearLayout>
-
             </LinearLayout>
-
         </FrameLayout>
-
     </LinearLayout>
-
 </RelativeLayout>

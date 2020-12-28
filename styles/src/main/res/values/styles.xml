@@ -34,13 +34,15 @@
     </style>
 
     <style name="RoundedCornerButton" parent="@style/Widget.AppCompat.Button.Colored">
-        <item name="background">@drawable/btn_rounded_corner</item>
-        <item name="colorButtonNormal">#1a237e</item>
-        <item name="colorControlHighlight">#673ab7</item>
+        <item name="background">@drawable/btn_blue</item>
+    </style>
+
+    <style name="RoundButton" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="background">@drawable/btn_green</item>
     </style>
 
     <style name="RedRoundedCornerButton" parent="@style/Widget.AppCompat.Button.Colored">
-        <item name="background">@drawable/btn_get_out</item>
+        <item name="background">@drawable/btn_red</item>
         <item name="colorButtonNormal">#D3021B</item>
         <item name="colorControlHighlight">#AD1457</item>
     </style>
@@ -49,9 +51,27 @@
         <item name="android:background">@drawable/small_button_shape</item>
     </style>
 
+    <style name="BackgroundTripView" parent="TripTextViewStyle">
+        <item name="android:minHeight">45dp</item>
+        <item name="android:maxHeight">100dp</item>
+        <item name="android:background">@drawable/layout_bg</item>
+    </style>
+
+    <style name="BackgroundCreateTripText" parent="TripTextViewStyle">
+        <item name="android:minHeight">0dp</item>
+        <item name="android:maxHeight">200dp</item>
+        <item name="android:background">@drawable/layout_bg</item>
+    </style>
+
     <style name="LocationButtonStyle" parent="@style/Widget.AppCompat.Button.Colored">
         <item name="android:background">@drawable/ic_baseline_add_location_24</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ShareButtonStyle" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/ic_baseline_share_24</item>
+        <item name="android:maxWidth">5dp</item>
+        <item name="android:maxHeight">5dp</item>
     </style>
 </resources>

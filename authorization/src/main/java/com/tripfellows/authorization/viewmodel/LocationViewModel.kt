@@ -9,20 +9,20 @@ import com.google.maps.model.LatLng
 import com.tripfellows.authorization.model.Address
 import com.tripfellows.authorization.repo.LocationRepo
 import com.tripfellows.authorization.repo.UserLocationRepo
-import com.tripfellows.authorization.states.ActionState
+import com.tripfellows.authorization.states.ActionStatus
 import com.tripfellows.authorization.states.RequestProgress
 
 class LocationViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val locationState: MediatorLiveData<ActionState> = MediatorLiveData()
+    private val locationStatus: MediatorLiveData<ActionStatus> = MediatorLiveData()
     private val currentAddress: MediatorLiveData<Address> = MediatorLiveData()
     private var userLocationRepo: UserLocationRepo
-    private val lastLocation: MediatorLiveData<ActionState> = MediatorLiveData()
+    private val lastLocation: MediatorLiveData<ActionStatus> = MediatorLiveData()
 
     init {
-        locationState.value = ActionState.NONE
+        locationStatus.value = ActionStatus.NONE
         currentAddress.value = null
-        lastLocation.value = ActionState.NONE
+        lastLocation.value = ActionStatus.NONE
         userLocationRepo = UserLocationRepo(application.baseContext)
         userLocationRepo.startLocationUpdates()
     }
@@ -40,7 +40,7 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
     }
 
     private fun getFromUserLocation(userLocation: LatLng) {
-        locationState.postValue(ActionState.IN_PROGRESS)
+        locationStatus.postValue(ActionStatus.IN_PROGRESS)
 
         if (currentAddress.value != null) {
             return
@@ -49,18 +49,18 @@ class LocationViewModel(application: Application) : AndroidViewModel(application
         val progressLiveData = LocationRepo.getInstance(getApplication())
             .getAddress(userLocation)
 
-        if (locationState.value != ActionState.IN_PROGRESS) {
+        if (locationStatus.value != ActionStatus.IN_PROGRESS) {
             currentAddress.addSource(progressLiveData) {
                 if (it.requestProgress == RequestProgress.SUCCESS) {
-                    locationState.postValue(ActionState.SUCCESS)
-                    locationState.removeSource(progressLiveData)
+                    locationStatus.postValue(ActionStatus.SUCCESS)
+                    locationStatus.removeSource(progressLiveData)
 
                     currentAddress.postValue(buildAddress(progressLiveData.value?.data))
                     currentAddress.removeSource(progressLiveData)
                     userLocationRepo.stopLocationUpdates()
                 } else if (it.requestProgress == RequestProgress.FAILED) {
-                    locationState.postValue(ActionState.FAILED)
-                    locationState.removeSource(progressLiveData)
+                    locationStatus.postValue(ActionStatus.FAILED)
+                    locationStatus.removeSource(progressLiveData)
 
                     currentAddress.postValue(null)
                     currentAddress.removeSource(progressLiveData)

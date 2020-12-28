@@ -2,11 +2,8 @@ package com.tripfellows.authorization
 
 import android.app.Application
 import android.content.Context
-import com.tripfellows.authorization.repo.UserLocationRepo
 import com.tripfellows.authorization.network.ApiRepo
-import com.tripfellows.authorization.repo.AuthRepo
-import com.tripfellows.authorization.repo.LocationRepo
-import com.tripfellows.authorization.repo.TripRepo
+import com.tripfellows.authorization.repo.*
 
 class ApplicationModified : Application() {
 
@@ -15,6 +12,7 @@ class ApplicationModified : Application() {
     lateinit var tripRepo: TripRepo
     lateinit var locationRepo: LocationRepo
     lateinit var userLocationRepo: UserLocationRepo
+    lateinit var fcmTokenRepo: FcmTokenRepo
 
     override fun onCreate() {
         super.onCreate()
@@ -23,6 +21,7 @@ class ApplicationModified : Application() {
         tripRepo = TripRepo(apiRepo)
         locationRepo = LocationRepo()
         userLocationRepo = UserLocationRepo(applicationContext)
+        fcmTokenRepo = FcmTokenRepo(apiRepo)
     }
 
     companion object {

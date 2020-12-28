@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/account_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/phoneLayout"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/layout_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutMailName"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                android:id="@+id/accountPhoneKey"
+                android:layout_width="125dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/phone"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/accountPhoneVal"
+                android:layout_width="230dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/accountPhoneKey"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="+78481221464" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutUserName"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/layout_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+            <TextView
+                android:id="@+id/accountNameKey"
+                android:layout_width="125dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/accountName"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/accountNameVal"
+                android:layout_width="230dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.15"
+                app:layout_constraintStart_toEndOf="@+id/accountNameKey"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="Alex" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutMailName"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/layout_bg"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutUserName">
+
+            <TextView
+                android:id="@+id/accountMailKey"
+                android:layout_width="125dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/email"
+                android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/accountMailVal"
+                android:layout_width="230dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.027"
+                app:layout_constraintStart_toEndOf="@+id/accountMailKey"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="mail@mail.ru" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="412dp"
+            android:layout_height="55dp"
+            android:gravity="center"
+            android:text="@string/myAccount"
+            android:textSize="40sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/sign_out_btn"
+            style="@style/RedRoundedCornerButton"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginRight="120dp"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/btn_red_rounded_corner"
+            android:text="@string/sign_out_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/floatingActionButton" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/floatingActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/layout_bg"
+            android:text="Enable dark mode"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/colorLightGray"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pushesSetting"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/pushesSetting"
+            android:layout_width="match_parent"
+            android:fontFamily="sans-serif-medium"
+            android:layout_height="70dp"
+            android:textColor="@color/colorLightGray"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/layout_bg"
+            android:text="@string/pushesSettingText"
+
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="412dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="Settings"
+            android:textSize="40sp"
+            app:layout_constraintTop_toBottomOf="@+id/phoneLayout"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="0dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

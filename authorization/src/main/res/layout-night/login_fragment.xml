@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/alpa_logo_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15.7dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="15.7dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="380dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="20.7dp">
+
+            <ImageView
+                android:layout_width="349dp"
+                android:layout_height="517dp"
+                android:background="@drawable/white_cueve_bg" />
+
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_width="395dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="20.7dp">
+
+                <TextView
+                    android:layout_width="284dp"
+                    android:layout_height="73dp"
+                    android:layout_marginBottom="20.7dp"
+                    android:text="@string/app_name"
+                    android:textColor="#35a79c"
+                    android:textSize="44sp" />
+
+                <EditText
+                    android:id="@+id/auth_email"
+                    style="@style/AuthTextViewStyle"
+                    android:layout_width="286dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:autofillHints=""
+                    android:gravity="center"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:id="@+id/auth_password"
+                    style="@style/AuthTextViewStyle"
+                    android:layout_width="291dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6.3dp"
+                    android:layout_marginRight="44.3dp"
+                    android:layout_marginBottom="80dp"
+                    android:autofillHints=""
+                    android:gravity="center"
+                    android:hint="@string/password"
+                    android:inputType="textPassword" />
+
+                <LinearLayout
+                    android:layout_width="316dp"
+                    android:layout_height="126dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/sing_up_link"
+                        android:layout_width="209dp"
+                        android:layout_height="68dp" />
+
+                    <Button
+                        android:id="@+id/login_btn"
+                        style="@style/RoundedCornerButton"
+                        android:layout_width="107dp"
+                        android:background="@drawable/btn_green"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login_btn" />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</RelativeLayout>
